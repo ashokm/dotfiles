@@ -1,0 +1,5 @@
+### JetBrains IDEs
+.idea/
+
+### Explictly defined files
+.extra
