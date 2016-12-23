@@ -98,15 +98,6 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 ###############################################################################
-# Terminal tweaks                                                             #
-###############################################################################
-
-open "$(pwd)/config/Terminal/ashokm-Pro.terminal" -a Terminal.app
-sleep 1
-defaults write com.apple.Terminal "Default Window Settings" "ashokm-Pro"
-defaults write com.apple.Terminal "Startup Window Settings" "ashokm-Pro"
-
-###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 
@@ -232,8 +223,9 @@ defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 # Remove the spring loading delay for directories
 defaults write NSGlobalDomain com.apple.springing.delay -float 0
 
-# Avoid creating .DS_Store files on network volumes
+# Avoid creating .DS_Store files on network or USB volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 # Disable disk image verification
 defaults write com.apple.frameworks.diskimages skip-verify -bool true
@@ -487,6 +479,26 @@ sudo mdutil -i on / > /dev/null
 sudo mdutil -E / > /dev/null
 
 ###############################################################################
+# Terminal                                                                    #
+###############################################################################
+
+# Only use UTF-8 in Terminal.app
+defaults write com.apple.terminal StringEncodings -array 4
+
+# Enable Secure Keyboard Entry in Terminal.app
+# See: https://security.stackexchange.com/a/47786/8918
+defaults write com.apple.terminal SecureKeyboardEntry -bool true
+
+# Disable the annoying line marks
+defaults write com.apple.Terminal ShowLineMarks -int 0
+
+# Install the ashokm-Pro theme for Terminal
+open "$(pwd)/config/Terminal/ashokm-Pro.terminal" -a Terminal.app
+sleep 1
+defaults write com.apple.Terminal "Default Window Settings" "ashokm-Pro"
+defaults write com.apple.Terminal "Startup Window Settings" "ashokm-Pro"
+
+###############################################################################
 # Activity Monitor                                                            #
 ###############################################################################
 
@@ -502,6 +514,20 @@ defaults write com.apple.ActivityMonitor ShowCategory -int 0
 # Sort Activity Monitor results by CPU usage
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
+
+###############################################################################
+# TextEdit and Disk Utility                                                   #
+###############################################################################
+
+# Use plain text mode for new TextEdit documents
+defaults write com.apple.TextEdit RichText -int 0
+# Open and save files as UTF-8 in TextEdit
+defaults write com.apple.TextEdit PlainTextEncoding -int 4
+defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
+
+# Enable the debug menu in Disk Utility
+defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
+defaults write com.apple.DiskUtility advanced-image-options -bool true
 
 ###############################################################################
 # Mac App Store                                                               #
