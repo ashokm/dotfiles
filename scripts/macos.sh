@@ -23,6 +23,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
 
+# Disable the sound effects on boot
+sudo nvram SystemAudioVolume=" "
+
 # Enable transparency in the menu bar and elsewhere on Yosemite
 defaults write com.apple.universalaccess reduceTransparency -bool false
 
@@ -38,6 +41,13 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 
 # Disable the over-the-top focus ring animation
 defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
+
+# Disable smooth scrolling
+# (Uncomment if you’re on an older Mac that messes up the animation)
+#defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
+
+# Increase window resize speed for Cocoa applications
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -78,11 +88,23 @@ sudo systemsetup -setrestartfreeze on
 # Never go into computer sleep mode
 sudo systemsetup -setcomputersleep Off > /dev/null
 
-# Disable smart quotes as they’re annoying when typing code
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+# Disable Notification Center and remove the menu bar icon
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+
+# Disable automatic capitalization as it’s annoying when typing code
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+# Disable automatic period substitution as it’s annoying when typing code
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+
+# Disable smart quotes as they’re annoying when typing code
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Disable auto-correct
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -136,9 +158,6 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
 sudo systemsetup -settimezone "Europe/London" > /dev/null
 
-# Disable auto-correct
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################
@@ -157,7 +176,8 @@ defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.screencapture disable-shadow -bool true
 
 # Enable subpixel font rendering on non-Apple LCDs
-defaults write NSGlobalDomain AppleFontSmoothing -int 2
+# Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+defaults write NSGlobalDomain AppleFontSmoothing -int 1
 
 # Enable HiDPI display modes (requires restart)
 sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool true
@@ -421,54 +441,6 @@ defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
 ###############################################################################
-# Spotlight                                                                   #
-###############################################################################
-
-# Hide Spotlight tray-icon (and subsequent helper)
-#sudo chmod 600 /System/Library/CoreServices/Search.bundle/Contents/MacOS/Search
-# Disable Spotlight indexing for any volume that gets mounted and has not yet
-# been indexed before.
-# Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
-# Change indexing order and disable some search results
-# Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
-# 	MENU_DEFINITION
-# 	MENU_CONVERSION
-# 	MENU_EXPRESSION
-# 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-# 	MENU_WEBSEARCH             (send search queries to Apple)
-# 	MENU_OTHER
-defaults write com.apple.spotlight orderedItems -array \
-	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
-	'{"enabled" = 1;"name" = "PDF";}' \
-	'{"enabled" = 1;"name" = "FONTS";}' \
-	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
-	'{"enabled" = 0;"name" = "MESSAGES";}' \
-	'{"enabled" = 0;"name" = "CONTACT";}' \
-	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
-	'{"enabled" = 0;"name" = "IMAGES";}' \
-	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
-	'{"enabled" = 0;"name" = "MUSIC";}' \
-	'{"enabled" = 0;"name" = "MOVIES";}' \
-	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-	'{"enabled" = 0;"name" = "SOURCE";}' \
-	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
-	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
-	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
-	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
-	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
-	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-# Load new settings before rebuilding the index
-killall mds > /dev/null 2>&1
-# Make sure indexing is enabled for the main volume
-sudo mdutil -i on / > /dev/null
-# Rebuild the index from scratch
-sudo mdutil -E / > /dev/null
-
-###############################################################################
 # Terminal                                                                    #
 ###############################################################################
 
@@ -536,7 +508,7 @@ defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
 defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 
 # Automatically download apps purchased on other Macs
-#defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 1
+defaults write com.apple.SoftwareUpdate ConfigDataInstall -int 0
 
 # Turn on app auto-update
 defaults write com.apple.commerce AutoUpdate -bool true
