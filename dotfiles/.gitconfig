@@ -3,6 +3,10 @@
 	email = ashokmanji@hotmail.com
 
 ##################################################
+[gitreview]
+	username = Ashok.Manji
+
+##################################################
 [core]
     editor = vim
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
@@ -11,6 +15,9 @@
 ##################################################
 [push]
 	default = simple
+
+[pull]
+    rebase = true
 
 ##################################################
 [color]
