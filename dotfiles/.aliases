@@ -109,10 +109,10 @@ git_interactive_rebase (){
 }
 
 alias g='git'
-alias gs='git status'
+alias gs='git status -s'
 alias gl='git log'
 alias ga='git add'
-alias gd='git diff'
+alias gd='git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat'
 alias gdt='git difftool --no-prompt'
 alias gc='git commit -m'
 alias gca='git commit --amend'
