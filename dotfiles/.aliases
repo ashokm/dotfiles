@@ -13,6 +13,8 @@ alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
+alias .dotfiles="~/.dotfiles"
+alias pubkey="pbcopy < ~/.ssh/id_rsa.pub | echo '-- Public key copied to pasteboard! -- '"
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
