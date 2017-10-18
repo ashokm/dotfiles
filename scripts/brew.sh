@@ -39,6 +39,8 @@ install () {
     # Run Homebrew through the Brewfile
     echo "Installing development dependencies from Brewfile ..."
     brew bundle --file="Brewfile"
+    echo "Uninstalling development dependencies not in Brewfile ..."
+    brew bundle cleanup --file="Brewfile" --force
 }
 
 uninstall () {
