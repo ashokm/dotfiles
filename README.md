@@ -4,6 +4,12 @@ Your dotfiles are how you personalize your system. These are mine.
 
 **Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
 
+### Setup
+
+#### Connect to GitHub with SSH
+
+* See [https://help.github.com/articles/connecting-to-github-with-ssh/](https://help.github.com/articles/connecting-to-github-with-ssh/)
+
 ### Install
 
 ```bash
