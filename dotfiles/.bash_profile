@@ -38,3 +38,6 @@ else
   printf "ERROR: An RVM installation was not found.\n"
 
 fi
+
+source ~/.git-completion.bash
+
