@@ -49,6 +49,7 @@ brew 'youtube-dl'
 
 cask '1password'
 cask 'cyberduck'
+cask 'docker'
 cask 'dropbox'
 cask 'evernote'
 cask 'firefox'
