@@ -152,7 +152,7 @@ alias gstac='git stash clear'
 # Random stuff
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 alias weather='clear; curl http://wttr.in/'
-alias ip='curl -s http://canihazip.com/s'
+alias ip='curl -s https://canihazip.com/s'
 
 # Even more random stuff
 alias stfu="osascript -e 'set volume output muted true'"
