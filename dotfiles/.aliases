@@ -112,7 +112,7 @@ git_interactive_rebase (){
 
 alias g='git'
 alias gs='git status -s'
-alias gl='git log'
+alias gl='git log --color --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
 alias ga='git add'
 alias gd='git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat'
 alias gdt='git difftool --no-prompt'
