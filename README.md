@@ -35,7 +35,7 @@ export PATH="/usr/local/bin:$PATH"
 
 If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands without the need to fork this entire repository, or to add commands you don’t want to commit to a public repository.
 
-My `~/.extra` looks something like this:
+My `~/.extra` looks something like this (and I use `githome` and `gitwork` aliases to switch between home and work email addresses):
 
 ```bash
 # Git credentials
@@ -43,11 +43,13 @@ GIT_AUTHOR_NAME="Ashok Manji"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 git config --global user.name "$GIT_AUTHOR_NAME"
 
-GIT_AUTHOR_EMAIL="work.username@company.com"
-GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-git config --global user.email "$GIT_AUTHOR_EMAIL"
+GIT_HOME_EMAIL="home.username@company.com"
+GIT_WORK_EMAIL="work.username@company.com"
+GIT_AUTHOR_EMAIL="$GIT_HOME_EMAIL"
+GIT_COMMITTER_EMAIL="$GIT_HOME_EMAIL"
+git config --global user.email "$GIT_HOME_EMAIL"
 
-GITREVIEW_USERNAME="work.username"
+GITREVIEW_USERNAME="Ashok.Manji"
 git config --global gitreview.username "$GITREVIEW_USERNAME"
 ```
 
