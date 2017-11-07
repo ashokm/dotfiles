@@ -10,6 +10,14 @@ done;
 unset file;
 
 ##################################################
+# JAVA_HOME
+##################################################
+if [ -f /usr/libexec/java_home ]; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+  export JDK_HOME=$JAVA_HOME
+fi
+
+##################################################
 # direnv -- Unclutter your .profile (https://github.com/direnv/direnv)
 ##################################################
 eval "$(direnv hook bash)"
