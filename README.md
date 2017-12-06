@@ -10,6 +10,12 @@ Your dotfiles are how you personalize your system. These are mine.
 
 * See [https://help.github.com/articles/connecting-to-github-with-ssh/](https://help.github.com/articles/connecting-to-github-with-ssh/)
 
+#### Install Xcode Command Line Tools
+
+```bash
+xcode-select --install
+```
+
 ### Install
 
 ```bash
