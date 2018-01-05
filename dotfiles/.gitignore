@@ -1,11 +1,19 @@
-### JetBrains IDEs
-.idea/
+# Eclipse
+.classpath
+.project
+.settings/
 
-### Explictly defined files
-.extra
+# Intellij
+.idea/
+*.iml
+*.iws
 
 # Compiled Python files
 *.pyc
+
+# Build output directories
+log/
+target/
 
 # Folder view configuration files
 .DS_Store
@@ -18,3 +26,6 @@ Thumbs.db
 # Files that might appear on external disks
 .Spotlight-V100
 .Trashes
+
+### Explictly defined files
+.extra
