@@ -121,7 +121,7 @@ alias gl='git log --color --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%
 alias ga='git add'
 alias gd='git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat'
 alias gdt='git difftool --no-prompt'
-alias gcm='git commit -m'
+alias gcm='git commit'
 alias gcma='git commit --amend'
 alias gco='git checkout'
 alias gcob='git checkout -b'
