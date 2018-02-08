@@ -33,6 +33,7 @@ brew update
 # Upgrade any already-installed formulae.
 log "Updating installed formulae"
 brew upgrade
+brew cask upgrade
 
 # Upgrade the RVM installation.
 log "Upgrading the RVM installation"
