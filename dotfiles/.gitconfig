@@ -7,10 +7,24 @@
 	username = Ashok.Manji
 
 ##################################################
+[apply]
+	# Detect whitespace errors when applying a patch
+	whitespace = fix
+
 [core]
     editor = vim
-    whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	excludesfile = ~/.gitignore
+
+    # Use custom `.gitignore` and `.gitattributes`
+    excludesfile = ~/.gitignore
+
+    # Treat spaces before tabs and all kinds of trailing whitespace as an error
+    # [default] trailing-space: looks for spaces at the end of a line
+    # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+
+    # Speed up commands involving untracked files such as `git status`.
+    # https://git-scm.com/docs/git-update-index#_untracked_cache
+    untrackedCache = true
 
 ##################################################
 [push]
@@ -21,7 +35,7 @@
 
 ##################################################
 [color]
-	ui = true
+	ui = auto
 
 [color "branch"]
 	current = yellow reverse
@@ -31,8 +45,8 @@
 [color "diff"]
 	meta = yellow bold
 	frag = magenta bold # line info
-	old = red bold # deletions
-	new = green bold # additions
+	old = red # deletions
+	new = green # additions
 
 [color "status"]
 	added = yellow
@@ -40,13 +54,22 @@
 	untracked = cyan
 
 ##################################################
+[help]
+    # Automatically correct and execute mistyped commands
+	autocorrect = 1
+
+##################################################
 [diff]
 	tool = intellij
 	compactionHeuristic = true
 
+	# Detect copies as well as renames
+	renames = copies
+
 [merge]
 	tool = intellij
 	stat = true
+	log = true
 
 # Intellij IDEA
 [difftool "intellij"]
