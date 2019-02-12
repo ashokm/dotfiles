@@ -23,6 +23,11 @@ fi
 eval "$(direnv hook bash)"
 
 ##################################################
+# Bash completion
+##################################################
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+##################################################
 # Amazon Command Line Interface Tools
 ##################################################
 complete -C '/usr/local/bin/aws_completer' aws
