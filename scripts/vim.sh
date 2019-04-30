@@ -17,11 +17,14 @@ log() {
   echo "================================================================================"
   echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
   echo "================================================================================"
-
 }
 
 install () {
     log "Install vim dependencies"
+    if [ ! -d "$VIM_ROOT" ]; then
+      echo "Creating $VIM_ROOT ..."
+      mkdir "$VIM_ROOT"
+    fi
     for dir in $VIM_DIRS; do
       VIM_DIR="${VIM_ROOT}/${dir}"
       if [ ! -d "$VIM_DIR" ]; then
