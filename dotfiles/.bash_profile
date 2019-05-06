@@ -28,6 +28,11 @@ eval "$(direnv hook bash)"
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 ##################################################
+# Git completion
+##################################################
+source ~/.git-completion.bash
+
+##################################################
 # Amazon Command Line Interface Tools
 ##################################################
 complete -C '/usr/local/bin/aws_completer' aws
@@ -48,9 +53,17 @@ elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
 
 else
 
-  printf "ERROR: An RVM installation was not found.\n"
+  echo "[ERROR] An RVM installation was not found!"
 
 fi
 
-source ~/.git-completion.bash
-
+##################################################
+# Conda setup
+##################################################
+if [ -r "/usr/local/miniconda3/etc/profile.d/conda.sh" ]; then
+  source "/usr/local/miniconda3/etc/profile.d/conda.sh"
+  alias ca="conda activate"
+  alias cda="conda deactivate"
+else
+  echo "[INFO] miniconda profile script not found!"
+fi
