@@ -8,6 +8,7 @@ alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 
 # Shortcuts
+alias clr="clear"
 alias d="cd ~/Documents"
 alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
