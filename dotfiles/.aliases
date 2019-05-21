@@ -121,19 +121,6 @@ gph() {
   fi
 }
 
-grb() {
-  if [ "$1" == "--help" ]
-    then echo "git rebase options: <branch name> | abort | continue" && return
-  elif [ "$1" == "abort" ]
-    then val="--abort"
-  elif [ "$1" == "continue" ]
-    then val="--continue"
-  else
-      val="$1"
-  fi
-  git rebase $val
-}
-
 grbi() {
   if [ "$1" == "--help" ]
     then echo "git rebase interactive options: [null defaults to HEAD~2] | <number of commits> | root " && return
@@ -161,6 +148,9 @@ alias gco='git checkout'
 alias gcob='git checkout -b'
 alias gcod='git checkout develop'
 alias gcom='git checkout master'
+alias gcp='git cherry-pick'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
 alias gd='git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat'
 alias gdt='git difftool --no-prompt'
 alias gl='git log --color --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
@@ -173,10 +163,14 @@ alias gplo='git pull origin'
 alias gplrb='git pull --rebase'
 alias gplrbom='git pull --rebase origin master'
 alias gplrbum='git pull --rebase upstream master'
-alias grv='git review'
-alias grvl='git review -l'
-alias grvd='git review -d'
+alias grba='git rebase --abort'
+alias grbc='git rebase --continue'
+alias grbd='git rebase develop'
+alias grbm='git rebase master'
 alias grsh='git reset --hard'
+alias grv='git review'
+alias grvd='git review -d'
+alias grvl='git review -l'
 alias gs='git status -s'
 alias gsta='git stash save --include-untracked'
 alias gstac='git stash clear'
