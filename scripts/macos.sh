@@ -463,11 +463,11 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 # Disable the annoying line marks
 defaults write com.apple.Terminal ShowLineMarks -int 0
 
-# Install the ashokm-Pro theme for Terminal
-open "$(pwd)/config/Terminal/ashokm-Pro.terminal" -a Terminal.app
+# Install desired theme for Terminal
+open "$(pwd)/config/Terminal/ashokm-Wombat.terminal" -a Terminal.app
 sleep 1
-defaults write com.apple.Terminal "Default Window Settings" "ashokm-Pro"
-defaults write com.apple.Terminal "Startup Window Settings" "ashokm-Pro"
+defaults write com.apple.Terminal "Default Window Settings" "ashokm-Wombat"
+defaults write com.apple.Terminal "Startup Window Settings" "ashokm-Wombat"
 
 ###############################################################################
 # Activity Monitor                                                            #

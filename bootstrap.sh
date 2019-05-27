@@ -22,7 +22,7 @@ case "$1" in
 esac
 
 ./scripts/dotfiles.sh "$@"
-./scripts/vim.sh "$@"
-./scripts/rvm.sh "$@"
 ./scripts/brew.sh "$@"
+./scripts/rvm.sh "$@"
+./scripts/vim.sh "$@"
 ./scripts/update.sh
