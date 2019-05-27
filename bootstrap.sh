@@ -14,15 +14,18 @@ cd "$(dirname "${BASH_SOURCE[@]}")";
 
 case "$1" in
   "--install" )
+    ./scripts/dotfiles.sh "$@"
+    ./scripts/vim.sh "$@"
+    ./scripts/rvm.sh "$@"
+    ./scripts/brew.sh "$@"
+    ./scripts/update.sh
   ;;
   "--uninstall" )
+    ./scripts/dotfiles.sh "$@"
+    ./scripts/vim.sh "$@"
+    ./scripts/rvm.sh "$@"
+    ./scripts/brew.sh "$@"
   ;;
   * )
   usage && exit;;
 esac
-
-./scripts/dotfiles.sh "$@"
-./scripts/brew.sh "$@"
-./scripts/rvm.sh "$@"
-./scripts/vim.sh "$@"
-./scripts/update.sh

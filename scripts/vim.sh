@@ -32,11 +32,12 @@ install () {
         mkdir "$VIM_DIR"
       fi
     # Vim color scheme install
-    echo ''
     echo "Now installing vim wombat color scheme..."
     echo ''
-    git clone https://github.com/sheerun/vim-wombat-scheme.git ~/.vim/colors/wombat
-    mv ~/.vim/colors/wombat/colors/* ~/.vim/colors/
+    if [ -d "$VIM_ROOT/colors" ]; then
+      rm -rf "${VIM_ROOT}/colors"
+    fi
+    git clone https://github.com/sheerun/vim-wombat-scheme.git ${VIM_ROOT}/colors/
     done
 }
 
