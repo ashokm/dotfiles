@@ -6,6 +6,12 @@
 
 set -o errexit -o nounset -o pipefail
 
+
+if test ! "$(uname)" = "Darwin"
+  then
+    exit 0
+fi
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
