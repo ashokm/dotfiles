@@ -31,14 +31,15 @@ install () {
         echo "Creating $VIM_DIR ..."
         mkdir "$VIM_DIR"
       fi
+    done
     # Vim color scheme install
-    echo "Now installing vim wombat color scheme..."
+    echo "Installing vim wombat color scheme..."
     echo ''
     if [ -d "$VIM_ROOT/colors" ]; then
       rm -rf "${VIM_ROOT}/colors"
     fi
-    git clone https://github.com/sheerun/vim-wombat-scheme.git ${VIM_ROOT}/colors/
-    done
+    git clone https://github.com/sheerun/vim-wombat-scheme.git ${VIM_ROOT}/colors/wombat
+    mv ${VIM_ROOT}/colors/wombat/colors/* ${VIM_ROOT}/colors/ && rm -rf ${VIM_ROOT}/colors/wombat
 }
 
 uninstall () {
