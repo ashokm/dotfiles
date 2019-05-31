@@ -11,19 +11,16 @@ indent_style = space
 max_line_length = 120
 
 [*.{js,ts,json,css}]
-indent_style=space
 indent_size=2
 continuation_indent_size=2
 max_line_length=100
 
 [*.java]
 max_line_length = 100
-indent_style = space
 indent_size = 4
 continuation_indent_size = 8
 
 [{Jenkinsfile,*.gradle,*.groovy}]
-indent_style=space
 indent_size=4
 
 [*.md]
@@ -33,22 +30,18 @@ trim_trailing_whitespace = false
 indent_style = tab
 indent_size = 4
 
-[*.yml]
+[*.{yml,yaml}]
 max_line_length = 100
-indent_style = space
 indent_size = 2
 
 [*.html]
-indent_style = space
 indent_size = 2
 
 [*.py]
-indent_style = space
 indent_size = 4
 max_line_length = 80
 
 [*.sh]
-indent_style = space
 indent_size = 2
 max_line_length = 80
 
