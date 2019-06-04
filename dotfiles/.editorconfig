@@ -13,7 +13,6 @@ max_line_length = 120
 [*.{js,ts,json,css}]
 indent_size=2
 continuation_indent_size=2
-max_line_length=100
 
 [*.java]
 max_line_length = 100

@@ -1,31 +1,51 @@
-# Eclipse
+##################################################################
+### https://www.gitignore.io generates useful .gitignore files ###
+##################################################################
+
+### Ansible ###
+*.retry
+*.molecule
+
+### Eclipse ###
 .classpath
 .project
 .settings/
 
-# Intellij
+### IntelliJ ###
 .idea/
+.idea_modules/
 *.iml
 *.iws
 
-# Compiled Python files
-*.pyc
+### Packer ###
+packer_cache/
+*.box
 
-# Build output directories
+### Python ###
+*.py[cod]
+
+### Vagrant ###
+.vagrant/
+
+### VisualStudioCode ###
+.vscode/*
+
+### Build output directories ###
 log/
 target/
 
-# Folder view configuration files
+### Folder view configuration files ###
 .DS_Store
-Desktop.ini
+[Dd]esktop.ini
+$RECYCLE.BIN/
 
-# Thumbnail cache files
+### Thumbnail cache files ###
 ._*
 Thumbs.db
 
-# Files that might appear on external disks
+### Files that might appear on external disks ###
 .Spotlight-V100
 .Trashes
 
-### Explictly defined files
+### Explictly defined files ###
 .extra
