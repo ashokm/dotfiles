@@ -49,7 +49,7 @@ GIT_AUTHOR_NAME="Ashok Manji"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 git config --global user.name "$GIT_AUTHOR_NAME"
 
-GIT_HOME_EMAIL="home.username@company.com"
+GIT_HOME_EMAIL="1902568+ashokm@users.noreply.github.com"
 GIT_WORK_EMAIL="work.username@company.com"
 GIT_AUTHOR_EMAIL="$GIT_HOME_EMAIL"
 GIT_COMMITTER_EMAIL="$GIT_HOME_EMAIL"
