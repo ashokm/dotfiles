@@ -83,9 +83,9 @@ rm -rf ~/.dotfiles
 
 * Create `helper.sh` to include helper functions for log and error usage in bash scripts to prevent duplication in scripts
 
-## Thanks to…
+## Credits
 
-A decent amount of the code in these dotfiles stem or are inspired from the below projects.
+This project uses open source components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
 
-* [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)
-* [Zach Holman's](https://github.com/holman/dotfiles)
+* [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles) by Mathias Bynens (MIT)
+* [holman does dotfiles](https://github.com/holman/dotfiles) by Zach Holman (MIT)
