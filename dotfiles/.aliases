@@ -129,6 +129,7 @@ alias ga='git add'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gbd='git branch -D'
+alias gbda='git branch | grep -v "master" | xargs git branch -D'
 alias gbdm="git branch --merged master | grep -v '^[ *]*master$' | xargs git branch -d"
 alias gbl='git branch -l'
 alias gcl='git clone'
