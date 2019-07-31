@@ -42,28 +42,23 @@ complete -C '/usr/local/bin/aws_completer' aws
 ##################################################
 # Load RVM into a shell session *as a function*
 if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
-
   # First try to load from a user install
   source "$HOME/.rvm/scripts/rvm"
-
 elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
-
   # Then try to load from a root install
   source "/usr/local/rvm/scripts/rvm"
-
 else
-
   echo "[ERROR] An RVM installation was not found!"
-
 fi
 
 ##################################################
 # Conda setup
 ##################################################
-if [ -r "/usr/local/miniconda3/etc/profile.d/conda.sh" ]; then
-  source "/usr/local/miniconda3/etc/profile.d/conda.sh"
+if [ -r "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+  source "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
   alias ca="conda activate"
   alias cda="conda deactivate"
 else
   echo "[INFO] miniconda profile script not found!"
+  echo "Run 'conda init' to initialize conda for shell interaction"
 fi
