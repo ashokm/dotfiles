@@ -543,6 +543,21 @@ defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
 defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
 
 ###############################################################################
+# MenuMeters.prefPane                                                         #
+###############################################################################
+
+defaults write com.ragingmenace.MenuMeters "com.ragingmenace.MenuMeterDisk" -bool false
+defaults write com.ragingmenace.MenuMeters "com.ragingmenace.MenuMeterNet" -bool true
+defaults write com.ragingmenace.MenuMeters "com.ragingmenace.MenuMeterMem" -bool true
+defaults write com.ragingmenace.MenuMeters "com.ragingmenace.MenuMeterCPU" -bool true
+defaults write com.ragingmenace.MenuMeters CPUDisplayMode -int 2
+defaults write com.ragingmenace.MenuMeters CPUGraphLength -int 11
+defaults write com.ragingmenace.MenuMeters MemDisplayMode -int 4
+defaults write com.ragingmenace.MenuMeters MemUsedFreeLabel -int 1
+defaults write com.ragingmenace.MenuMeters NetDisplayMode -int 6
+defaults write com.ragingmenace.MenuMeters NetGraphStyle -int 0
+
+###############################################################################
 # Kill affected applications                                                  #
 ###############################################################################
 
