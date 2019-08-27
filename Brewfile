@@ -54,7 +54,7 @@ brew "youtube-dl"
 
 #cask "1password"
 cask "adoptopenjdk8"
-cask "bbedit"
+cask "atom"
 cask "cyberduck"
 cask "docker"
 #cask "dropbox"

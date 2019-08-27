@@ -9,13 +9,14 @@ alias ~="cd ~" # `cd` is probably faster to type though
 
 # Shortcuts
 alias .dotfiles="cd ~/.dotfiles"
+alias atom='open -a "Atom.app"'
 alias clr="clear"
 alias d="cd ~/Documents"
 alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
-alias openide='open -a "IntelliJ IDEA.app"'
+alias ij='open -a "IntelliJ IDEA.app"'
 alias pubkey="pbcopy < ~/.ssh/id_rsa.pub | echo '-- Public key copied to pasteboard! -- '"
 alias ws="cd ~/Workspace"
 
