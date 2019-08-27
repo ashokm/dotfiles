@@ -10,12 +10,6 @@ Your dotfiles are how you personalize your system. These are mine.
 
 * See [https://help.github.com/articles/connecting-to-github-with-ssh/](https://help.github.com/articles/connecting-to-github-with-ssh/)
 
-#### Install Xcode Command Line Tools
-
-```bash
-xcode-select --install
-```
-
 ### Install
 
 ```bash
@@ -78,10 +72,6 @@ rm -rf ~/.dotfiles
 ### Screenshots
 
 ![Screenshot of my shell prompt](screenshot.png)
-
-### TODO
-
-* Create `helper.sh` to include helper functions for log and error usage in bash scripts to prevent duplication in scripts
 
 ## Credits
 

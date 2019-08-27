@@ -14,13 +14,15 @@ cd "$(dirname "${BASH_SOURCE[@]}")";
 
 case "$1" in
   "--install" )
+    ./scripts/update.sh
+    ./scripts/xcode.sh "$@"
     ./scripts/dotfiles.sh "$@"
     ./scripts/vim.sh "$@"
     ./scripts/rvm.sh "$@"
     ./scripts/brew.sh "$@"
-    ./scripts/update.sh
   ;;
   "--uninstall" )
+    ./scripts/xcode.sh "$@"
     ./scripts/dotfiles.sh "$@"
     ./scripts/vim.sh "$@"
     ./scripts/rvm.sh "$@"

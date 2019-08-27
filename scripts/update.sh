@@ -18,24 +18,35 @@ log() {
 
 }
 
-# Update OS X Software
-log "Running OS X Software updates"
-sudo softwareupdate -i -a
+# Update OS Software
+if test "$(uname)" = "Darwin"
+then
+  log "Running OS X Software updates"
+  sudo softwareupdate --install --all
+fi
 
-# Check your system for potential problems
-log "Check your system for potential problems"
-brew doctor
+# Update Brew
+if test "$(which brew)"
+then
+  # Check your system for potential problems
+  log "Check your system for potential problems"
+  brew doctor
 
-# Ensure we’re using the latest version of Homebrew.
-log "Updating Homebrew"
-brew update
+  # Ensure we’re using the latest version of Homebrew.
+  log "Updating Homebrew"
+  brew update
 
-# Upgrade any already-installed formulae.
-log "Updating installed formulae"
-brew upgrade
-brew cask upgrade
+  # Upgrade any already-installed formulae.
+  log "Updating installed formulae"
+  brew upgrade
+  brew cask upgrade
+fi
 
-# Upgrade the RVM installation.
-log "Upgrading the RVM installation"
-rvm get stable --ignore-dotfiles
-rvm reload
+# Update RVM
+if test "$(which rvm)"
+then
+  # Upgrade the RVM installation.
+  log "Upgrading the RVM installation"
+  rvm get stable --ignore-dotfiles
+  rvm reload
+fi
