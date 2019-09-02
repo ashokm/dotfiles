@@ -14,7 +14,6 @@ log() {
   echo "================================================================================"
   echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
   echo "================================================================================"
-
 }
 
 install () {
@@ -23,10 +22,10 @@ install () {
     if test ! "$(which brew)"
     then
       # Install the correct homebrew for each OS type
-      if test "$(uname)" = "Darwin"
+      if test "$(uname -s)" = "Darwin"
       then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      elif test "$(substr "$(uname -s)" 1 5)" = "Linux"
+      elif test "$(uname -s)" = "Linux"
       then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
       fi
@@ -49,10 +48,10 @@ uninstall () {
     if test "$(which brew)"
     then
       # Install the correct homebrew for each OS type
-      if test "$(uname)" = "Darwin"
+      if test "$(uname -s)" = "Darwin"
       then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-      elif test "$(substr "$(uname -s)" 1 5)" = "Linux"
+      elif test "$(uname -s)" = "Linux"
       then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/uninstall)"
       fi

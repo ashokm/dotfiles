@@ -15,6 +15,7 @@ cd "$(dirname "${BASH_SOURCE[@]}")";
 case "$1" in
   "--install" )
     ./scripts/update.sh
+    ./scripts/ssh.sh
     ./scripts/xcode.sh "$@"
     ./scripts/dotfiles.sh "$@"
     ./scripts/vim.sh "$@"

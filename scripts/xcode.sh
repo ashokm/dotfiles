@@ -14,11 +14,10 @@ log() {
   echo "================================================================================"
   echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
   echo "================================================================================"
-
 }
 
 install () {
-  if test "$(uname)" = "Darwin"
+  if test "$(uname -s)" = "Darwin"
   then
     if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]
     then
@@ -31,7 +30,7 @@ install () {
 }
 
 uninstall () {
-  if test "$(uname)" = "Darwin"
+  if test "$(uname -s)" = "Darwin"
   then
     if [[ -d "$('xcode-select' -print-path 2>/dev/null)" ]]
     then

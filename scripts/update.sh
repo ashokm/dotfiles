@@ -15,14 +15,17 @@ log() {
   echo "================================================================================"
   echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
   echo "================================================================================"
-
 }
 
 # Update OS Software
-if test "$(uname)" = "Darwin"
+if test "$(uname -s)" = "Darwin"
 then
   log "Running OS X Software updates"
   sudo softwareupdate --install --all
+elif test "$(uname -s)" = "Linux"
+then
+  log "Running Ubuntu Linux Software updates"
+  sudo apt-get update -y && sudo apt-get upgrade -y
 fi
 
 # Update Brew

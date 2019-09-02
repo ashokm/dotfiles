@@ -6,8 +6,7 @@
 
 set -o errexit -o nounset -o pipefail
 
-
-if test ! "$(uname)" = "Darwin"
+if test ! "$(uname -s)" = "Darwin"
   then
     exit 0
 fi
