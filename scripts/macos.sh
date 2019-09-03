@@ -574,4 +574,4 @@ for app in "Activity Monitor" \
 	"Terminal"; do
 	killall "${app}" &> /dev/null
 done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+echo "[INFO] Done. Note that some of these changes require a logout/restart to take effect."

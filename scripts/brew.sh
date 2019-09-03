@@ -27,26 +27,19 @@ install () {
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       elif test "$(uname -s)" = "Linux"
       then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
-        echo "Installing dependencies for Debian or Ubuntu ..."
-        sudo apt-get install build-essential curl file git
-        echo "Add Homebrew to your PATH and to your bash shell profile script"
-        test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
-        test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-        test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.bash_profile
-        echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.profile
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
       fi
     fi
 
     # Check your system for potential problems
-    echo "Check your system for potential problems ..."
+    echo "[INFO] Check your system for potential problems ..."
     brew doctor
 
     # Run Homebrew through the Brewfile
-    echo "Installing development dependencies from Brewfile ..."
-    brew bundle --file="Brewfile"
-    echo "Uninstalling development dependencies not in Brewfile ..."
-    brew bundle cleanup --file="Brewfile" --force
+    echo "[INFO] Installing development dependencies from Brewfile.$(uname -s) ..."
+    brew bundle --file="Brewfile.$(uname -s)"
+    echo "[INFO] Uninstalling development dependencies not in Brewfile.$(uname -s) ..."
+    brew bundle cleanup --file="Brewfile.$(uname -s)" --force
 }
 
 uninstall () {

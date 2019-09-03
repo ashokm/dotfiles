@@ -5,7 +5,7 @@
 # `update` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
 
-set -o errexit -o nounset -o pipefail
+set -o errexit -o nounset
 
 usage() {
   echo "Usage: $0"

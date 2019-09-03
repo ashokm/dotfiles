@@ -22,18 +22,18 @@ log() {
 install () {
     log "Install vim dependencies"
     if [ ! -d "$VIM_ROOT" ]; then
-      echo "Creating $VIM_ROOT ..."
+      echo "[INFO] Creating $VIM_ROOT ..."
       mkdir "$VIM_ROOT"
     fi
     for dir in $VIM_DIRS; do
       VIM_DIR="${VIM_ROOT}/${dir}"
       if [ ! -d "$VIM_DIR" ]; then
-        echo "Creating $VIM_DIR ..."
+        echo "[INFO] Creating $VIM_DIR ..."
         mkdir "$VIM_DIR"
       fi
     done
     # Vim color scheme install
-    echo "Installing vim wombat color scheme..."
+    echo "[INFO] Installing vim wombat color scheme..."
     echo ''
     if [ -d "$VIM_ROOT/colors" ]; then
       rm -rf "${VIM_ROOT}/colors"
@@ -47,7 +47,7 @@ uninstall () {
     for dir in $VIM_DIRS; do
       VIM_DIR="${VIM_ROOT}/${dir}"
       if [ -d "$VIM_DIR" ]; then
-        echo "Removing $VIM_DIR ..."
+        echo "[INFO] Removing $VIM_DIR ..."
         rm -rf "$VIM_DIR"
       fi
     done

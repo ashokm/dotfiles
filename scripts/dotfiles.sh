@@ -23,7 +23,7 @@ install () {
     for src in $(find $DOTFILES_ROOT -name '.*' ! -name '.git')
     do
         dst="$HOME/$(basename "${src}")"
-        echo "Linking $src -> $dst"
+        echo "[INFO] Linking $src -> $dst"
         ln -F -s "$src" "$dst"
     done
 }
@@ -33,14 +33,14 @@ uninstall () {
     for src in $(find $DOTFILES_ROOT -name '.*' ! -name '.git')
     do
         dst="$HOME/$(basename "${src}")"
-        echo "Unlinking $dst"
+        echo "[INFO] Unlinking $dst"
         rm -f "$dst"
     done
 }
 
 case "$1" in
   "--install" )
-  install ;;
+  uninstall && install ;;
   "--uninstall" )
   uninstall ;;
   * )

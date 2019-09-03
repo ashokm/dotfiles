@@ -30,7 +30,7 @@ uninstall () {
     if test "$(which rvm)"
     then
       rvm implode
-      echo "Removing rm -rf ~/.rvm" && rm -rf ~/.rvm
+      echo "[INFO] Removing rm -rf ~/.rvm" && rm -rf ~/.rvm
     fi
 }
 

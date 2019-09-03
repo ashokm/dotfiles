@@ -10,6 +10,15 @@ done;
 unset file;
 
 ##################################################
+# Homebrew
+##################################################
+if [ -f /usr/local/bin/brew ]; then
+  eval $(/usr/local/bin/brew shellenv)
+elif [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
+##################################################
 # JAVA_HOME
 ##################################################
 if [ -f /usr/libexec/java_home ]; then
@@ -35,7 +44,8 @@ source ~/.git-completion.bash
 ##################################################
 # Amazon Command Line Interface Tools
 ##################################################
-complete -C '/usr/local/bin/aws_completer' aws
+[ -f /usr/local/bin/aws_completer ] && complete -C '/usr/local/bin/aws_completer' aws
+[ -f /home/linuxbrew/.linuxbrew/bin/aws_completer ] && complete -C '/home/linuxbrew/.linuxbrew/bin/aws_completer' aws
 
 ##################################################
 # RVM
