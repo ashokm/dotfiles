@@ -28,6 +28,13 @@ install () {
       elif test "$(uname -s)" = "Linux"
       then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+        echo "Installing dependencies for Debian or Ubuntu ..."
+        sudo apt-get install build-essential curl file git
+        echo "Add Homebrew to your PATH and to your bash shell profile script"
+        test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+        test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.bash_profile
+        echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.profile
       fi
     fi
 
