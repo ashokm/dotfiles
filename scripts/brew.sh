@@ -21,13 +21,9 @@ install () {
     # Check for Homebrew
     if test ! "$(which brew)"
     then
-      # Install the correct homebrew for each OS type
       if test "$(uname -s)" = "Darwin"
       then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-      elif test "$(uname -s)" = "Linux"
-      then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
       fi
     fi
 
@@ -36,10 +32,10 @@ install () {
     brew doctor
 
     # Run Homebrew through the Brewfile
-    echo "[INFO] Installing development dependencies from Brewfile.$(uname -s) ..."
-    brew bundle --file="Brewfile.$(uname -s)"
-    echo "[INFO] Uninstalling development dependencies not in Brewfile.$(uname -s) ..."
-    brew bundle cleanup --file="Brewfile.$(uname -s)" --force
+    echo "[INFO] Installing packages from Brewfile ..."
+    brew bundle --file="Brewfile"
+    echo "[INFO] Uninstalling packages not in Brewfile ..."
+    brew bundle cleanup --file="Brewfile" --force && brew cleanup
 }
 
 uninstall () {
@@ -47,13 +43,14 @@ uninstall () {
     # Check for Homebrew
     if test "$(which brew)"
     then
-      # Install the correct homebrew for each OS type
+      echo "[INFO] Uninstalling packages installed using Brew ..."
+      brew remove --force "$(brew list)" && brew cleanup
+      echo "[INFO] Uninstalling packages installed using Brew cask ..."
+      brew cask uninstall --force "$(brew cask list)" && brew cask cleanup
+      # Uninstall the correct homebrew for each OS type
       if test "$(uname -s)" = "Darwin"
       then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
-      elif test "$(uname -s)" = "Linux"
-      then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/uninstall)"
       fi
     fi
 }

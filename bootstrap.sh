@@ -14,9 +14,9 @@ cd "$(dirname "${BASH_SOURCE[@]}")";
 
 case "$1" in
   "--install" )
-    ./scripts/deps.sh
     ./scripts/update.sh
     ./scripts/ssh.sh
+    ./scripts/linux.sh "$@"
     ./scripts/xcode.sh "$@"
     ./scripts/dotfiles.sh "$@"
     ./scripts/vim.sh "$@"
@@ -24,6 +24,7 @@ case "$1" in
     ./scripts/brew.sh "$@"
   ;;
   "--uninstall" )
+    ./scripts/linux.sh "$@"
     ./scripts/xcode.sh "$@"
     ./scripts/dotfiles.sh "$@"
     ./scripts/vim.sh "$@"
