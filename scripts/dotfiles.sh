@@ -20,22 +20,22 @@ log() {
 
 install () {
     log "Install dotfiles"
-    for src in $(find $DOTFILES_ROOT -name '.*' ! -name '.git')
+    while IFS= read -r -d '' src
     do
-        dst="$HOME/$(basename "${src}")"
-        echo "[INFO] Linking $src -> $dst"
-        ln -F -s "$src" "$dst"
-    done
+      dst="$HOME/$(basename "${src}")"
+      echo "[INFO] Linking $src -> $dst"
+      ln -F -s "$src" "$dst"
+    done <   <(find "$DOTFILES_ROOT" -name '.*' ! -name '.git' -print0)
 }
 
 uninstall () {
     log "Uninstall dotfiles"
-    for src in $(find $DOTFILES_ROOT -name '.*' ! -name '.git')
+    while IFS= read -r -d '' src
     do
-        dst="$HOME/$(basename "${src}")"
-        echo "[INFO] Unlinking $dst"
-        rm -f "$dst"
-    done
+      dst="$HOME/$(basename "${src}")"
+      echo "[INFO] Unlinking $dst"
+      rm -f "$dst"
+    done <   <(find "$DOTFILES_ROOT" -name '.*' ! -name '.git' -print0)
 }
 
 case "$1" in

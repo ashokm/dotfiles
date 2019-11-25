@@ -60,67 +60,46 @@ alias week='date +%V'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Get Software Updates, update installed Homebrew formulae, RVM, and their installed packages
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   alias update='sudo softwareupdate --install --all; brew update; brew upgrade; brew cask upgrade; brew cleanup; rvm get stable --ignore-dotfiles; rvm reload'
-elif test "$(uname -s)" = "Linux"
-then
-  log "Running Ubuntu Linux Software updates"
-  alias update='sudo apt-get update -y && sudo apt-get upgrade -y; brew update; brew upgrade; brew cask upgrade; brew cleanup; rvm get stable --ignore-dotfiles; rvm reload'
 fi
 
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
 # Flush Directory Service cache
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
-elif test "$(uname -s)" = "Linux"
-then
-  alias flush='sudo /etc/init.d/dns-clean restart'
 fi
 
 # Recursively delete `.DS_Store` files
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 fi
 
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.
 # Finally, clear download history from quarantine. https://mths.be/bum
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
-elif test "$(uname -s)" = "Linux"
-then
-  alias emptytrash='sudo rm -rf ~/.local/share/Trash/files/*'
 fi
 
 # Show/hide hidden files in Finder
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
   alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 fi
 
 # Hide/show all desktop icons (useful when presenting)
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
   alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-elif test "$(uname -s)" = "Linux"
-then
-  alias hidedesktop="gsettings set org.gnome.desktop.background show-desktop-icons false"
-  alias showdesktop="gsettings set org.gnome.desktop.background show-desktop-icons true"
 fi
 
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   # Disable Spotlight
   alias spotoff="sudo mdutil -a -i off"
   # Enable Spotlight
@@ -132,12 +111,8 @@ fi
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Start the screensaver (when going AFK)
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   alias zzz="open -a ScreenSaverEngine"
-elif test "$(uname -s)" = "Linux"
-then
-  alias zzz="gnome-screensaver-command -l"
 fi
 
 # Reload the shell (i.e. invoke as a login shell)
@@ -162,14 +137,14 @@ alias gitwork="sed -i 's/GIT_AUTHOR_EMAIL.*/GIT_AUTHOR_EMAIL=\"\$GIT_WORK_EMAIL\
 alias gitauthor='echo GIT_AUTHOR_NAME: $GIT_AUTHOR_NAME \| GIT_AUTHOR_EMAIL: $GIT_AUTHOR_EMAIL'
 
 grbi() {
-  if [ "$1" == "--help" ]
-    then echo "git rebase interactive options: [null defaults to HEAD~2] | <number of commits> | root " && return
-  elif [ -z $1 ]
-    then val="HEAD~2"
-  elif [ "$1" == "root" ]
-    then val="--root"
+  if [ "$1" == "--help" ]; then
+    echo "git rebase interactive options: [null defaults to HEAD~2] | <number of commits> | root " && return
+  elif [ -z $1 ]; then
+    val="HEAD~2"
+  elif [ "$1" == "root" ]; then
+    val="--root"
   else
-      val="HEAD~$1"
+    val="HEAD~$1"
   fi
   git rebase -i $val
 }
@@ -233,8 +208,7 @@ alias weather='clear; curl http://wttr.in/'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 
 # Even more random stuff
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   alias pumpitup="osascript -e 'set volume output volume 100'"
   alias stfu="osascript -e 'set volume output muted true'"
 fi

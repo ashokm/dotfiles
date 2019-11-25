@@ -18,17 +18,14 @@ log() {
 
 install () {
     log "Install RVM"
-    # Check for RVM
-    if test ! "$(which rvm)"
-    then
+    if test ! "$(command -v rvm)"; then
       curl -sSL https://get.rvm.io | bash -s stable --ruby --ignore-dotfiles
     fi
 }
 
 uninstall () {
     log "Uninstall RVM"
-    if test "$(which rvm)"
-    then
+    if test "$(command -v rvm)"; then
       rvm implode
       echo "[INFO] Removing rm -rf ~/.rvm" && rm -rf ~/.rvm
     fi

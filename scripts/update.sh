@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # update.sh
 #
@@ -17,39 +17,38 @@ log() {
   echo "================================================================================"
 }
 
+CI_ENABLED=${CI:-}
+
 # Update OS Software
-if test "$(uname -s)" = "Darwin"
-then
+if test "$(uname -s)" = "Darwin"; then
   log "Running OS X Software updates"
   sudo softwareupdate --install --all
-elif test "$(uname -s)" = "Linux"
-then
-  log "Running Ubuntu Linux Software updates"
-  sudo apt-get update -y && sudo apt-get upgrade -y
 fi
 
 # Update Brew
-if test "$(which brew)"
-then
-  # Check your system for potential problems
-  log "Check your system for potential problems"
-  brew doctor
+if test "$(command -v brew)"; then
+  # Check your Homebrew system for potential problems
+  if [[ -z "${CI_ENABLED}" ]]; then
+    echo "[INFO] Check your Homebrew system for potential problems ..."
+    brew doctor
+  else
+    echo "[ci-skip] Check your Homebrew system for potential problems ..."
+  fi
 
   # Ensure we’re using the latest version of Homebrew.
   log "Updating Homebrew"
   brew update
 
   # Upgrade any already-installed formulae.
-  log "Updating installed formulae"
+  log "Updating installed Homebrew formulae"
   brew upgrade
   brew cask upgrade
 fi
 
 # Update RVM
-if test "$(which rvm)"
-then
+if test "$(command -v rvm)"; then
   # Upgrade the RVM installation.
-  log "Upgrading the RVM installation"
+  log "Upgrading RVM installation"
   rvm get stable --ignore-dotfiles
   rvm reload
 fi

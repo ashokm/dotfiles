@@ -1,10 +1,9 @@
 cask_args appdir: "/Applications"
 
-tap "caskroom/cask"
 tap "homebrew/bundle"
 tap "homebrew/cask"
-tap "homebrew/cask-versions"
 tap "homebrew/core"
+tap "AdoptOpenJDK/openjdk"
 
 brew "gdbm"
 brew "libyaml"
@@ -17,7 +16,7 @@ brew "autoconf"
 brew "automake"
 brew "awscli"
 brew "bash"
-brew "bash-completion"
+brew "bash-completion2"
 brew "bat"
 brew "csshx"
 brew "curl"
@@ -36,7 +35,6 @@ brew "libksba"
 brew "libtool"
 brew "maven"
 brew "molecule"
-brew "node"
 brew "nvm"
 brew "openssl@1.1"
 brew "packer"
@@ -53,7 +51,7 @@ brew "watch"
 brew "wget"
 brew "youtube-dl"
 
-cask "adoptopenjdk8"
+cask "adoptopenjdk11"
 cask "atom"
 cask "bitwarden"
 cask "cyberduck"
@@ -77,11 +75,17 @@ cask "slack"
 cask "spotify"
 cask "vagrant"
 cask "vagrant-vmware-utility"
-cask "virtualbox"
-cask "virtualbox-extension-pack"
 cask "vlc"
 cask "whatsapp"
 cask "zoomus"
+
+########################
+# Manual effort required
+########################
+# VirtualBox formulaes are commented out here as they will fail and manual intervention will be required
+# See https://forums.developer.apple.com/thread/116604
+# cask "virtualbox"
+# cask "virtualbox-extension-pack"
 
 ######
 # NSFW
