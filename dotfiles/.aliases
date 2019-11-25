@@ -153,6 +153,9 @@ alias findd="find . -type d -iname "
 # Use gsed instead of sed
 alias sed="gsed"
 
+# sharkdp/bat: A cat(1) clone with wings - https://github.com/sharkdp/bat
+alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
+
 # Git stuff
 alias githome="sed -i 's/GIT_AUTHOR_EMAIL.*/GIT_AUTHOR_EMAIL=\"\$GIT_HOME_EMAIL\"/g' ~/.extra && sed -i 's/GIT_COMMITTER_EMAIL.*/GIT_COMMITTER_EMAIL=\"\$GIT_HOME_EMAIL\"/g' ~/.extra && sed -i 's/git config --global user.email.*/git config --global user.email \"\$GIT_HOME_EMAIL\"/g' ~/.extra && reload"
 alias gitwork="sed -i 's/GIT_AUTHOR_EMAIL.*/GIT_AUTHOR_EMAIL=\"\$GIT_WORK_EMAIL\"/g' ~/.extra && sed -i 's/GIT_COMMITTER_EMAIL.*/GIT_COMMITTER_EMAIL=\"\$GIT_WORK_EMAIL\"/g' ~/.extra && sed -i 's/git config --global user.email.*/git config --global user.email \"\$GIT_WORK_EMAIL\"/g' ~/.extra && reload"
