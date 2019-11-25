@@ -12,53 +12,82 @@ unset file;
 ##################################################
 # Homebrew
 ##################################################
-if [ -f /usr/local/bin/brew ]; then
-  eval $(/usr/local/bin/brew shellenv)
-elif [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+if [[ $(which brew) ]]; then
+  eval $(`which brew` shellenv)
+else
+  echo "[WARNING] A Homebrew installation was not found!"
 fi
 
 ##################################################
 # JAVA_HOME
 ##################################################
-if [ -f /usr/libexec/java_home ]; then
+if [ -r /usr/libexec/java_home ]; then
   export JAVA_HOME=$(/usr/libexec/java_home)
   export JDK_HOME=$JAVA_HOME
+else
+  echo "[WARNING] JAVA_HOME was not found!"
 fi
 
 ##################################################
 # direnv -- Unclutter your .profile (https://github.com/direnv/direnv)
 ##################################################
-eval "$(direnv hook bash)"
+if [[ $(which direnv) ]]; then
+  eval "$(direnv hook bash)"
+else
+  echo "[WARNING] A direnv installation was not found!"
+fi
 
 ##################################################
 # Bash completion
 ##################################################
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+if [[ -r /usr/local/etc/bash_completion ]]; then
+  source /usr/local/etc/bash_completion
+else
+  echo "[WARNING] A bash completion installation was not found!"
+fi
 
 ##################################################
 # Git completion
 ##################################################
-source ~/.git-completion.bash
+if [[ -r "$HOME/.git-completion.bash" ]]; then
+  source "$HOME/.git-completion.bash"
+else
+  echo "[WARNING] A git completion installation was not found!"
+fi
 
 ##################################################
 # Amazon Command Line Interface Tools
 ##################################################
-[ -f /usr/local/bin/aws_completer ] && complete -C '/usr/local/bin/aws_completer' aws
-[ -f /home/linuxbrew/.linuxbrew/bin/aws_completer ] && complete -C '/home/linuxbrew/.linuxbrew/bin/aws_completer' aws
+if [[ $(which aws_completer) ]]; then
+  complete -C $(which aws_completer) aws
+else
+  echo "[WARNING] A aws completer installation was not found!"
+fi
 
 ##################################################
 # RVM
 ##################################################
 # Load RVM into a shell session *as a function*
-if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then
+if [[ -r "$HOME/.rvm/scripts/rvm" ]] ; then
   # First try to load from a user install
   source "$HOME/.rvm/scripts/rvm"
 elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
   # Then try to load from a root install
   source "/usr/local/rvm/scripts/rvm"
 else
-  echo "[ERROR] An RVM installation was not found!"
+  echo "[WARNING] An RVM installation was not found!"
+fi
+
+##################################################
+# NVM
+##################################################
+if [[ -f "$(brew --prefix nvm)/nvm.sh" ]] ; then
+  export NVM_DIR="$HOME/.nvm"
+  mkdir -p "$NVM_DIR"
+  source "$(brew --prefix nvm)/nvm.sh" # This loads nvm
+  source "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+else
+  echo "[WARNING] An NVM installation was not found!"
 fi
 
 ##################################################
@@ -69,6 +98,6 @@ if [ -r "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
   alias ca="conda activate"
   alias cda="conda deactivate"
 else
-  echo "[INFO] miniconda profile script not found!"
+  echo "[WARNING] miniconda profile script not found!"
   echo "Run 'conda init' to initialize conda for shell interaction"
 fi

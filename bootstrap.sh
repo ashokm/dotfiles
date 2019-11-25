@@ -16,20 +16,18 @@ case "$1" in
   "--install" )
     ./scripts/update.sh
     ./scripts/ssh.sh
-    ./scripts/linux.sh "$@"
     ./scripts/xcode.sh "$@"
-    ./scripts/dotfiles.sh "$@"
     ./scripts/vim.sh "$@"
     ./scripts/rvm.sh "$@"
     ./scripts/brew.sh "$@"
+    ./scripts/dotfiles.sh "$@"
   ;;
   "--uninstall" )
-    ./scripts/linux.sh "$@"
+    ./scripts/rvm.sh "$@"
+    ./scripts/vim.sh "$@"
+    ./scripts/brew.sh "$@"
     ./scripts/xcode.sh "$@"
     ./scripts/dotfiles.sh "$@"
-    ./scripts/vim.sh "$@"
-    ./scripts/rvm.sh "$@"
-    ./scripts/brew.sh "$@"
   ;;
   * )
   usage && exit;;

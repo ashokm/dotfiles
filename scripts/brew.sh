@@ -47,7 +47,6 @@ uninstall () {
       brew remove --force "$(brew list)" && brew cleanup
       echo "[INFO] Uninstalling packages installed using Brew cask ..."
       brew cask uninstall --force "$(brew cask list)" && brew cask cleanup
-      # Uninstall the correct homebrew for each OS type
       if test "$(uname -s)" = "Darwin"
       then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
