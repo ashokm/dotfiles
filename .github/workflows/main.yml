@@ -3,11 +3,52 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  ############
+  # ShellCheck
+  ############
+  shellcheck:
     runs-on: ubuntu-latest
-
     steps:
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v1
+      # Validate shell scripts
+      - name: ShellCheck
+        run: |
+          sudo apt-get update -qqq && sudo apt-get install shellcheck -qqq -y
+          shellcheck --version
+          shellcheck *.sh
+          shellcheck dotfiles/.bash_profile dotfiles/.bashrc
+          shellcheck scripts/*.sh
+
+  ####################
+  # dotfiles - install
+  ####################
+  dotfiles-install:
+    runs-on: macOS-latest
+    needs: [shellcheck]
+    env:
+      CI: 1
+    steps:
+    # Checkout
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Validate shell scripts
-      run: shellcheck *.sh
+    # Bootstrap - Install
+    - name: Bootstrap - Install
+      run: ./bootstrap.sh --install
+
+  ######################
+  # dotfiles - uninstall
+  ######################
+  dotfiles-uninstall:
+    runs-on: macOS-latest
+    needs: [dotfiles-install]
+    env:
+      CI: 1
+    steps:
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v1
+      # Bootstrap - Uninstall
+      - name: Bootstrap - Uninstall
+        run: ./bootstrap.sh --uninstall

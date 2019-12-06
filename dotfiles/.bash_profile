@@ -1,3 +1,10 @@
+# shellcheck shell=bash
+# shellcheck disable=SC1090,SC1091
+
+# Suppress macOS Catalina verbose message to use zsh as the default login shell
+# https://support.apple.com/en-gb/HT208050
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 ##################################################
 # PATH
 ##################################################
@@ -12,8 +19,8 @@ unset file;
 ##################################################
 # Homebrew
 ##################################################
-if [[ $(which brew) ]]; then
-  eval $(`which brew` shellenv)
+if [[ $(command -v brew) ]]; then
+  eval "$($(command -v brew) shellenv)"
 else
   echo "[WARNING] A Homebrew installation was not found!"
 fi
@@ -22,7 +29,8 @@ fi
 # JAVA_HOME
 ##################################################
 if [ -r /usr/libexec/java_home ]; then
-  export JAVA_HOME=$(/usr/libexec/java_home)
+  JAVA_HOME="$(/usr/libexec/java_home)"
+  export JAVA_HOME
   export JDK_HOME=$JAVA_HOME
 else
   echo "[WARNING] JAVA_HOME was not found!"
@@ -31,7 +39,7 @@ fi
 ##################################################
 # direnv -- Unclutter your .profile (https://github.com/direnv/direnv)
 ##################################################
-if [[ $(which direnv) ]]; then
+if [[ $(command -v direnv) ]]; then
   eval "$(direnv hook bash)"
 else
   echo "[WARNING] A direnv installation was not found!"
@@ -40,8 +48,8 @@ fi
 ##################################################
 # Bash completion
 ##################################################
-if [[ -r /usr/local/etc/bash_completion ]]; then
-  source /usr/local/etc/bash_completion
+if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]]; then
+  source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
 else
   echo "[WARNING] A bash completion installation was not found!"
 fi
@@ -58,8 +66,8 @@ fi
 ##################################################
 # Amazon Command Line Interface Tools
 ##################################################
-if [[ $(which aws_completer) ]]; then
-  complete -C $(which aws_completer) aws
+if [[ $(command -v aws_completer) ]]; then
+  complete -C "$(command -v aws_completer)" aws
 else
   echo "[WARNING] A aws completer installation was not found!"
 fi

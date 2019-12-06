@@ -18,41 +18,46 @@ log() {
 
 install () {
     log "Install Homebrew"
-    # Check for Homebrew
-    if test ! "$(which brew)"
-    then
-      if test "$(uname -s)" = "Darwin"
-      then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    if test ! "$(command -v brew)"; then
+      if test "$(uname -s)" = "Darwin"; then
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" && brew cleanup
       fi
     fi
 
-    # Check your system for potential problems
-    echo "[INFO] Check your system for potential problems ..."
-    brew doctor
+    # Check your Homebrew system for potential problems
+    if [[ -z "${CI_ENABLED}" ]]; then
+      echo "[INFO] Check your Homebrew system for potential problems ..."
+      brew doctor
+    else
+      echo "[ci-skip] Check your Homebrew system for potential problems ..."
+    fi
 
     # Run Homebrew through the Brewfile
-    echo "[INFO] Installing packages from Brewfile ..."
+    echo "[INFO] Install packages listed in the Brewfile ..."
     brew bundle --file="Brewfile"
-    echo "[INFO] Uninstalling packages not in Brewfile ..."
+    echo "[INFO] Uninstall packages not listed in the Brewfile ..."
     brew bundle cleanup --file="Brewfile" --force && brew cleanup
 }
 
 uninstall () {
+  if [[ -z "${CI_ENABLED}" ]]; then
     log "Uninstall Homebrew"
     # Check for Homebrew
-    if test "$(which brew)"
-    then
-      echo "[INFO] Uninstalling packages installed using Brew ..."
-      brew remove --force "$(brew list)" && brew cleanup
-      echo "[INFO] Uninstalling packages installed using Brew cask ..."
+    if test "$(command -v brew)"; then
+      echo "[INFO] Uninstall packages installed using Brew cask ..."
       brew cask uninstall --force "$(brew cask list)" && brew cask cleanup
-      if test "$(uname -s)" = "Darwin"
-      then
+      echo "[INFO] Uninstall packages installed using Brew ..."
+      brew remove --force "$(brew list)" && brew cleanup
+      if test "$(uname -s)" = "Darwin"; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
       fi
     fi
+  else
+    log "[ci-skip] Uninstall Homebrew"
+  fi
 }
+
+CI_ENABLED=${CI:-}
 
 case "$1" in
   "--install" )

@@ -14,9 +14,9 @@ cd "$(dirname "${BASH_SOURCE[@]}")";
 
 case "$1" in
   "--install" )
-    ./scripts/update.sh
-    ./scripts/ssh.sh
     ./scripts/xcode.sh "$@"
+    ./scripts/update.sh "$@"
+    ./scripts/ssh.sh "$@"
     ./scripts/vim.sh "$@"
     ./scripts/rvm.sh "$@"
     ./scripts/brew.sh "$@"
@@ -26,8 +26,8 @@ case "$1" in
     ./scripts/rvm.sh "$@"
     ./scripts/vim.sh "$@"
     ./scripts/brew.sh "$@"
-    ./scripts/xcode.sh "$@"
     ./scripts/dotfiles.sh "$@"
+    ./scripts/xcode.sh "$@"
   ;;
   * )
   usage && exit;;
