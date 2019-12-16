@@ -6,6 +6,16 @@
 
 set -o errexit -o nounset -o pipefail
 
+usage() {
+  echo "Usage: $0"
+}
+
+log() {
+  echo "================================================================================"
+  echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
+  echo "================================================================================"
+}
+
 if test ! "$(uname -s)" = "Darwin"; then
     exit 0
 fi
@@ -21,7 +31,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
-# General UI/UX                                                               #
+log "General UI/UX"
 ###############################################################################
 
 # Enable dark mode
@@ -105,7 +115,7 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
 ###############################################################################
-# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+log "Trackpad, mouse, keyboard, Bluetooth accessories, and input"
 ###############################################################################
 
 # Trackpad: enable tap to click for this user and for the login screen
@@ -157,7 +167,7 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bo
 sudo systemsetup -settimezone "Europe/London" > /dev/null
 
 ###############################################################################
-# Energy saving                                                               #
+log "Energy saving"
 ###############################################################################
 
 # Enable lid wakeup
@@ -185,7 +195,7 @@ sudo systemsetup -setcomputersleep Off > /dev/null
 sudo pmset -a hibernatemode 0
 
 ###############################################################################
-# Screen                                                                      #
+log "Screen"
 ###############################################################################
 
 # Require password immediately after sleep or screen saver begins
@@ -211,7 +221,7 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 echo "[INFO] True Tone and Night Shift will need to be manually configured via System Preferences > Displays"
 
 ###############################################################################
-# Finder                                                                      #
+log "Finder"
 ###############################################################################
 
 # Finder: allow quitting via ⌘ + Q; doing so will also hide desktop icons
@@ -296,7 +306,7 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
 	Privileges -bool true
 
 ###############################################################################
-# Dock, Dashboard, and hot corners                                            #
+log "Dock, Dashboard, and hot corners"
 ###############################################################################
 
 # Enable highlight hover effect for the grid view of a stack (Dock)
@@ -390,7 +400,7 @@ defaults write com.apple.dock wvous-br-corner -int 0
 defaults write com.apple.dock wvous-br-modifier -int 0
 
 ###############################################################################
-# Safari & WebKit                                                             #
+log "Safari & WebKit"
 ###############################################################################
 
 # Privacy: don’t send search queries to Apple
@@ -472,7 +482,7 @@ defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 
 ###############################################################################
-# Terminal                                                                    #
+log "Terminal"
 ###############################################################################
 
 # Change the default shell to bash
@@ -495,7 +505,7 @@ defaults write com.apple.Terminal "Default Window Settings" "ashokm-Wombat"
 defaults write com.apple.Terminal "Startup Window Settings" "ashokm-Wombat"
 
 ###############################################################################
-# Activity Monitor                                                            #
+log "Activity Monitor"
 ###############################################################################
 
 # Show the main window when launching Activity Monitor
@@ -512,7 +522,7 @@ defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 ###############################################################################
-# TextEdit and Disk Utility                                                   #
+log "TextEdit and Disk Utility"
 ###############################################################################
 
 # Use plain text mode for new TextEdit documents
@@ -526,7 +536,7 @@ defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
 
 ###############################################################################
-# Mac App Store                                                               #
+log "Mac App Store"
 ###############################################################################
 
 # Enable the automatic update check
@@ -551,14 +561,14 @@ defaults write com.apple.commerce AutoUpdate -bool true
 defaults write com.apple.commerce AutoUpdateRestartRequired -bool true
 
 ###############################################################################
-# Photos                                                                      #
+log "Photos"
 ###############################################################################
 
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 ###############################################################################
-# SizeUp.app                                                                  #
+log "SizeUp.app"
 ###############################################################################
 
 # Start SizeUp at login
@@ -568,22 +578,24 @@ defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
 defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
 
 ###############################################################################
-# MenuMeters.prefPane                                                         #
+log "MenuMeters.prefPane"
 ###############################################################################
 
 defaults write com.ragingmenace.MenuMeters "com.ragingmenace.MenuMeterDisk" -bool false
 defaults write com.ragingmenace.MenuMeters "com.ragingmenace.MenuMeterNet" -bool true
 defaults write com.ragingmenace.MenuMeters "com.ragingmenace.MenuMeterMem" -bool true
 defaults write com.ragingmenace.MenuMeters "com.ragingmenace.MenuMeterCPU" -bool true
+defaults write com.ragingmenace.MenuMeters CPUAverageMultiProcs -int 1
 defaults write com.ragingmenace.MenuMeters CPUDisplayMode -int 2
 defaults write com.ragingmenace.MenuMeters CPUGraphLength -int 11
 defaults write com.ragingmenace.MenuMeters MemDisplayMode -int 4
 defaults write com.ragingmenace.MenuMeters MemUsedFreeLabel -int 1
 defaults write com.ragingmenace.MenuMeters NetDisplayMode -int 6
-defaults write com.ragingmenace.MenuMeters NetGraphStyle -int 0
+defaults write com.ragingmenace.MenuMeters NetGraphStyle -int 1
+defaults write com.ragingmenace.MenuMeters NetOrientation -int 0
 
 ###############################################################################
-# Kill affected applications                                                  #
+log "Kill affected applications"
 ###############################################################################
 
 for app in "Activity Monitor" \
@@ -597,4 +609,3 @@ for app in "Activity Monitor" \
 	"Terminal"; do
 	killall "${app}" &> /dev/null
 done
-echo "[INFO] Done. Note that some of these changes require a logout/restart to take effect."
