@@ -19,7 +19,7 @@ log() {
 install () {
     log "Install RVM"
     if test ! "$(command -v rvm)"; then
-      curl -sSL https://get.rvm.io | bash -s stable --ruby --ignore-dotfiles
+      curl -sSL https://get.rvm.io | bash -s stable --ignore-dotfiles
     fi
 }
 
