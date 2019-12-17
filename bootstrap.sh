@@ -20,14 +20,12 @@ case "$1" in
     ./scripts/vim.sh "$@"
     ./scripts/rvm.sh "$@"
     ./scripts/brew.sh "$@"
-    ./scripts/atom.sh "$@"
     ./scripts/dotfiles.sh "$@"
   ;;
   "--uninstall" )
     ./scripts/rvm.sh "$@"
     ./scripts/vim.sh "$@"
     ./scripts/brew.sh "$@"
-    ./scripts/atom.sh "$@"
     ./scripts/dotfiles.sh "$@"
     ./scripts/xcode.sh "$@"
   ;;

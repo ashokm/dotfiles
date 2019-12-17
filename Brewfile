@@ -52,7 +52,6 @@ brew "wget"
 brew "youtube-dl"
 
 cask "adoptopenjdk11"
-cask "atom"
 cask "bitwarden"
 cask "cyberduck"
 cask "docker"

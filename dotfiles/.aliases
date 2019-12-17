@@ -9,7 +9,6 @@ alias ~="cd ~" # `cd` is probably faster to type though
 
 # Shortcuts
 alias .dotfiles="cd ~/.dotfiles"
-alias atom='open -a "Atom.app"'
 alias cls="clear"
 alias d="cd ~/Documents"
 alias db="cd ~/Dropbox"
