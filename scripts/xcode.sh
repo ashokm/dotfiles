@@ -22,7 +22,7 @@ install () {
       log "Install Xcode Command Line Tools"
       sudo xcode-select --install
     else
-      log "Command Line Tools (${CLT_VERSION}) already installed"
+      log "Command Line Tools already installed"
     fi
   fi
 }
@@ -37,8 +37,6 @@ uninstall () {
     fi
   fi
 }
-
-CLT_VERSION=$(pkgutil --pkg-info=com.apple.pkg.CLTools_Executables | grep version | cut -f 2 -d ' ' | awk ' { print $1; } ')
 
 case "$1" in
   "--install" )

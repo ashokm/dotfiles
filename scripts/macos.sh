@@ -221,6 +221,18 @@ sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutio
 echo "[INFO] True Tone and Night Shift will need to be manually configured via System Preferences > Displays"
 
 ###############################################################################
+log "Menu Bar"
+###############################################################################
+
+defaults write com.apple.systemuiserver menuExtras -array   \
+    "/System/Library/CoreServices/Menu Extras/Volume.menu"  \
+    "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+    "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu";
+
+defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
+###############################################################################
 log "Finder"
 ###############################################################################
 
