@@ -155,7 +155,7 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
 # `Inches`, `en_GB` with `en_US`, and `true` with `false`.
-defaults write NSGlobalDomain AppleLanguages -array "en" "nl"
+defaults write NSGlobalDomain AppleLanguages -array "en" "sv"
 defaults write NSGlobalDomain AppleLocale -string "en_GB@currency=GBP"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
@@ -225,12 +225,15 @@ log "Menu Bar"
 ###############################################################################
 
 defaults write com.apple.systemuiserver menuExtras -array   \
-    "/System/Library/CoreServices/Menu Extras/Volume.menu"  \
     "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
     "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu";
+    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+    "/System/Library/CoreServices/Menu Extras/Clock.menu" \
+    "/System/Library/CoreServices/Menu Extras/TextInput.menu" \
+    "/System/Library/CoreServices/Menu Extras/Volume.menu";
 
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+defaults write com.apple.menuextra.clock IsAnalog -bool false
 
 ###############################################################################
 log "Finder"
