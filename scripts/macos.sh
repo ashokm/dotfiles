@@ -229,6 +229,7 @@ defaults write com.apple.systemuiserver menuExtras -array   \
     "/System/Library/CoreServices/Menu Extras/Battery.menu" \
     "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
     "/System/Library/CoreServices/Menu Extras/Clock.menu" \
+    "/System/Library/CoreServices/Menu Extras/Displays.menu" \
     "/System/Library/CoreServices/Menu Extras/TextInput.menu" \
     "/System/Library/CoreServices/Menu Extras/Volume.menu";
 

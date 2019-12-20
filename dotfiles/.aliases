@@ -85,8 +85,8 @@ fi
 
 # Show/hide hidden files in Finder
 if test "$(uname -s)" = "Darwin"; then
-  alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-  alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+  alias showallfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+  alias hideallfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 fi
 
 # Hide/show all desktop icons (useful when presenting)
