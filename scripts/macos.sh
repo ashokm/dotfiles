@@ -231,6 +231,7 @@ defaults write com.apple.systemuiserver menuExtras -array   \
     "/System/Library/CoreServices/Menu Extras/Clock.menu" \
     "/System/Library/CoreServices/Menu Extras/Displays.menu" \
     "/System/Library/CoreServices/Menu Extras/TextInput.menu" \
+    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
     "/System/Library/CoreServices/Menu Extras/Volume.menu";
 
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
