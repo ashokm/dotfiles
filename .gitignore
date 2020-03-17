@@ -13,6 +13,9 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 
+# Brewfile
+Brewfile.lock.json
+
 # Eclipse
 .classpath
 *.project
