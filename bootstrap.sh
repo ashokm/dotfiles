@@ -18,8 +18,8 @@ case "$1" in
     ./scripts/update.sh "$@"
     ./scripts/ssh.sh "$@"
     ./scripts/vim.sh "$@"
-    ./scripts/rvm.sh "$@"
     ./scripts/brew.sh "$@"
+    ./scripts/rvm.sh "$@"
     ./scripts/dotfiles.sh "$@"
   ;;
   "--uninstall" )
