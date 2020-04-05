@@ -49,6 +49,7 @@ brew "youtube-dl"
 
 cask "1password"
 cask "adoptopenjdk11"
+cask "corona-tracker"
 cask "cyberduck"
 cask "docker"
 cask "dropbox"
