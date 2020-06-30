@@ -150,8 +150,7 @@ grbi() {
 
 alias g='git'
 alias ga='git add'
-alias gb='git branch'
-alias gba='git branch -a'
+alias gb='git branch --all'
 alias gbd='git branch -D'
 alias gbda='git branch | grep -v "master" | xargs git branch -D'
 alias gbdm="git branch --merged master | grep -v '^[ *]*master$' | xargs git branch -d"
@@ -200,6 +199,7 @@ alias gstac='git stash clear'
 alias gstad='git stash drop'
 alias gstal='git stash list'
 alias gstap='git stash pop'
+alias gt='git tag -l'
 
 # Random stuff
 alias ip='curl -s https://canihazip.com/s'
