@@ -2,7 +2,7 @@
 #
 # macos.sh
 #
-# Setup Mac OS X defaults
+# Setup macOS defaults
 
 set -o errexit -o nounset -o pipefail
 
@@ -12,12 +12,12 @@ usage() {
 
 log() {
   echo "================================================================================"
-  echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
+  echo "$@" | sed -e :a -e 's/^.\{1,77\}$/ & /;ta'
   echo "================================================================================"
 }
 
 if test ! "$(uname -s)" = "Darwin"; then
-    exit 0
+  exit 0
 fi
 
 # Close any open System Preferences panes, to prevent them from overriding
@@ -28,7 +28,11 @@ osascript -e 'tell application "System Preferences" to quit'
 sudo -v
 
 # Keep-alive: update existing `sudo` time stamp until `macos.sh` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
 ###############################################################################
 log "General UI/UX"
@@ -97,7 +101,7 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 #defaults write com.apple.CrashReporter DialogType -string "none"
 
 # Disable Notification Center and remove the menu bar icon
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2>/dev/null
 
 # Disable automatic capitalization as it’s annoying when typing code
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
@@ -170,7 +174,7 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "Europe/London" > /dev/null
+sudo systemsetup -settimezone "Europe/London" >/dev/null
 
 ###############################################################################
 log "Energy saving"
@@ -192,7 +196,7 @@ sudo pmset -b sleep 5
 sudo pmset -a standbydelay 86400
 
 # Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off > /dev/null
+sudo systemsetup -setcomputersleep Off >/dev/null
 
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
@@ -230,15 +234,15 @@ echo "[INFO] True Tone and Night Shift will need to be manually configured via S
 log "Menu Bar"
 ###############################################################################
 
-defaults write com.apple.systemuiserver menuExtras -array   \
-    "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-    "/System/Library/CoreServices/Menu Extras/Battery.menu" \
-    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-    "/System/Library/CoreServices/Menu Extras/Clock.menu" \
-    "/System/Library/CoreServices/Menu Extras/Displays.menu" \
-    "/System/Library/CoreServices/Menu Extras/TextInput.menu" \
-    "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
-    "/System/Library/CoreServices/Menu Extras/Volume.menu";
+defaults write com.apple.systemuiserver menuExtras -array \
+  "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+  "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+  "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+  "/System/Library/CoreServices/Menu Extras/Clock.menu" \
+  "/System/Library/CoreServices/Menu Extras/Displays.menu" \
+  "/System/Library/CoreServices/Menu Extras/TextInput.menu" \
+  "/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+  "/System/Library/CoreServices/Menu Extras/Volume.menu"
 
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.clock IsAnalog -bool false
@@ -324,9 +328,9 @@ sudo chflags nohidden /Volumes
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
-	General -bool true \
-	OpenWith -bool true \
-	Privileges -bool true
+  General -bool true \
+  OpenWith -bool true \
+  Privileges -bool true
 
 ###############################################################################
 log "Dock, Dashboard, and hot corners"
@@ -622,13 +626,13 @@ log "Kill affected applications"
 ###############################################################################
 
 for app in "Activity Monitor" \
-	"cfprefsd" \
-	"Dock" \
-	"Finder" \
-	"Photos" \
-	"Safari" \
-	"SizeUp" \
-	"SystemUIServer" \
-	"Terminal"; do
-	killall "${app}" &> /dev/null
+  "cfprefsd" \
+  "Dock" \
+  "Finder" \
+  "Photos" \
+  "Safari" \
+  "SizeUp" \
+  "SystemUIServer" \
+  "Terminal"; do
+  killall "${app}" &>/dev/null
 done

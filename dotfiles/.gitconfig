@@ -64,9 +64,6 @@
   cmd = idea diff \"$LOCAL\" \"$REMOTE\"
   trustExitCode = true
 
-[gitreview]
-	username = amanji
-
 ##################################################
 [help]
     # Automatically correct and execute mistyped commands.

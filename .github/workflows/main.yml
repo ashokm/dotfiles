@@ -25,24 +25,30 @@ jobs:
   # dotfiles - install
   ####################
   dotfiles-install:
-    runs-on: macOS-latest
+    runs-on: ${{ matrix.os }}
     needs: [shellcheck]
+    strategy:
+      matrix:
+        os: [macOS-latest, ubuntu-latest]
     env:
       CI: 1
     steps:
-    # Checkout
-    - name: Checkout
-      uses: actions/checkout@v1
-    # Bootstrap - Install
-    - name: Bootstrap - Install
-      run: ./bootstrap.sh --install
+      # Checkout
+      - name: Checkout
+        uses: actions/checkout@v1
+      # Bootstrap - Install
+      - name: Bootstrap - Install
+        run: ./bootstrap.sh --install
 
   ######################
   # dotfiles - uninstall
   ######################
   dotfiles-uninstall:
-    runs-on: macOS-latest
+    runs-on: ${{ matrix.os }}
     needs: [dotfiles-install]
+    strategy:
+      matrix:
+        os: [macOS-latest, ubuntu-latest]
     env:
       CI: 1
     steps:

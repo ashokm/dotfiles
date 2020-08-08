@@ -12,11 +12,11 @@ usage() {
 
 log() {
   echo "================================================================================"
-  echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
+  echo "$@" | sed -e :a -e 's/^.\{1,77\}$/ & /;ta'
   echo "================================================================================"
 }
 
-install () {
+install() {
   if test "$(uname -s)" = "Darwin"; then
     if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
       log "Install Xcode Command Line Tools"
@@ -27,7 +27,7 @@ install () {
   fi
 }
 
-uninstall () {
+uninstall() {
   if test "$(uname -s)" = "Darwin"; then
     if [[ -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
       log "Uninstall Xcode Command Line Tools"
@@ -39,10 +39,13 @@ uninstall () {
 }
 
 case "$1" in
-  "--install" )
-  install ;;
-  "--uninstall" )
-  uninstall ;;
-  * )
-  usage ;;
+"--install")
+  install
+  ;;
+"--uninstall")
+  uninstall
+  ;;
+*)
+  usage
+  ;;
 esac

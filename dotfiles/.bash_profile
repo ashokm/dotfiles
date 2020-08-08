@@ -19,10 +19,18 @@ unset file;
 ##################################################
 # Homebrew
 ##################################################
-if [[ $(command -v brew) ]]; then
-  eval "$($(command -v brew) shellenv)"
-else
-  echo "[WARNING] A Homebrew installation was not found!"
+if test "$(uname -s)" = "Darwin"; then
+  if [[ $(command -v brew) ]]; then
+    eval "$($(command -v brew) shellenv)"
+  else
+    echo "[WARNING] A Homebrew installation was not found!"
+  fi
+elif test "$(uname -s)" = "Linux"; then
+  if [ -r /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  else
+    echo "[WARNING] A Homebrew installation was not found!"
+  fi
 fi
 
 ##################################################
@@ -32,6 +40,8 @@ if [ -r /usr/libexec/java_home ]; then
   JAVA_HOME="$(/usr/libexec/java_home)"
   export JAVA_HOME
   export JDK_HOME=$JAVA_HOME
+elif [ -d /home/linuxbrew/.linuxbrew/bin ]; then
+  export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 else
   echo "[WARNING] JAVA_HOME was not found!"
 fi
@@ -70,42 +80,4 @@ if [[ $(command -v aws_completer) ]]; then
   complete -C "$(command -v aws_completer)" aws
 else
   echo "[WARNING] A aws completer installation was not found!"
-fi
-
-##################################################
-# RVM
-##################################################
-# Load RVM into a shell session *as a function*
-if [[ -r "$HOME/.rvm/scripts/rvm" ]] ; then
-  # First try to load from a user install
-  source "$HOME/.rvm/scripts/rvm"
-elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
-  # Then try to load from a root install
-  source "/usr/local/rvm/scripts/rvm"
-else
-  echo "[WARNING] An RVM installation was not found!"
-fi
-
-##################################################
-# NVM
-##################################################
-if [[ -f "$(brew --prefix nvm)/nvm.sh" ]] ; then
-  export NVM_DIR="$HOME/.nvm"
-  mkdir -p "$NVM_DIR"
-  source "$(brew --prefix nvm)/nvm.sh" # This loads nvm
-  source "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-else
-  echo "[WARNING] An NVM installation was not found!"
-fi
-
-##################################################
-# Conda setup
-##################################################
-if [ -r "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-  source "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-  alias ca="conda activate"
-  alias cda="conda deactivate"
-else
-  echo "[WARNING] miniconda profile script not found!"
-  echo "Run 'conda init' to initialize conda for shell interaction"
 fi

@@ -13,7 +13,7 @@ usage() {
 
 log() {
   echo "================================================================================"
-  echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
+  echo "$@" | sed -e :a -e 's/^.\{1,77\}$/ & /;ta'
   echo "================================================================================"
 }
 
@@ -21,8 +21,11 @@ CI_ENABLED=${CI:-}
 
 # Update OS Software
 if test "$(uname -s)" = "Darwin"; then
-  log "Running OS X Software updates"
+  log "Running macOS Software updates"
   sudo softwareupdate --install --all
+elif test "$(uname -s)" = "Linux"; then
+  log "Running Linux Software updates"
+  sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean
 fi
 
 # Update Brew
@@ -30,6 +33,7 @@ if test "$(command -v brew)"; then
   # Check your Homebrew system for potential problems
   if [[ -z "${CI_ENABLED}" ]]; then
     echo "[INFO] Check your Homebrew system for potential problems ..."
+    brew cleanup
     brew doctor
   else
     echo "[ci-skip] Check your Homebrew system for potential problems ..."
@@ -42,13 +46,7 @@ if test "$(command -v brew)"; then
   # Upgrade any already-installed formulae.
   log "Updating installed Homebrew formulae"
   brew upgrade
-  brew cask upgrade
-fi
-
-# Update RVM
-if test "$(command -v rvm)"; then
-  # Upgrade the RVM installation.
-  log "Upgrading RVM installation"
-  rvm get stable --ignore-dotfiles
-  rvm reload
+  if test "$(uname -s)" = "Darwin"; then
+    brew cask upgrade
+  fi
 fi
