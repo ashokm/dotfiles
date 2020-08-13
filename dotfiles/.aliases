@@ -16,16 +16,19 @@ alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
 alias ij='open -a "IntelliJ IDEA CE.app"'
+if test "$(uname -s)" = "Linux"; then
+  alias pbcopy='clip.exe'
+fi
 alias pubkey="pbcopy < ~/.ssh/id_rsa.pub | echo '-- Public key copied to pasteboard! -- '"
 alias ws="cd ~/Workspace"
 
 # Detect which `ls` flavor is in use
-if ls --color > /dev/null 2>&1; then # GNU `ls`
-	colorflag="--color"
-	export LS_COLORS='no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
+if ls --color >/dev/null 2>&1; then # GNU `ls`
+  colorflag="--color"
+  export LS_COLORS='no=00:fi=00:di=01;31:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
 else # macOS `ls`
-	colorflag="-G"
-	export LSCOLORS='BxBxhxDxfxhxhxhxhxcxcx'
+  colorflag="-G"
+  export LSCOLORS='BxBxhxDxfxhxhxhxhxcxcx'
 fi
 
 # List all files colorized in long format
@@ -58,10 +61,8 @@ alias week='date +%V'
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-# Get Software Updates, update installed Homebrew formulae, RVM, and their installed packages
-if test "$(uname -s)" = "Darwin"; then
-  alias update='sudo softwareupdate --install --all; brew update; brew upgrade; brew cask upgrade; brew cleanup; rvm get stable --ignore-dotfiles; rvm reload'
-fi
+# Get Software Updates, update installed Homebrew formulae etc
+alias update='~/.dotfiles/scripts/update.sh'
 
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
@@ -125,7 +126,9 @@ alias findf="find . -type f -iname "
 alias findd="find . -type d -iname "
 
 # Use gsed instead of sed
-alias sed="gsed"
+if test "$(uname -s)" = "Darwin"; then
+  alias sed="gsed"
+fi
 
 # sharkdp/bat: A cat(1) clone with wings - https://github.com/sharkdp/bat
 alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
@@ -190,9 +193,6 @@ alias gremotesyncupstream='git fetch upstream && git checkout master && git merg
 alias grsh='git reset --hard'
 alias grvt='git revert'
 alias grvtnc='git revert --no-commit'
-alias grvw='git review'
-alias grvwd='git review -d'
-alias grvwl='git review -l'
 alias gs='git status -s'
 alias gsta='git stash save --include-untracked'
 alias gstac='git stash clear'

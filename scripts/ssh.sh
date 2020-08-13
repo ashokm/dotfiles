@@ -12,7 +12,7 @@ usage() {
 
 log() {
   echo "================================================================================"
-  echo "$@" | sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'
+  echo "$@" | sed -e :a -e 's/^.\{1,77\}$/ & /;ta'
   echo "================================================================================"
 }
 
@@ -27,7 +27,7 @@ if [[ -z "${CI_ENABLED}" ]]; then
     chmod 640 ~/.ssh/authorized_keys
   fi
   if [ -e ~/.ssh/id_rsa.pub ]; then
-  	log "SSH key already exists"
+    log "SSH key already exists"
   else
     log "Generating SSH key"
     echo -n "Enter email for SSH key generation: "
@@ -37,4 +37,3 @@ if [[ -z "${CI_ENABLED}" ]]; then
 else
   log "[ci-skip] Creating ~/.ssh"
 fi
-
