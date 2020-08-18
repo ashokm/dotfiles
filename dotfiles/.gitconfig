@@ -30,6 +30,8 @@
 
 ##################################################
 [core]
+	autocrlf = input
+
     editor = vim
 
     # Use custom `.gitignore` and `.gitattributes`.
