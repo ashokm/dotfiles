@@ -11,6 +11,9 @@
 .project
 .settings/
 
+### Homebrew ###
+Brewfile.lock.json
+
 ### IntelliJ ###
 .idea/
 .idea_modules/
@@ -34,6 +37,10 @@ packer_cache/
 log/
 target/
 
+### Files that might appear on external disks ###
+.Spotlight-V100
+.Trashes
+
 ### Folder view configuration files ###
 .DS_Store
 [Dd]esktop.ini
@@ -43,9 +50,6 @@ $RECYCLE.BIN/
 ._*
 Thumbs.db
 
-### Files that might appear on external disks ###
-.Spotlight-V100
-.Trashes
-
 ### Explictly defined files ###
 .extra
+.path

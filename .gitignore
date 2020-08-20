@@ -1,35 +1,33 @@
-# Compiled Python files
-*.pyc
-
-# Folder view configuration files
-.DS_Store
-Desktop.ini
-
-# Thumbnail cache files
-._*
-Thumbs.db
-
-# Files that might appear on external disks
-.Spotlight-V100
-.Trashes
-
-# Homebrew
-Brewfile*.lock.json
-
-# Eclipse
+### Eclipse ###
 .classpath
-*.project
-*.settings/
+.project
+.settings/
 
-# IntelliJ
+### Homebrew ###
+Brewfile.lock.json
+
+### IntelliJ ###
 .idea/
+.idea_modules/
 *.iml
 *.iws
 
-# Maven
-log/
-target/
+### VisualStudioCode ###
+.vscode/*
 
-# Explictly defined files
+### Files that might appear on external disks ###
+.Spotlight-V100
+.Trashes
+
+### Folder view configuration files ###
+.DS_Store
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+### Thumbnail cache files ###
+._*
+Thumbs.db
+
+### Explictly defined files ###
 .extra
 .path
