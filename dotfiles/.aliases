@@ -15,7 +15,6 @@ alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
-alias ij='open -a "IntelliJ IDEA CE.app"'
 if test "$(uname -s)" = "Linux"; then
   alias pbcopy='clip.exe'
 fi
