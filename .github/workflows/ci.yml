@@ -1,6 +1,10 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  schedule:
+    - cron: '0 23 * * *'
+  push:
+  pull_request:
 
 jobs:
   ############
