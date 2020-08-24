@@ -112,6 +112,8 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 # Start the screensaver (when going AFK)
 if test "$(uname -s)" = "Darwin"; then
   alias zzz="open -a ScreenSaverEngine"
+elif [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
+  alias zzz="rundll32.exe user32.dll,LockWorkStation"
 fi
 
 # Reload the shell (i.e. invoke as a login shell)
