@@ -119,6 +119,11 @@ fi
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
 
+# WSL
+if test "$(command -v powershell.exe)"; then
+  alias shutdown="powershell.exe wsl --shutdown"
+fi
+
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
