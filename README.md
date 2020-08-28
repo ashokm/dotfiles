@@ -6,20 +6,20 @@ Your dotfiles are how you personalize your system. These are mine.
 
 **Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
 
-### Prerequisites
+## Prerequisites
 
-##### macOS
+### macOS
 
 * None
 
-##### Windows
+### Windows
 
 * Windows 10, version 2004, Build 19041 or higher
 * [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) (Windows Subsystem for Linux) with Ubuntu
 
 _[WSL 2 will be generally available in Windows 10, version 2004](https://devblogs.microsoft.com/commandline/wsl2-will-be-generally-available-in-windows-10-version-2004/)_
 
-### Install
+## Install
 
 ```bash
 git clone https://github.com/ashokm/dotfiles.git ~/.dotfiles
@@ -59,33 +59,36 @@ GIT_COMMITTER_EMAIL="$GIT_HOME_EMAIL"
 git config --global user.email "$GIT_HOME_EMAIL"
 ```
 
-### Sensible macOS defaults
+## Sensible macOS defaults
 
 When setting up a new Mac, you may want to set some sensible macOS defaults:
 
 ```bash
 ./scripts/macos.sh
 ```
-### Switch remote URL from HTTPS to SSH
+
+## Optional
 
 <details>
-<summary>Click to Expand</summary>
+  <summary>Switch remote URL from HTTPS to SSH</summary>
 
-Once you have added your SSH key to your Git account, let's switch using SSH instead of HTTPS.
+### List your existing remotes in order to get the name of the remote you want to change
 
-1. List your existing remotes in order to get the name of the remote you want to change.
 ```bash
 $ git remote -v
 > origin  https://github.com/USERNAME/REPOSITORY.git (fetch)
 > origin  https://github.com/USERNAME/REPOSITORY.git (push)
 ```
 
-2. Change your remote's URL from HTTPS to SSH with the git remote set-url command.
+### Change your remote's URL from HTTPS to SSH with the git remote set-url command
+
 ```bash
 $ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+>
 ```
 
-3. Verify that the remote URL has changed.
+### Verify that the remote URL has changed
+
 ```bash
 $ git remote -v
 # Verify new remote URL
@@ -93,11 +96,10 @@ $ git remote -v
 > origin  git@github.com:USERNAME/REPOSITORY.git (push)
 ```
 
-[Reference](https://docs.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh
-)
+:octocat: [Reference](https://docs.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
 </details>
 
-### Uninstall
+## Uninstall
 
 ```bash
 cd ~/.dotfiles
@@ -105,7 +107,7 @@ cd ~/.dotfiles
 rm -rf ~/.dotfiles
 ```
 
-### Screenshots
+## Screenshots
 
 ![Screenshot of my shell prompt](screenshot.png)
 
@@ -113,5 +115,5 @@ rm -rf ~/.dotfiles
 
 This project uses open source components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
 
-* [Mathias’s dotfiles](https://github.com/mathiasbynens/dotfiles) by Mathias Bynens (MIT)
+* [Mathias' dotfiles](https://github.com/mathiasbynens/dotfiles) by Mathias Bynens (MIT)
 * [holman does dotfiles](https://github.com/holman/dotfiles) by Zach Holman (MIT)
