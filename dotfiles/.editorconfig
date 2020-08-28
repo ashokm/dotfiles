@@ -1,38 +1,45 @@
-# http://editorconfig.org
+# https://editorconfig.org
 
 root = true
 
 [*]
 charset = utf-8
 end_of_line = lf
-insert_final_newline = true
-trim_trailing_whitespace = true
 indent_style = space
+insert_final_newline = true
 max_line_length = 120
+trim_trailing_whitespace = true
 
 [{.bash*,*.sh}]
 indent_size = 2
 max_line_length = 80
 
-[*.{css,js,json,ts}]
+[*.{css,ts,json,js,tsx,jsx}]
 indent_size = 2
-continuation_indent_size = 2
+indent_style = space
+max_line_length = 80
 
-[{*.gradle,*.groovy,Jenkinsfile}]
+[Dockerfile]
+indent_size = 2
+indent_style = space
+
+[{*.gradle,*.groovy,*Jenkinsfile*}]
 indent_size = 4
 
 [*.html]
 indent_size = 2
 
 [*.java]
+indent_size = 2
 max_line_length = 100
-indent_size = 4
-continuation_indent_size = 8
+continuation_indent_size = 4
 
 [*.j2]
 end_of_line = lf
 
 [*.md]
+indent_size = 2
+indent_style = space
 trim_trailing_whitespace = false
 
 [*.{ps1,psm1}]
@@ -44,9 +51,10 @@ indent_size = 4
 max_line_length = 80
 
 [*.xml]
-indent_style = tab
 indent_size = 4
+indent_style = tab
 
 [*.{yml,yaml}]
-max_line_length = 100
 indent_size = 2
+indent_style = space
+max_line_length = 100
