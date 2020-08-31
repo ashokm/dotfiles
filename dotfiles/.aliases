@@ -15,6 +15,11 @@ alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
+if test "$(uname -s)" = "Darwin"; then
+  alias ij='open -a "IntelliJ IDEA CE.app"'
+elif test "$(uname -s)" = "Linux"; then
+  alias ij='idea64.exe'
+fi
 if test "$(uname -s)" = "Linux"; then
   alias pbcopy='clip.exe'
 fi
