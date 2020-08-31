@@ -52,7 +52,7 @@
 
 ##################################################
 [diff]
-	tool = vscode
+	tool = intellij
 	compactionHeuristic = true
 
 	# Detect copies as well as renames.
@@ -62,9 +62,9 @@
 	# Use `hexdump` to diff binary files.
 	textconv = hexdump -v -C
 
-[difftool "vscode"]
-  cmd = code --wait --diff $LOCAL $REMOTE
-  trustExitCode = true
+[difftool "intellij"]
+    cmd = idea diff \"$LOCAL\" \"$REMOTE\"
+    trustExitCode = true
 
 ##################################################
 [help]
@@ -80,13 +80,13 @@
 
 ##################################################
 [merge]
-	tool = vscode
+	tool = intellij
 	stat = true
 	log = true
 
-[mergetool "vscode"]
-  cmd = code --wait $MERGED
-  trustExitCode = true
+[mergetool "intellij"]
+    cmd = idea merge \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+    trustExitCode = true
 
 ##################################################
 [user]
