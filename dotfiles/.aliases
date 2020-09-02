@@ -212,6 +212,32 @@ alias gstal='git stash list'
 alias gstap='git stash pop'
 alias gt='git tag -l'
 
+# Docker stuff
+## Docker Images
+alias dkri='docker images'
+alias dkrrmi='docker rmi'
+alias dkrbu='docker build'
+alias dkrrmi-all='docker rmi $* $(docker images -a -q)'
+alias dkrrmi-dang='docker rmi $* $(docker images -q -f "dangling=true") --force'
+
+## Docker Containers
+alias dkrc='docker ps'
+alias dkrcl='docker ps -l $*'
+alias dkrrm='docker rm'
+alias dkrexec='docker exec'
+alias dkrlogs='docker logs'
+alias dkrip='docker inspect --format "{{ .NetworkSettings.IPAddress }}" $*'
+alias dkrstop-all='docker stop $* $(docker ps -q -f "status=running")'
+alias dkrrm-stopped='docker rm $* $(docker ps -q -f "status=exited")'
+alias dkrrmv-stopped='docker rm -v $* $(docker ps -q -f "status=exited")'
+alias dkrrm-all='docker rm $* $(docker ps -a -q)'
+alias dkrrmv-all='docker rm -v $* $(docker ps -a -q)'
+
+## Docker Volumes
+alias dkrvls='docker volume ls $*'
+alias dkrvrm-all='docker volume rm $(docker volume ls -q)'
+alias dkrvrm-dang='docker volume rm $(docker volume ls -q -f "dangling=true")'
+
 # Random stuff
 alias ip='curl -s https://canihazip.com/s'
 alias weather='clear; curl http://wttr.in/'
