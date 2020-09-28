@@ -47,6 +47,6 @@ if test "$(command -v brew)"; then
   log "Updating installed Homebrew formulae"
   brew upgrade
   if test "$(uname -s)" = "Darwin"; then
-    brew cask upgrade
+    brew upgrade --cask
   fi
 fi
