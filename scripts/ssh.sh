@@ -35,5 +35,5 @@ if [[ -z "${CI_ENABLED}" ]]; then
     ssh-keygen -t rsa -C "${email}"
   fi
 else
-  log "[ci-skip] Creating ~/.ssh"
+  log "[skip ci] Creating ~/.ssh"
 fi

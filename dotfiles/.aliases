@@ -62,10 +62,13 @@ alias sudo='sudo '
 # Get week number
 alias week='date +%V'
 
+# Get timestamp
+alias timestamp='date +%Y%m%d%H%M%S'
+
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-# Get Software Updates, update installed Homebrew formulae etc
+# Get Software Updates, update installed Homebrew packages etc
 alias update='~/.dotfiles/scripts/update.sh'
 
 # Show active network interfaces
