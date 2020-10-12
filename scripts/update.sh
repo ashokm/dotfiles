@@ -30,21 +30,25 @@ fi
 
 # Update Brew
 if test "$(command -v brew)"; then
-  # Check your Homebrew system for potential problems
+  # Checking your Homebrew system for potential problems
   if [[ -z "${CI_ENABLED}" ]]; then
-    echo "[INFO] Check your Homebrew system for potential problems ..."
+    log "Checking your Homebrew system for potential problems"
     brew cleanup
     brew doctor
   else
-    echo "[ci-skip] Check your Homebrew system for potential problems ..."
+    echo "[skip ci] Checking your Homebrew system for potential problems"
   fi
 
-  # Ensure we’re using the latest version of Homebrew.
-  log "Updating Homebrew"
-  brew update
+  # Ensure we're using the latest version of Homebrew.
+  if [[ -z "${CI_ENABLED}" ]]; then
+    log "Updating Homebrew"
+    brew update
+  else
+    echo "[skip ci] Updating Homebrew"
+  fi
 
-  # Upgrade any already-installed formulae.
-  log "Updating installed Homebrew formulae"
+  # Upgrade any already-installed packages.
+  log "Updating installed Homebrew packages"
   brew upgrade
   if test "$(uname -s)" = "Darwin"; then
     brew upgrade --cask

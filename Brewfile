@@ -1,6 +1,5 @@
 if OS.linux?
   tap "linuxbrew/xorg"
-  brew "gcc"
   brew "adoptopenjdk@11"
 end
 
@@ -16,13 +15,13 @@ brew "cfn-lint"
 brew "csshx"
 brew "curl"
 brew "direnv"
+brew "gcc"
 brew "git"
 brew "git-archive-all"
 brew "git-crypt"
 brew "git-flow-avh"
 brew "git-lfs"
 brew "gnu-sed"
-brew "python"
 brew "shellcheck"
 brew "tree"
 brew "watch"
@@ -36,7 +35,6 @@ if OS.mac?
   brew "ffmpeg"
   brew "gnupg"
   brew "vim"
-  brew "youtube-dl"
 
   cask "1password"
   cask "adoptopenjdk11"
@@ -57,6 +55,7 @@ if OS.mac?
   cask "nordvpn"
   cask "sizeup"
   cask "spotify"
+  cask "spotmenu"
   cask "vlc"
   cask "whatsapp"
   cask "zoomus"
