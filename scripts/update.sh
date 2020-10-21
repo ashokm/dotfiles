@@ -40,8 +40,10 @@ if test "$(command -v brew)"; then
   fi
 
   # Ensure we’re using the latest version of Homebrew.
-  log "Updating Homebrew"
-  brew update
+  if [[ -z "${CI_ENABLED}" ]]; then
+    log "Updating Homebrew"
+    brew update
+  fi
 
   # Upgrade any already-installed formulae.
   log "Updating installed Homebrew formulae"
