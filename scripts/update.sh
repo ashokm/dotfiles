@@ -17,8 +17,6 @@ log() {
   echo "================================================================================"
 }
 
-CI_ENABLED=${CI:-}
-
 # Update OS Software
 if test "$(uname -s)" = "Darwin"; then
   log "Running macOS Software updates"
@@ -30,22 +28,14 @@ fi
 
 # Update Brew
 if test "$(command -v brew)"; then
-  # Checking your Homebrew system for potential problems
-  if [[ -z "${CI_ENABLED}" ]]; then
-    log "Checking your Homebrew system for potential problems"
-    brew cleanup
-    brew doctor
-  else
-    echo "[skip ci] Checking your Homebrew system for potential problems"
-  fi
-
   # Ensure we're using the latest version of Homebrew.
-  if [[ -z "${CI_ENABLED}" ]]; then
-    log "Updating Homebrew"
-    brew update
-  else
-    echo "[skip ci] Updating Homebrew"
-  fi
+  log "Updating Homebrew"
+  brew update
+
+  # Checking your Homebrew system for potential problems
+  log "Checking your Homebrew system for potential problems"
+  brew cleanup
+  brew doctor
 
   # Upgrade any already-installed packages.
   log "Updating installed Homebrew packages"
