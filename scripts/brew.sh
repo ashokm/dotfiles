@@ -21,8 +21,12 @@ log() {
 install() {
   log "Install Homebrew"
   if test ! "$(command -v brew)"; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/install.sh"
+    /bin/bash -c "$(curl -fsSL ${HOMEBREW_INSTALL_URL})"
   fi
+
+  echo "[INFO] Disable Homebrew analytics ..."
+  brew analytics off
 
   # Check your Homebrew system for potential problems
   if [[ -z "${CI_ENABLED}" ]]; then
@@ -73,7 +77,8 @@ uninstall() {
       fi
       echo "[INFO] Uninstall packages installed using Brew ..."
       brew remove --force "$(brew list)" && brew cleanup
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh)"
+      HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh"
+      /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
     fi
   else
     log "[skip ci] Uninstall Homebrew"
