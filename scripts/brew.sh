@@ -41,21 +41,26 @@ install() {
 }
 
 uninstall() {
-  if [[ -z "${CI_ENABLED}" ]]; then
-    log "Uninstall Homebrew"
-    # Check for Homebrew
-    if test "$(command -v brew)"; then
-      if test "$(uname -s)" = "Darwin"; then
-        echo "[INFO] Uninstall packages installed using Brew cask ..."
-        brew cask uninstall --force "$(brew list --cask)" && brew cask cleanup
+  log "Uninstall Homebrew"
+  # Check for Homebrew
+  if test "$(command -v brew)"; then
+    if test "$(uname -s)" = "Darwin"; then
+      if [[ "${CI_ENABLED}" ]]; then
+        # Workaround: Uninstall unwanted pre-installed packages on CI build agent
+        log "Uninstall unwanted pre-installed packages on CI build agent"
+        BREW_PACKAGES=('openssl@1.0.2t' 'python@2.7.17')
+        for package in "${BREW_PACKAGES[@]}"; do
+          brew uninstall --force "$package"
+        done
       fi
-      echo "[INFO] Uninstall packages installed using Brew ..."
-      brew remove --force "$(brew list)" && brew cleanup
-      HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh"
-      /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
+      echo "[INFO] Uninstall packages installed using Brew cask ..."
+      brew cask uninstall --force "$(brew list --cask)" && brew cask cleanup
     fi
-  else
-    log "[skip ci] Uninstall Homebrew"
+    echo "[INFO] Uninstall packages installed using Brew ..."
+    brew uninstall --force "$(brew list)" && brew cleanup
+
+    HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh"
+    /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
   fi
 }
 
