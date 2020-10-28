@@ -28,7 +28,7 @@ if [[ "${CI_ENABLED}" ]]; then
     log "Uninstall unwanted pre-installed packages on CI build agent"
     BREW_PACKAGES=('aws-sam-cli' 'session-manager-plugin' 'openssl@1.0.2t' 'python@2.7.17')
     for package in "${BREW_PACKAGES[@]}"; do
-      brew uninstall "$package" --force
+      brew uninstall --force "$package"
     done
     BREW_CASK_PACKAGES=('chromedriver' 'google-chrome')
     for package in "${BREW_CASK_PACKAGES[@]}"; do
@@ -54,7 +54,7 @@ if [[ "${CI_ENABLED}" ]]; then
       brew cask uninstall --force "$(brew list --cask)" && brew cask cleanup
     fi
     echo "[INFO] Uninstall packages installed using Brew ..."
-    brew remove --force "$(brew list)" && brew cleanup
+    brew uninstall --force "$(brew list)" && brew cleanup
 
     HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh"
     /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
