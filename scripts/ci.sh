@@ -54,7 +54,7 @@ if [[ "${CI_ENABLED}" ]]; then
       brew cask uninstall --force "$(brew list --cask)" && brew cask cleanup
     fi
     echo "[INFO] Uninstall packages installed using Brew ..."
-    brew uninstall --force "$(brew list)" && brew cleanup
+    brew uninstall --force "$(brew list --formula)" && brew cleanup
 
     HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh"
     /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
