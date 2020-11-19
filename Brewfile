@@ -34,6 +34,7 @@ if OS.mac?
   brew "ffmpeg"
   brew "gnupg"
   brew "vim"
+  brew "youtube-dl"
 
   cask "1password"
   cask "adoptopenjdk"
