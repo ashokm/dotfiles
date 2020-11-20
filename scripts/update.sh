@@ -35,7 +35,7 @@ if test "$(command -v brew)"; then
   # Checking your Homebrew system for potential problems
   log "Checking your Homebrew system for potential problems"
   brew cleanup
-  brew doctor
+  brew doctor || true
 
   # Upgrade any already-installed packages.
   log "Updating installed Homebrew packages"
