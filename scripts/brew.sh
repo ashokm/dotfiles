@@ -37,7 +37,7 @@ install() {
   # Check your Homebrew system for potential problems
   echo "[INFO] Check your Homebrew system for potential problems ..."
   brew cleanup
-  brew doctor
+  brew doctor || true
 }
 
 uninstall() {
