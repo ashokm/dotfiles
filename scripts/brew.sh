@@ -28,6 +28,9 @@ install() {
   echo "[INFO] Disable Homebrew analytics ..."
   brew analytics off
 
+  # Set temporary ulimit to prevent 'Error: Too many open files' when installing long-chained formula
+  ulimit -n 2048
+
   # Run Homebrew through the Brewfile
   echo "[INFO] Uninstall packages not listed in Brewfile ..."
   brew bundle cleanup --file="Brewfile" --force
