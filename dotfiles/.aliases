@@ -244,6 +244,7 @@ alias dkrvrm-dang='docker volume rm $(docker volume ls -q -f "dangling=true")'
 # Random stuff
 alias ip='curl -s https://canihazip.com/s'
 alias weather='clear; curl http://wttr.in/'
+alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 
 # Even more random stuff
 if test "$(uname -s)" = "Darwin"; then
