@@ -1,5 +1,7 @@
 if OS.linux?
   tap "linuxbrew/xorg"
+
+  brew "gcc"
   brew "adoptopenjdk"
 end
 
