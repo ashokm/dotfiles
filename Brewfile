@@ -1,6 +1,6 @@
 if OS.linux?
   tap "linuxbrew/xorg"
-  brew "adoptopenjdk@11"
+  brew "adoptopenjdk"
 end
 
 tap "homebrew/bundle"
@@ -34,9 +34,10 @@ if OS.mac?
   brew "ffmpeg"
   brew "gnupg"
   brew "vim"
+  brew "youtube-dl"
 
   cask "1password"
-  cask "adoptopenjdk11"
+  cask "adoptopenjdk"
   cask "corona-tracker"
   cask "cyberduck"
   cask "docker"
