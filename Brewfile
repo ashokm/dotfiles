@@ -1,14 +1,12 @@
-if OS.linux?
-  tap "linuxbrew/xorg"
-
-  brew "gcc"
-  brew "adoptopenjdk"
-end
-
 tap "homebrew/bundle"
 tap "homebrew/core"
+tap "homebrew/cask" if OS.mac?
+tap "adoptopenjdk/openjdk" if OS.mac?
+tap "linuxbrew/xorg" if OS.linux?
 
+brew "gcc" if OS.linux?
 brew "openssl@1.1"
+brew "openjdk@11" if OS.linux?
 brew "awscli"
 brew "bash"
 brew "bash-completion@2"
@@ -17,29 +15,26 @@ brew "cfn-lint"
 brew "csshx"
 brew "curl"
 brew "direnv"
+brew "ffmpeg" if OS.mac?
 brew "git"
 brew "git-archive-all"
 brew "git-crypt"
 brew "git-flow-avh"
 brew "git-lfs"
+brew "gnupg" if OS.mac?
 brew "gnu-sed"
 brew "shellcheck"
 brew "tree"
 brew "watch"
 brew "wget"
+brew "vim"
+brew "youtube-dl" if OS.mac?
 
 if OS.mac?
   cask_args appdir: "/Applications"
-  tap "homebrew/cask"
-  tap "adoptopenjdk/openjdk"
-
-  brew "ffmpeg"
-  brew "gnupg"
-  brew "vim"
-  brew "youtube-dl"
 
   cask "1password"
-  cask "adoptopenjdk"
+  cask "adoptopenjdk/openjdk/adoptopenjdk11"
   cask "corona-tracker"
   cask "cyberduck"
   cask "docker"
