@@ -6,6 +6,8 @@ on:
   push:
   pull_request:
 
+# GitHub Actions Virtual Environments - https://github.com/actions/virtual-environments
+
 jobs:
   ############
   # ShellCheck
@@ -29,17 +31,95 @@ jobs:
   # dotfiles - install
   ####################
   dotfiles-install:
-    runs-on: ${{ matrix.os }}
     needs: [shellcheck]
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-latest]
     env:
       CI: 1
+      # Uncomment to help debug Homebrew issues
+      # HOMEBREW_VERBOSE: 1
     steps:
       # Checkout
       - name: Checkout
         uses: actions/checkout@v1
+      # Remove unwanted packages on GitHub Actions image
+      - name: Remove unwanted packages on GitHub Actions image
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get purge -y azure-cli ghc* zulu* ant hhvm firefox google* dotnet* powershell mysql* mono* moby* adoptopenjdk* openjdk*
+          sudo apt-get autoremove -y --purge
+      # Workaround to allow installation of fontconfig on GitHub Actions image: https://github.com/Homebrew/actions/pull/118
+      - name: Remove fontconfig incompatible fonts on GitHub Actions image
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          # Workaround: Remove fontconfig incompatible fonts provided by the poppler installation in GitHub Actions image
+          sudo rm -rf /usr/share/fonts/cmap
+      # Remove unwanted Homebrew install on GitHub Actions image
+      - name: Remove unwanted Homebrew install on GitHub Actions image
+        env:
+          DIRS: /usr/local/Caskroom/ /usr/local/Cellar/ /usr/local/.com.apple.installer.keep /usr/local/Frameworks/ /usr/local/Homebrew/ /usr/local/aws-cli/ /usr/local/bin/ /usr/local/etc/ /usr/local/include/ /usr/local/lib/ /usr/local/man/ /usr/local/microsoft/ /usr/local/miniconda/ /usr/local/opt/ /usr/local/sbin/ /usr/local/share/ /usr/local/var/ /home/linuxbrew/
+        shell: bash
+        run: |
+          if test "$(command -v brew)"; then
+            BREW_PACKAGES=('aws-sam-cli' 'session-manager-plugin' 'openssl@1.0.2t' 'python@2.7.17')
+            for package in "${BREW_PACKAGES[@]}"; do
+              brew uninstall --force "$package"
+            done
+            BREW_CASK_PACKAGES=('chromedriver' 'google-chrome')
+            for package in "${BREW_CASK_PACKAGES[@]}"; do
+              brew cask uninstall --force "$package"
+            done
+            FILES="/usr/local/bin/aws
+            /usr/local/aws-cli/aws
+            /usr/local/bin/aws_completer
+            /usr/local/aws-cli/aws_completer"
+            for file in $FILES; do
+              if [ -f "$file" ]; then
+                echo "[INFO] Removing $file ..."
+                sudo rm "$file"
+              fi
+            done
+          fi
+
+          # Removing pre-installed Homebrew on CI build agent
+          if test "$(command -v brew)"; then
+            if test "$(uname -s)" = "Darwin"; then
+              echo "[INFO] Uninstall packages installed using Brew cask ..."
+              brew cask uninstall --force "$(brew list --cask)" && brew cask cleanup
+            fi
+            echo "[INFO] Uninstall packages installed using Brew ..."
+            brew uninstall --force "$(brew list --formula)" && brew cleanup
+
+            HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh"
+            /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
+
+            DIRS="/usr/local/Homebrew/
+            /usr/local/Caskroom/
+            /usr/local/Cellar/
+            /usr/local/.com.apple.installer.keep
+            /usr/local/Frameworks/
+            /usr/local/aws-cli/
+            /usr/local/bin/
+            /usr/local/etc/
+            /usr/local/include/
+            /usr/local/lib/
+            /usr/local/man/
+            /usr/local/microsoft/
+            /usr/local/miniconda/
+            /usr/local/opt/
+            /usr/local/sbin/
+            /usr/local/share/
+            /usr/local/var/
+            /home/linuxbrew/"
+            for dir in $DIRS; do
+              if [ -d "$dir" ]; then
+                echo "[INFO] Removing $dir ..."
+                sudo rm -rf "$dir"
+              fi
+            done
+          fi
       # Bootstrap - Install
       - name: Bootstrap - Install
         run: ./bootstrap.sh --install
@@ -48,8 +128,8 @@ jobs:
   # dotfiles - uninstall
   ######################
   dotfiles-uninstall:
-    runs-on: ${{ matrix.os }}
     needs: [dotfiles-install]
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [macOS-latest, ubuntu-latest]

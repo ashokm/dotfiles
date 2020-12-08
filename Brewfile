@@ -1,12 +1,12 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/cask" if OS.mac?
-tap "adoptopenjdk/openjdk" if OS.mac?
+tap "AdoptOpenJDK/openjdk" if OS.mac?
 tap "linuxbrew/xorg" if OS.linux?
 
 brew "gcc" if OS.linux?
 brew "openssl@1.1"
-brew "openjdk@11" if OS.linux?
+brew "adoptopenjdk@11" if OS.linux?
 brew "awscli"
 brew "bash"
 brew "bash-completion@2"
