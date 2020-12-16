@@ -57,7 +57,7 @@ uninstall() {
         done
       fi
       echo "[INFO] Uninstall packages installed using Brew cask ..."
-      brew cask uninstall --force "$(brew list --cask)" && brew cask cleanup
+      brew uninstall --cask --force "$(brew list --cask)" && brew cleanup
     fi
     echo "[INFO] Uninstall packages installed using Brew ..."
     brew uninstall --force "$(brew list --formula)" && brew cleanup

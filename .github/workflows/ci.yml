@@ -69,7 +69,7 @@ jobs:
             done
             BREW_CASK_PACKAGES=('chromedriver' 'google-chrome')
             for package in "${BREW_CASK_PACKAGES[@]}"; do
-              brew cask uninstall --force "$package"
+              brew uninstall --cask --force "$package"
             done
             FILES="/usr/local/bin/aws
             /usr/local/aws-cli/aws
@@ -87,7 +87,7 @@ jobs:
           if test "$(command -v brew)"; then
             if test "$(uname -s)" = "Darwin"; then
               echo "[INFO] Uninstall packages installed using Brew cask ..."
-              brew cask uninstall --force "$(brew list --cask)" && brew cask cleanup
+              brew uninstall --cask --force "$(brew list --cask)" && brew cleanup
             fi
             echo "[INFO] Uninstall packages installed using Brew ..."
             brew uninstall --force "$(brew list --formula)" && brew cleanup
