@@ -2,7 +2,6 @@ tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/cask" if OS.mac?
 tap "AdoptOpenJDK/openjdk" if OS.mac?
-tap "linuxbrew/xorg" if OS.linux?
 
 brew "gcc" if OS.linux?
 brew "openssl@1.1"
