@@ -10,20 +10,18 @@ insert_final_newline = true
 max_line_length = 120
 trim_trailing_whitespace = true
 
-[{.bash*,*.sh}]
+[{.bash*, *.sh}]
 indent_size = 2
 max_line_length = 80
 
-[*.{css,ts,json,js,tsx,jsx}]
+[*.{css, ts, json, js, tsx, jsx}]
 indent_size = 2
-indent_style = space
 max_line_length = 80
 
 [Dockerfile]
 indent_size = 2
-indent_style = space
 
-[{*.gradle,*.groovy,*Jenkinsfile*}]
+[{*.gradle, *.groovy, *Jenkinsfile*}]
 indent_size = 4
 
 [*.html]
@@ -32,18 +30,13 @@ indent_size = 2
 [*.java]
 indent_size = 2
 max_line_length = 100
-continuation_indent_size = 4
-
-[*.j2]
-end_of_line = lf
+ij_continuation_indent_size = 4
 
 [*.md]
 indent_size = 2
-indent_style = space
 trim_trailing_whitespace = false
 
-[*.{ps1,psm1}]
-charset = utf-8-bom
+[*.{ps1, psm1}]
 indent_size = 4
 
 [*.py]
@@ -54,7 +47,6 @@ max_line_length = 80
 indent_size = 4
 indent_style = tab
 
-[*.{yml,yaml}]
+[*.{yml, yaml}]
 indent_size = 2
-indent_style = space
 max_line_length = 100

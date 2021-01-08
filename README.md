@@ -4,7 +4,9 @@
 
 Your dotfiles are how you personalize your system. These are mine.
 
-**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
+**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and
+remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own
+risk!
 
 ## Prerequisites
 
@@ -27,8 +29,8 @@ cd ~/.dotfiles
 ./bootstrap.sh --install
 ```
 
-This will symlink the files in `~/.dotfiles/dotfiles` to your home directory.
-Everything is configured and tweaked within `~/.dotfiles`.
+This will symlink the files in `~/.dotfiles/dotfiles` to your home directory. Everything is configured and tweaked
+within `~/.dotfiles`.
 
 ### Specify the `$PATH`
 
@@ -42,9 +44,11 @@ export PATH="/usr/local/bin:$PATH"
 
 ### Add custom commands
 
-If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands without the need to fork this entire repository, or to add commands you don’t want to commit to a public repository.
+If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands
+without the need to fork this entire repository, or to add commands you don’t want to commit to a public repository.
 
-My `~/.extra` looks something like this (and I use `githome` and `gitwork` aliases to switch between home and work email addresses):
+My `~/.extra` looks something like this (and I use `githome` and `gitwork` aliases to switch between home and work email
+addresses):
 
 ```bash
 # Git credentials
@@ -96,7 +100,8 @@ $ git remote -v
 > origin  git@github.com:USERNAME/REPOSITORY.git (push)
 ```
 
-:octocat: [Reference](https://docs.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
+:
+octocat: [Reference](https://docs.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
 </details>
 
 ## Uninstall
@@ -113,7 +118,8 @@ rm -rf ~/.dotfiles
 
 ## Credits
 
-This project uses open source components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
+This project uses open source components. You can find the source code of their open source projects along with license
+information below. We acknowledge and are grateful to these developers for their contributions to open source.
 
 * [Mathias' dotfiles](https://github.com/mathiasbynens/dotfiles) by Mathias Bynens (MIT)
 * [holman does dotfiles](https://github.com/holman/dotfiles) by Zach Holman (MIT)
