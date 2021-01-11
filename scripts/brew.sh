@@ -19,10 +19,12 @@ log() {
 }
 
 install() {
-  log "Install Homebrew"
   if test ! "$(command -v brew)"; then
+  log "Install Homebrew"
     HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/install.sh"
     /bin/bash -c "$(curl -fsSL ${HOMEBREW_INSTALL_URL})"
+  else
+    log "Homebrew already installed"
   fi
 
   echo "[INFO] Disable Homebrew analytics ..."
@@ -44,9 +46,8 @@ install() {
 }
 
 uninstall() {
-  log "Uninstall Homebrew"
-  # Check for Homebrew
   if test "$(command -v brew)"; then
+    log "Uninstall Homebrew"
     if test "$(uname -s)" = "Darwin"; then
       if [[ "${CI_ENABLED}" ]]; then
         # Workaround: Uninstall unwanted pre-installed packages on CI build agent
@@ -64,6 +65,8 @@ uninstall() {
 
     HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh"
     /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
+  else
+    log "Homebrew already uninstalled"
   fi
 }
 

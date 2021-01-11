@@ -44,18 +44,21 @@ jobs:
       # Checkout
       - name: Checkout
         uses: actions/checkout@v1
+
       # Remove unwanted packages on GitHub Actions image
       - name: Remove unwanted packages on GitHub Actions image
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get purge -y azure-cli ghc* zulu* ant hhvm firefox google* dotnet* powershell mysql* mono* moby* adoptopenjdk* openjdk*
           sudo apt-get autoremove -y --purge
+
       # Workaround to allow installation of fontconfig on GitHub Actions image: https://github.com/Homebrew/actions/pull/118
       - name: Remove fontconfig incompatible fonts on GitHub Actions image
         if: matrix.os == 'ubuntu-latest'
         run: |
           # Workaround: Remove fontconfig incompatible fonts provided by the poppler installation in GitHub Actions image
           sudo rm -rf /usr/share/fonts/cmap
+
       # Remove unwanted Homebrew install on GitHub Actions image
       - name: Remove unwanted Homebrew install on GitHub Actions image
         env:
@@ -120,6 +123,33 @@ jobs:
               fi
             done
           fi
+
+      # Remove unwanted Miniconda install on GitHub Actions image
+      - name: Remove unwanted Miniconda install on GitHub Actions image
+        shell: bash
+        run: |
+          DIRS="/usr/local/miniconda/
+          /usr/share/miniconda/
+          $HOME/miniconda3/
+          $HOME/.conda/"
+
+          FILES="/usr/local/bin/conda
+          /usr/bin/conda"
+
+          for dir in $DIRS; do
+            if [ -d "$dir" ]; then
+              echo "[INFO] Removing $dir ..."
+              sudo rm -rf "$dir"
+            fi
+          done
+
+          for file in $FILES; do
+            if [ -f "$file" ]; then
+              echo "[INFO] Removing $file ..."
+              sudo rm "$file"
+            fi
+          done
+
       # Bootstrap - Install
       - name: Bootstrap - Install
         run: ./bootstrap.sh --install
@@ -139,6 +169,7 @@ jobs:
       # Checkout
       - name: Checkout
         uses: actions/checkout@v1
+
       # Bootstrap - Uninstall
       - name: Bootstrap - Uninstall
         run: ./bootstrap.sh --uninstall
