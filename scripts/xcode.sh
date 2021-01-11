@@ -22,7 +22,7 @@ install() {
       log "Install Xcode Command Line Tools"
       sudo xcode-select --install
     else
-      log "Command Line Tools already installed"
+      log "Xcode Command Line Tools already installed"
     fi
   fi
 }
@@ -33,7 +33,7 @@ uninstall() {
       log "Uninstall Xcode Command Line Tools"
       sudo rm -rf /Library/Developer/CommandLineTools
     else
-      log "Command Line Tools already uninstalled"
+      log "Xcode Command Line Tools already uninstalled"
     fi
   fi
 }

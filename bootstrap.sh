@@ -21,8 +21,10 @@ case "$1" in
   ./scripts/dotfiles.sh "$@"
   ./scripts/vim.sh "$@"
   ./scripts/brew.sh "$@"
+  ./scripts/miniconda.sh "$@"
   ;;
 "--uninstall")
+  ./scripts/miniconda.sh "$@"
   ./scripts/vim.sh "$@"
   ./scripts/brew.sh "$@"
   ./scripts/dotfiles.sh "$@"

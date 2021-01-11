@@ -81,3 +81,12 @@ if [[ $(command -v aws_completer) ]]; then
 else
   echo "[WARNING] A aws completer installation was not found!"
 fi
+
+##################################################
+# Conda setup
+##################################################
+if [ -d "$HOME/miniconda3/bin" ]; then
+  export PATH="$HOME/miniconda3/bin:$PATH"
+else
+  echo "[WARNING] A conda installation was not found!"
+fi
