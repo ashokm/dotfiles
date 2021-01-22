@@ -40,8 +40,9 @@ if [ -r /usr/libexec/java_home ]; then
   JAVA_HOME="$(/usr/libexec/java_home)"
   export JAVA_HOME
   export JDK_HOME=$JAVA_HOME
-elif [ -d /home/linuxbrew/.linuxbrew/opt/java11/bin ]; then
-  export PATH="/home/linuxbrew/.linuxbrew/opt/java11/bin:$PATH"
+elif [ -d "$(brew --prefix java11)/bin" ]; then
+  PATH="$(brew --prefix java11)/bin:$PATH"
+  export PATH
 else
   echo "[WARNING] JAVA_HOME was not found!"
 fi
