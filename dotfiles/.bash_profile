@@ -40,8 +40,9 @@ if [ -r /usr/libexec/java_home ]; then
   JAVA_HOME="$(/usr/libexec/java_home)"
   export JAVA_HOME
   export JDK_HOME=$JAVA_HOME
-elif [ -d /home/linuxbrew/.linuxbrew/opt/java11/bin ]; then
-  export PATH="/home/linuxbrew/.linuxbrew/opt/java11/bin:$PATH"
+elif [ -d "$(brew --prefix java11)/bin" ]; then
+  PATH="$(brew --prefix java11)/bin:$PATH"
+  export PATH
 else
   echo "[WARNING] JAVA_HOME was not found!"
 fi
@@ -94,9 +95,16 @@ fi
 ##################################################
 # NVM
 ##################################################
-if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
-  export NVM_DIR="$HOME/.nvm"
-  source "$(brew --prefix nvm)/nvm.sh"
-else
-  echo "[WARNING] A NVM installation was not found!"
-fi
+# if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
+#   export NVM_DIR="$HOME/.nvm"
+#   source "$(brew --prefix nvm)/nvm.sh"
+# else
+#   echo "[WARNING] A NVM installation was not found!"
+# fi
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# export NVM_DIR=~/.nvm
+# source $(brew --prefix nvm)/nvm.sh
