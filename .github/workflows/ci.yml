@@ -49,6 +49,7 @@ jobs:
       - name: Remove unwanted packages on GitHub Actions image
         if: matrix.os == 'ubuntu-latest'
         run: |
+          sudo apt-get update
           sudo apt-get purge -y azure-cli ghc* zulu* ant hhvm firefox google* dotnet* powershell mysql* mono* moby* adoptopenjdk* openjdk*
           sudo apt-get autoremove -y --purge
 
