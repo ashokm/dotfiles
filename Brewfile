@@ -22,11 +22,13 @@ brew "git-flow-avh"
 brew "git-lfs"
 brew "gnupg" if OS.mac?
 brew "gnu-sed"
+brew "nvm"
 brew "shellcheck"
 brew "tree"
 brew "watch"
 brew "wget"
 brew "vim"
+brew "yarn"
 brew "youtube-dl" if OS.mac?
 
 if OS.mac?

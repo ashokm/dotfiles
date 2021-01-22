@@ -90,3 +90,13 @@ if [ -d "$HOME/miniconda3/bin" ]; then
 else
   echo "[WARNING] A conda installation was not found!"
 fi
+
+##################################################
+# NVM
+##################################################
+if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  source "$(brew --prefix nvm)/nvm.sh"
+else
+  echo "[WARNING] A NVM installation was not found!"
+fi
