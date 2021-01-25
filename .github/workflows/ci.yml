@@ -50,7 +50,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get purge -y azure-cli ghc* zulu* ant hhvm firefox google* dotnet* powershell mysql* mono* moby* adoptopenjdk* openjdk*
+          sudo apt-get purge -y azure-cli ghc* zulu* ant hhvm firefox google* dotnet* powershell mysql* mono* moby* adoptopenjdk* openjdk* yarn
           sudo apt-get autoremove -y --purge
 
       # Workaround to allow installation of fontconfig on GitHub Actions image: https://github.com/Homebrew/actions/pull/118

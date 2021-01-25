@@ -20,14 +20,34 @@ log() {
 install() {
   # Install Linux software
   log "Install Linux software"
+  # Install specific packages on WSL
+  if [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
+    WSL_PACKAGES="python2-minimal"
+  else
+    WSL_PACKAGES=""
+  fi
   # shellcheck disable=SC2033
-  sudo apt-get install build-essential gnupg2 -y
+  sudo apt-get install build-essential gnupg2 ${WSL_PACKAGES} -y
+  log "Install Yarn"
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  # shellcheck disable=SC2033
+  sudo apt-get update && sudo apt-get install yarn -y
 }
 
 uninstall() {
   # Uninstall Linux software
+  log "Uninstall Yarn"
+  sudo rm -rf /etc/apt/sources.list.d/yarn.list
+  sudo apt-get purge yarn -y
   log "Uninstall Linux software"
-  sudo apt-get remove build-essential gnupg2 -y && sudo apt-get autoremove -y
+  # Uninstall specific packages on WSL
+  if [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
+    WSL_PACKAGES="python2-minimal"
+  else
+    WSL_PACKAGES=""
+  fi
+  sudo apt-get purge build-essential gnupg2 ${WSL_PACKAGES} -y && sudo apt-get autoremove -y
 }
 
 if test "$(uname -s)" = "Linux"; then
