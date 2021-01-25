@@ -22,6 +22,7 @@ brew "git-flow-avh"
 brew "git-lfs"
 brew "gnupg" if OS.mac?
 brew "gnu-sed"
+brew "nvm"
 brew "shellcheck"
 brew "tree"
 brew "watch"
