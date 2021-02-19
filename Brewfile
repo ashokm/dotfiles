@@ -55,5 +55,5 @@ if OS.mac?
   cask "spotmenu"
   cask "vlc"
   cask "whatsapp"
-  cask "zoomus"
+  cask "zoom"
 end
