@@ -48,6 +48,11 @@ else
 fi
 
 ##################################################
+# GRADLE_USER_HOME
+##################################################
+export GRADLE_USER_HOME="$HOME/.gradle"
+
+##################################################
 # direnv -- Unclutter your .profile (https://github.com/direnv/direnv)
 ##################################################
 if [[ $(command -v direnv) ]]; then
@@ -59,10 +64,18 @@ fi
 ##################################################
 # Bash completion
 ##################################################
-if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]]; then
-  source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-else
-  echo "[WARNING] A bash completion installation was not found!"
+if test "$(uname -s)" = "Darwin"; then
+  if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]]; then
+    source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+    else
+      echo "[WARNING] A bash completion installation was not found!"
+    fi
+elif test "$(uname -s)" = "Linux"; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    source "/usr/share/bash-completion/bash_completion"
+  else
+    echo "[WARNING] A bash completion installation was not found!"
+  fi
 fi
 
 ##################################################
