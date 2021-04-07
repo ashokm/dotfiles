@@ -2,11 +2,13 @@ tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/cask" if OS.mac?
 tap "AdoptOpenJDK/openjdk" if OS.mac?
+tap "aws/tap"
 
 brew "gcc" if OS.linux?
 brew "openssl@1.1"
 brew "adoptopenjdk@11" if OS.linux?
 brew "awscli"
+brew "aws-sam-cli"
 brew "bash"
 brew "bash-completion@2"
 brew "bat"
@@ -20,6 +22,7 @@ brew "git-archive-all"
 brew "git-crypt"
 brew "git-flow-avh"
 brew "git-lfs"
+brew "gradle"
 brew "gnupg" if OS.mac?
 brew "gnu-sed"
 brew "nvm"
