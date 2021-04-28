@@ -7,11 +7,12 @@ tap "aws/tap"
 brew "gcc" if OS.linux?
 brew "openssl@1.1"
 brew "adoptopenjdk@11" if OS.linux?
-brew "awscli"
 brew "aws-sam-cli"
+brew "awscli"
 brew "bash"
 brew "bash-completion@2"
 brew "bat"
+brew "bzip2"
 brew "cfn-lint"
 brew "csshx"
 brew "curl"
@@ -25,13 +26,23 @@ brew "git-lfs"
 brew "gradle"
 brew "gnupg" if OS.mac?
 brew "gnu-sed"
+brew "libffi" if OS.linux?
+brew "libxml2" if OS.linux?
+brew "libxmlsec1" if OS.linux?
 brew "nvm"
+brew "pyenv"
+brew "pyenv-virtualenv"
+brew "readline"
+brew "sqlite" if OS.linux?
+brew "sqlite3" if OS.mac?
 brew "shellcheck"
 brew "tree"
 brew "watch"
 brew "wget"
 brew "vim"
+brew "xz"
 brew "youtube-dl" if OS.mac?
+brew "zlib"
 
 if OS.mac?
   cask_args appdir: "/Applications"

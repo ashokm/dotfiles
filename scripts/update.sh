@@ -44,9 +44,3 @@ if test "$(command -v brew)"; then
     brew upgrade --cask
   fi
 fi
-
-# Update Conda
-if test "$(command -v conda)"; then
-  log "Updating Conda"
-  conda update conda -y
-fi

@@ -63,7 +63,7 @@ jobs:
       # Remove unwanted Homebrew install on GitHub Actions image
       - name: Remove unwanted Homebrew install on GitHub Actions image
         env:
-          DIRS: /usr/local/Caskroom/ /usr/local/Cellar/ /usr/local/.com.apple.installer.keep /usr/local/Frameworks/ /usr/local/Homebrew/ /usr/local/aws-cli/ /usr/local/bin/ /usr/local/etc/ /usr/local/include/ /usr/local/lib/ /usr/local/man/ /usr/local/microsoft/ /usr/local/miniconda/ /usr/local/opt/ /usr/local/sbin/ /usr/local/share/ /usr/local/var/ /home/linuxbrew/
+          DIRS: /usr/local/Caskroom/ /usr/local/Cellar/ /usr/local/.com.apple.installer.keep /usr/local/Frameworks/ /usr/local/Homebrew/ /usr/local/aws-cli/ /usr/local/bin/ /usr/local/etc/ /usr/local/include/ /usr/local/lib/ /usr/local/man/ /usr/local/microsoft/ /usr/local/opt/ /usr/local/sbin/ /usr/local/share/ /usr/local/var/ /home/linuxbrew/
         shell: bash
         run: |
           if test "$(command -v brew)"; then
@@ -111,7 +111,6 @@ jobs:
             /usr/local/lib/
             /usr/local/man/
             /usr/local/microsoft/
-            /usr/local/miniconda/
             /usr/local/opt/
             /usr/local/sbin/
             /usr/local/share/
@@ -124,32 +123,6 @@ jobs:
               fi
             done
           fi
-
-      # Remove unwanted Miniconda install on GitHub Actions image
-      - name: Remove unwanted Miniconda install on GitHub Actions image
-        shell: bash
-        run: |
-          DIRS="/usr/local/miniconda/
-          /usr/share/miniconda/
-          $HOME/miniconda3/
-          $HOME/.conda/"
-
-          FILES="/usr/local/bin/conda
-          /usr/bin/conda"
-
-          for dir in $DIRS; do
-            if [ -d "$dir" ]; then
-              echo "[INFO] Removing $dir ..."
-              sudo rm -rf "$dir"
-            fi
-          done
-
-          for file in $FILES; do
-            if [ -f "$file" ]; then
-              echo "[INFO] Removing $file ..."
-              sudo rm "$file"
-            fi
-          done
 
       # Bootstrap - Install
       - name: Bootstrap - Install

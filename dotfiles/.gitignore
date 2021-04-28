@@ -105,6 +105,9 @@ packer_cache/
 ### Python ###
 *.py[cod]
 
+### Unit test / coverage reports ###
+.pytest_cache/
+
 ### Vagrant ###
 .vagrant/
 

@@ -33,6 +33,29 @@ elif test "$(uname -s)" = "Linux"; then
   fi
 fi
 
+# Configure CFLAGS (compiler flags) and LDFLAGS (linker flags)
+# for compilers to be able to find brew installed libs (i.e. zlib, bzip2)
+if [[ $(command -v brew) ]]; then
+
+  function _brew_register_lib() {
+    local package="${1:?}"
+    local prefix="$_brew_opt/$package"
+
+    local include="$prefix/include"
+    if [[ -d "$include" ]]; then
+      export CFLAGS="$CFLAGS -I$include"
+    fi
+
+    local lib="$prefix/lib"
+    if [[ -d "$lib" ]]; then
+      export LDFLAGS="$LDFLAGS -L$lib"
+    fi
+  }
+
+  _brew_register_lib zlib
+  _brew_register_lib bzip2
+fi
+
 ##################################################
 # JAVA_HOME
 ##################################################
@@ -97,15 +120,6 @@ else
 fi
 
 ##################################################
-# Conda setup
-##################################################
-if [ -d "$HOME/miniconda3/bin" ]; then
-  export PATH="$HOME/miniconda3/bin:$PATH"
-else
-  echo "[WARNING] A conda installation was not found!"
-fi
-
-##################################################
 # NVM
 ##################################################
 if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
@@ -114,4 +128,15 @@ if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
   source "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 else
   echo "[WARNING] A NVM installation was not found!"
+fi
+
+##################################################
+# pyenv setup
+##################################################
+if [[ $(command -v pyenv) ]]; then
+  eval "$(pyenv init -)"
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+else
+  echo "[WARNING] A pyenv installation was not found!"
 fi
