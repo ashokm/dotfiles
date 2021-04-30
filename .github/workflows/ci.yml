@@ -13,7 +13,7 @@ jobs:
   # ShellCheck
   ############
   shellcheck:
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps:
       # Checkout
       - name: Checkout
@@ -21,7 +21,7 @@ jobs:
       # Validate shell scripts
       - name: ShellCheck
         run: |
-          sudo apt-get update -qqq && sudo apt-get install shellcheck -qqq -y
+          brew install shellcheck -q
           shellcheck --version
           shellcheck *.sh
           shellcheck dotfiles/.bash_profile dotfiles/.bashrc

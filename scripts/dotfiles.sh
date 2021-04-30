@@ -47,7 +47,3 @@ case "$1" in
   usage
   ;;
 esac
-
-# TODO:
-# Fix shellcheck SC2044 and SC2086 in this file
-# Add function to find and cleanup broken symlinks in $HOME

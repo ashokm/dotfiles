@@ -1,5 +1,4 @@
 # shellcheck shell=bash
-# shellcheck disable=SC1090,SC1091
 
 # Suppress macOS Catalina verbose message to use zsh as the default login shell
 # https://support.apple.com/en-gb/HT208050
@@ -12,7 +11,8 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
 for file in ~/.{path,bash_prompt,exports,aliases,extra}; do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+  # shellcheck disable=SC1090
+	[ -r "$file" ] && [ -f "$file" ] && . "$file";
 done;
 unset file;
 
@@ -66,13 +66,15 @@ fi
 ##################################################
 if test "$(uname -s)" = "Darwin"; then
   if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]]; then
-    source "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+    # shellcheck disable=SC1091
+    . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
     else
       echo "[WARNING] A bash completion installation was not found!"
     fi
 elif test "$(uname -s)" = "Linux"; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
-    source "/usr/share/bash-completion/bash_completion"
+    # shellcheck disable=SC1091
+    . "/usr/share/bash-completion/bash_completion"
   else
     echo "[WARNING] A bash completion installation was not found!"
   fi
@@ -82,7 +84,8 @@ fi
 # Git completion
 ##################################################
 if [[ -r "$HOME/.git-completion.bash" ]]; then
-  source "$HOME/.git-completion.bash"
+  # shellcheck disable=SC1091
+  . "$HOME/.git-completion.bash"
 else
   echo "[WARNING] A git completion installation was not found!"
 fi
@@ -108,6 +111,7 @@ if [ -d "$HOME/miniconda3/bin" ]; then
       eval "$__conda_setup"
   else
       if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
+          # shellcheck disable=SC1091
           . "$HOME/miniconda3/etc/profile.d/conda.sh"
       else
           export PATH="$HOME/miniconda3/bin:$PATH"
@@ -124,8 +128,10 @@ fi
 ##################################################
 if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
   export NVM_DIR="$HOME/.nvm"
-  source "$(brew --prefix nvm)/nvm.sh"  # This loads nvm
-  source "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  # shellcheck disable=SC1091
+  . "$(brew --prefix nvm)/nvm.sh"  # This loads nvm
+  # shellcheck disable=SC1091
+  . "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 else
   echo "[WARNING] A NVM installation was not found!"
 fi
