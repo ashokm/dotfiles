@@ -16,6 +16,7 @@ brew "cfn-lint"
 brew "csshx"
 brew "curl"
 brew "direnv"
+brew "diff-so-fancy"
 brew "ffmpeg" if OS.mac?
 brew "git"
 brew "git-archive-all"
