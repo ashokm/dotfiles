@@ -39,9 +39,11 @@ fi
 if [ -r /usr/libexec/java_home ]; then
   JAVA_HOME="$(/usr/libexec/java_home)"
   export JAVA_HOME
-  export JDK_HOME=$JAVA_HOME
-elif [ -d "$(brew --prefix java11)/bin" ]; then
+elif [ -d "$(brew --prefix java11)/libexec/bin" ]; then
+  # shellcheck disable=SC2046
+  JAVA_HOME=$(dirname $( readlink -f $(brew --prefix java11)/libexec/bin/ ))
   PATH="$(brew --prefix java11)/bin:$PATH"
+  export JAVA_HOME
   export PATH
 else
   echo "[WARNING] JAVA_HOME was not found!"
