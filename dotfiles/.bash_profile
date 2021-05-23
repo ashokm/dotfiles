@@ -37,9 +37,14 @@ fi
 # JAVA_HOME
 ##################################################
 if [ -r /usr/libexec/java_home ]; then
-  JAVA_HOME="$(/usr/libexec/java_home)"
-  export JAVA_HOME
-  export JDK_HOME=$JAVA_HOME
+  # Switch between different JDK versions
+  # Change the version using 'jdk 1.8', 'jdk 11', etc
+  jdk() {
+    version=$1
+    JAVA_HOME="$(/usr/libexec/java_home -v"$version")"
+    export JAVA_HOME
+    java -version
+  }
 elif [ -d "$(brew --prefix java11)/bin" ]; then
   PATH="$(brew --prefix java11)/bin:$PATH"
   export PATH
