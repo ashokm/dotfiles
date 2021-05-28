@@ -6,6 +6,7 @@ tap "aws/tap"
 
 brew "gcc" if OS.linux?
 brew "openssl@1.1"
+brew "adoptopenjdk@8" if OS.linux?
 brew "adoptopenjdk@11" if OS.linux?
 brew "awscli"
 brew "aws-sam-cli"
@@ -38,6 +39,7 @@ if OS.mac?
   cask_args appdir: "/Applications"
 
   cask "1password"
+  cask "adoptopenjdk/openjdk/adoptopenjdk8"
   cask "adoptopenjdk/openjdk/adoptopenjdk11"
   cask "corona-tracker"
   cask "cyberduck"

@@ -45,9 +45,19 @@ if [ -r /usr/libexec/java_home ]; then
     export JAVA_HOME
     java -version
   }
-elif [ -d "$(brew --prefix java11)/bin" ]; then
-  PATH="$(brew --prefix java11)/bin:$PATH"
-  export PATH
+elif [ -d "$(brew --prefix)/opt/openjdk" ]; then
+  # Switch between different JDK versions
+  # Change the version using 'jdk8', 'jdk11', etc
+  jdk() {
+    version=$1
+    PATH="$(brew --prefix)/opt/openjdk@$version/bin:$PATH"
+    CPPFLAGS="-I$(brew --prefix)/opt/openjdk@$version/include"
+    JAVA_HOME="$(brew --prefix)/opt/openjdk@$version/bin/java"
+    export PATH
+    export CPPFLAGS
+    export JAVA_HOME
+    java -version
+  }
 else
   echo "[WARNING] JAVA_HOME was not found!"
 fi
