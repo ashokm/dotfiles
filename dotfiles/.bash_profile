@@ -52,7 +52,7 @@ elif [ -d "$(brew --prefix)/opt/openjdk" ]; then
     version=$1
     PATH="$(brew --prefix)/opt/openjdk@$version/bin:$PATH"
     CPPFLAGS="-I$(brew --prefix)/opt/openjdk@$version/include"
-    JAVA_HOME="$(brew --prefix)/opt/openjdk@$version/bin/java"
+    JAVA_HOME="$(brew --prefix)/opt/openjdk@$version/libexec/"
     export PATH
     export CPPFLAGS
     export JAVA_HOME
