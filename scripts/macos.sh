@@ -599,14 +599,23 @@ log "Photos"
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
 ###############################################################################
-log "SizeUp.app"
+log "Rectangle.app"
 ###############################################################################
 
-# Start SizeUp at login
-defaults write com.irradiatedsoftware.SizeUp StartAtLogin -bool true
-
-# Don’t show the preferences window on next start
-defaults write com.irradiatedsoftware.SizeUp ShowPrefsOnNextStart -bool false
+# Check for updates automatically
+defaults write com.knollsoft.Rectangle SUEnableAutomaticChecks -bool true
+# Restore Default Keyboard Shortcuts
+defaults write com.knollsoft.Rectangle alternateDefaultShortcuts -bool true
+# Gaps between windows
+defaults write com.knollsoft.Rectangle gapSize -int 0
+# Hide menu bar icon
+defaults write com.knollsoft.Rectangle hideMenubarIcon -bool false
+# Launch on login
+defaults write com.knollsoft.Rectangle launchOnLogin -bool true
+# Disable 'Snap windows by dragging'
+defaults write com.knollsoft.Rectangle windowSnapping -int 2
+# Move to adjacent display on repeated left or right commands
+defaults write com.knollsoft.Rectangl subsequentExecutionMode -int 1
 
 ###############################################################################
 log "MenuMeters.prefPane"
@@ -635,7 +644,7 @@ for app in "Activity Monitor" \
   "Finder" \
   "Photos" \
   "Safari" \
-  "SizeUp" \
+  "Rectangle" \
   "SystemUIServer" \
   "Terminal"; do
   killall "${app}" &>/dev/null

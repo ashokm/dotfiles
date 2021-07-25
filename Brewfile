@@ -56,7 +56,7 @@ if OS.mac?
   cask "menumeters"
   cask "microsoft-teams"
   cask "nordvpn"
-  cask "sizeup"
+  cask "rectangle"
   cask "spotify"
   cask "spotmenu"
   cask "vlc"
