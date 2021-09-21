@@ -147,8 +147,8 @@ fi
 # CAT stuff
 # sharkdp/bat: A cat(1) clone with wings - https://github.com/sharkdp/bat
 if test "$(command -v bat)"; then
-  alias cat='bat -n --theme="AppleInterfaceStyle"'
-  alias caat='bat -pp --theme="AppleInterfaceStyle"'
+  alias cat="bat -n"
+  alias caat="bat -pp"
 fi
 
 # Conda stuff
