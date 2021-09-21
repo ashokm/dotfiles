@@ -144,8 +144,12 @@ if test "$(uname -s)" = "Darwin"; then
   alias sed="gsed"
 fi
 
+# CAT stuff
 # sharkdp/bat: A cat(1) clone with wings - https://github.com/sharkdp/bat
-alias cat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo default || echo GitHub)"
+if test "$(command -v bat)"; then
+  alias cat='bat -n --theme="AppleInterfaceStyle"'
+  alias caat='bat -pp --theme="AppleInterfaceStyle"'
+fi
 
 # Conda stuff
 alias ca="conda activate"
@@ -256,7 +260,7 @@ alias dkrvrm-all='docker volume rm $(docker volume ls -q)'
 alias dkrvrm-dang='docker volume rm $(docker volume ls -q -f "dangling=true")'
 
 # Random stuff
-alias ip='curl -s https://canihazip.com/s'
+alias ip='curl https://icanhazip.com/'
 alias weather='clear; curl http://wttr.in/'
 alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 
