@@ -14,7 +14,7 @@ brew "bash"
 brew "bash-completion@2"
 brew "bat"
 brew "cfn-lint"
-brew "csshx"
+brew "csshx" if OS.mac?
 brew "curl"
 brew "direnv"
 brew "diff-so-fancy"
