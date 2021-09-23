@@ -9,15 +9,15 @@ on:
 # GitHub Actions Virtual Environments - https://github.com/actions/virtual-environments
 
 jobs:
-  ############
-  # ShellCheck
-  ############
+  ########################################
+  # Lint
+  ########################################
   shellcheck:
     runs-on: macOS-latest
     steps:
       # Checkout
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       # Validate shell scripts
       - name: ShellCheck
         run: |
@@ -27,11 +27,25 @@ jobs:
           shellcheck dotfiles/.bash_profile dotfiles/.bashrc
           shellcheck scripts/*.sh
 
-  ####################
+  ########################################
+  # SAST
+  ########################################
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'                              # fetch-depth of '0' clones the entire history
+      # Run SAST tool for detecting hardcoded secrets like passwords, api keys, and tokens in Git repos
+      - name: Gitleaks
+        uses: zricethezav/gitleaks-action@v1.6.0        # https://github.com/marketplace/actions/gitleaks
+
+  ########################################
   # dotfiles - install
-  ####################
+  ########################################
   dotfiles-install:
-    needs: [ shellcheck ]
+    needs: [ shellcheck, gitleaks ]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -43,7 +57,7 @@ jobs:
     steps:
       # Checkout
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       # Remove unwanted packages on GitHub Actions image
       - name: Remove unwanted packages on GitHub Actions image
@@ -155,9 +169,9 @@ jobs:
       - name: Bootstrap - Install
         run: ./bootstrap.sh --install
 
-  ######################
+  ########################################
   # dotfiles - uninstall
-  ######################
+  ########################################
   dotfiles-uninstall:
     needs: [ dotfiles-install ]
     runs-on: ${{ matrix.os }}
@@ -169,7 +183,7 @@ jobs:
     steps:
       # Checkout
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       # Bootstrap - Uninstall
       - name: Bootstrap - Uninstall
