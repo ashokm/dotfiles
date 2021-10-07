@@ -20,9 +20,6 @@ brew "direnv"
 brew "diff-so-fancy"
 brew "ffmpeg" if OS.mac?
 brew "git"
-brew "git-archive-all"
-brew "git-crypt"
-brew "git-flow-avh"
 brew "git-lfs"
 brew "gradle"
 brew "gnupg" if OS.mac?
