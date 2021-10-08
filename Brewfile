@@ -45,7 +45,6 @@ if OS.mac?
   cask "evernote"
   cask "flux"
   cask "google-chrome"
-  cask "google-photos-backup-and-sync"
   cask "gpg-suite"
   cask "intellij-idea-ce"
   cask "jiggler"
