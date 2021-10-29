@@ -1,13 +1,12 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/cask" if OS.mac?
-tap "AdoptOpenJDK/openjdk" if OS.mac?
 tap "aws/tap"
 
 brew "gcc" if OS.linux?
 brew "openssl@1.1"
-brew "adoptopenjdk@8" if OS.linux?
-brew "adoptopenjdk@11" if OS.linux?
+brew "openjdk@8"
+brew "openjdk@11"
 brew "awscli"
 brew "aws-sam-cli"
 brew "bash"
@@ -36,8 +35,6 @@ if OS.mac?
   cask_args appdir: "/Applications"
 
   cask "1password"
-  cask "adoptopenjdk/openjdk/adoptopenjdk8"
-  cask "adoptopenjdk/openjdk/adoptopenjdk11"
   cask "corona-tracker"
   cask "cyberduck"
   cask "docker"
