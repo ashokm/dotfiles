@@ -23,7 +23,7 @@ if test "$(uname -s)" = "Darwin"; then
   sudo softwareupdate --install --all
 elif test "$(uname -s)" = "Linux"; then
   log "Running Linux Software updates"
-  sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean
+  sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt clean
 fi
 
 # Update Brew
