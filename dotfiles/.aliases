@@ -70,6 +70,9 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 
 # Get Software Updates, update installed Homebrew packages etc
 alias update='~/.dotfiles/scripts/update.sh'
+if test "$(uname -s)" = "Linux"; then
+  alias update-os="sudo do-release-upgrade -d"
+fi
 
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
