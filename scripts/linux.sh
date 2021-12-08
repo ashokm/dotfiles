@@ -27,19 +27,19 @@ install() {
     WSL_PACKAGES=""
   fi
   # shellcheck disable=SC2033
-  sudo apt-get install build-essential gnupg2 "${WSL_PACKAGES}" -y
+  sudo apt install build-essential gnupg2 "${WSL_PACKAGES}" -y
   log "Install Yarn"
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   # shellcheck disable=SC2033
-  sudo apt-get update && sudo apt-get install yarn -y
+  sudo apt update && sudo apt install yarn -y
 }
 
 uninstall() {
   # Uninstall Linux software
   log "Uninstall Yarn"
   sudo rm -rf /etc/apt/sources.list.d/yarn.list
-  sudo apt-get purge yarn -y
+  sudo apt purge yarn -y
   log "Uninstall Linux software"
   # Uninstall specific packages on WSL
   if [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
@@ -47,7 +47,7 @@ uninstall() {
   else
     WSL_PACKAGES=""
   fi
-  sudo apt-get purge build-essential gnupg2 "${WSL_PACKAGES}" -y && sudo apt-get autoremove -y
+  sudo apt purge build-essential gnupg2 "${WSL_PACKAGES}" -y && sudo apt autoremove -y
 }
 
 if test "$(uname -s)" = "Linux"; then
