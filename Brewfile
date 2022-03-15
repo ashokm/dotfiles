@@ -7,6 +7,7 @@ brew "gcc" if OS.linux?
 brew "openssl@1.1"
 brew "openjdk@8"
 brew "openjdk@11"
+brew "openjdk@17"
 brew "awscli"
 brew "aws-sam-cli"
 brew "bash"

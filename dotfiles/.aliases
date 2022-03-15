@@ -161,11 +161,11 @@ alias cda="conda deactivate"
 # Java/JDK stuff
 if test "$(uname -s)" = "Darwin"; then
   alias jdk8="jdk 1.8"
-  alias jdk11="jdk 11"
 elif test "$(uname -s)" = "Linux"; then
   alias jdk8="jdk 8"
-  alias jdk11="jdk 11"
 fi
+alias jdk11="jdk 11"
+alias jdk17="jdk 17"
 
 # Git stuff
 alias githome="sed -i 's/GIT_AUTHOR_EMAIL.*/GIT_AUTHOR_EMAIL=\"\$GIT_HOME_EMAIL\"/g' ~/.extra && sed -i 's/GIT_COMMITTER_EMAIL.*/GIT_COMMITTER_EMAIL=\"\$GIT_HOME_EMAIL\"/g' ~/.extra && sed -i 's/git config --global user.email.*/git config --global user.email \"\$GIT_HOME_EMAIL\"/g' ~/.extra && reload"
@@ -189,8 +189,8 @@ alias g='git'
 alias ga='git add'
 alias gb='git branch --all'
 alias gbd='git branch -D'
-alias gbda='git branch | grep -v "master" | xargs git branch -D'
-alias gbdm="git branch --merged master | grep -v '^[ *]*master$' | xargs git branch -d"
+alias gbda='git branch | grep -vE "^([+*]|\s*(main|master|develop)\s*$)" | xargs git branch -D'
+alias gbdm='git branch --merged | grep -vE "^([+*]|\s*(main|master|develop)\s*$)" | xargs git branch -d'
 alias gbl='git branch -l'
 alias gcl='git clone'
 alias gcm='git commit'

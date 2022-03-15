@@ -38,7 +38,7 @@ fi
 ##################################################
 if [ -r /usr/libexec/java_home ]; then
   # Switch between different JDK versions
-  # Change the version using 'jdk 1.8', 'jdk 11', etc
+  # Change the version using 'jdk 1.8', 'jdk 11', 'jdk 17' etc
   jdk() {
     version=$1
     JAVA_HOME="$(/usr/libexec/java_home -v"$version")"
@@ -47,7 +47,7 @@ if [ -r /usr/libexec/java_home ]; then
   }
 elif [ -d "$(brew --prefix)/opt/openjdk" ]; then
   # Switch between different JDK versions
-  # Change the version using 'jdk8', 'jdk11', etc
+  # Change the version using 'jdk8', 'jdk11', 'jdk 17' etc
   jdk() {
     version=$1
     PATH="$(brew --prefix)/opt/openjdk@$version/bin:$PATH"

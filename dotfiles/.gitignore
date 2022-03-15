@@ -7,8 +7,12 @@
 *.molecule
 
 ### Amazon Web Services (AWS) ###
-# AWS SAM Configuration
+# AWS SAM
 .aws-sam/
+
+# CDK asset staging directory
+.cdk.staging/
+cdk.out/
 
 ### Eclipse ###
 .classpath
