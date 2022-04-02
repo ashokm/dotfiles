@@ -1,6 +1,7 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
 tap "homebrew/cask" if OS.mac?
+tap "homebrew/cask-drivers" if OS.mac?
 tap "aws/tap"
 
 brew "gcc" if OS.linux?
@@ -38,6 +39,7 @@ if OS.mac?
   cask "1password"
   cask "corona-tracker"
   cask "cyberduck"
+  cask "displaylink"
   cask "docker"
   cask "dropbox"
   cask "evernote"
