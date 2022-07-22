@@ -19,6 +19,10 @@ cdk.out/
 .project
 .settings/
 
+### Gradle ###
+.gradle
+**/build/
+
 ### Homebrew ###
 Brewfile.lock.json
 
@@ -27,6 +31,10 @@ Brewfile.lock.json
 .idea_modules/
 *.iml
 *.iws
+
+### Java ###
+# Compiled class files
+*.class
 
 ### Node ###
 # Logs

@@ -21,6 +21,17 @@ log() {
 if test "$(uname -s)" = "Darwin"; then
   log "Running macOS Software updates"
   sudo softwareupdate --install --all
+
+  # For M1 Macs
+  if test "$(uname -m)" = "arm64"; then
+    if test ! "$(/usr/bin/pgrep oahd)"; then
+      log "Install Rosetta 2"
+        sudo softwareupdate --install-rosetta --agree-to-license
+      else
+        log "Rosetta 2 already installed"
+      fi
+  fi
+
 elif test "$(uname -s)" = "Linux"; then
   log "Running Linux Software updates"
   sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt clean
