@@ -22,6 +22,8 @@ unset file;
 if test "$(uname -s)" = "Darwin"; then
   if [[ $(command -v brew) ]]; then
     eval "$($(command -v brew) shellenv)"
+  elif [ -r /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
   else
     echo "[WARNING] A Homebrew installation was not found!"
   fi

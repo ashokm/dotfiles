@@ -16,7 +16,11 @@ alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
 if test "$(uname -s)" = "Darwin"; then
-  alias ij='open -a "IntelliJ IDEA CE.app"'
+  if test "$(uname -m)" = "arm64"; then
+    alias ij='open -a "IntelliJ IDEA.app"'
+  else
+    alias ij='open =a "IntelliJ IDEA CE.app"'
+  fi
 elif test "$(uname -s)" = "Linux"; then
   alias ij='idea64.exe'
 fi

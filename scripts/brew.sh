@@ -21,7 +21,7 @@ log() {
 install() {
   if test ! "$(command -v brew)"; then
   log "Install Homebrew"
-    HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/install.sh"
+    HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
     /bin/bash -c "$(curl -fsSL ${HOMEBREW_INSTALL_URL})"
   else
     log "Homebrew already installed"
@@ -63,7 +63,7 @@ uninstall() {
     echo "[INFO] Uninstall packages installed using Brew ..."
     brew uninstall --force "$(brew list --formula)" && brew cleanup
 
-    HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/master/uninstall.sh"
+    HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh"
     /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
   else
     log "Homebrew already uninstalled"
