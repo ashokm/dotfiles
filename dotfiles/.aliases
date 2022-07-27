@@ -176,7 +176,8 @@ alias githome="sed -i 's/GIT_AUTHOR_EMAIL.*/GIT_AUTHOR_EMAIL=\"\$GIT_HOME_EMAIL\
 alias gitwork="sed -i 's/GIT_AUTHOR_EMAIL.*/GIT_AUTHOR_EMAIL=\"\$GIT_WORK_EMAIL\"/g' ~/.extra && sed -i 's/GIT_COMMITTER_EMAIL.*/GIT_COMMITTER_EMAIL=\"\$GIT_WORK_EMAIL\"/g' ~/.extra && sed -i 's/git config --global user.email.*/git config --global user.email \"\$GIT_WORK_EMAIL\"/g' ~/.extra && reload"
 alias gitauthor='echo GIT_AUTHOR_NAME: $GIT_AUTHOR_NAME \| GIT_AUTHOR_EMAIL: $GIT_AUTHOR_EMAIL'
 
-grbi() {
+## Git interactive rebase
+function grbi() {
   if [ "$1" == "--help" ]; then
     echo "git rebase interactive options: [null defaults to HEAD~2] | <number of commits> | root " && return
   elif [ -z $1 ]; then
@@ -189,12 +190,17 @@ grbi() {
   git rebase -i $val
 }
 
+## Determine if the default Git branch (usually "master" or "main")
+function git_main_branch {
+  git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+}
+
 alias g='git'
 alias ga='git add'
 alias gb='git branch --all'
 alias gbd='git branch -D'
-alias gbda='git branch | grep -vE "^([+*]|\s*(main|master|develop)\s*$)" | xargs git branch -D'
-alias gbdm='git branch --merged | grep -vE "^([+*]|\s*(main|master|develop)\s*$)" | xargs git branch -d'
+alias gbda='git branch | grep -vE "^([+*]|\s*(`git_main_branch`|develop)\s*$)" | xargs git branch -D'
+alias gbdm='git branch --merged | grep -vE "^([+*]|\s*(`git_main_branch`|develop)\s*$)" | xargs git branch -d'
 alias gbl='git branch -l'
 alias gcl='git clone'
 alias gcm='git commit'
@@ -203,7 +209,7 @@ alias gcmara='git commit --amend --reset-author'
 alias gco='git checkout'
 alias gcob='git checkout -b'
 alias gcod='git checkout develop'
-alias gcom='git checkout master'
+alias gcom='git checkout `git_main_branch`'
 alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
 alias gcpc='git cherry-pick --continue'
@@ -216,19 +222,19 @@ alias gm='git merge'
 alias gmt='git mergetool --no-prompt'
 alias gph='git push'
 alias gphfo='git push --force origin'
-alias gphom='git push origin master'
+alias gphom='git push origin `git_main_branch`'
 alias gpl='git pull'
 alias gplo='git pull origin'
 alias gplrb='git pull --rebase'
-alias gplrbom='git pull --rebase origin master'
-alias gplrbum='git pull --rebase upstream master'
+alias gplrbom='git pull --rebase origin `git_main_branch`'
+alias gplrbum='git pull --rebase upstream `git_main_branch`'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbd='git rebase develop'
-alias grbm='git rebase master'
+alias grbm='git rebase `git_main_branch`'
 alias gremoteaddupstream='git remote add upstream'
 alias gremoteremoveupstream='git remote remove upstream'
-alias gremotesyncupstream='git fetch upstream && git checkout master && git merge upstream/master'
+alias gremotesyncupstream='git fetch upstream && git checkout `git_main_branch` && git merge upstream/`git_main_branch`'
 alias grsh='git reset --hard'
 alias grvt='git revert'
 alias grvtnc='git revert --no-commit'
