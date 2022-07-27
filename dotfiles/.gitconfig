@@ -4,6 +4,10 @@
 	whitespace = fix
 
 ##################################################
+[init]
+	defaultBranch = main
+
+##################################################
 [branch]
 	# Show most recently changed branches first.
 	sort = -committerdate
