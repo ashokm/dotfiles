@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # miniconda.sh
 #
@@ -7,7 +7,7 @@
 set -o errexit -o nounset -o pipefail
 
 usage() {
-  echo "Usage: $0 [--install | --uninstall]"
+  echo "Usage: $0 [--install | --uninstall | --update]"
 }
 
 log() {
@@ -19,17 +19,16 @@ log() {
 install() {
   if test ! "$(command -v conda)"; then
     log "Install Miniconda"
-    MINICONDA_MACOSX_INSTALL_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
-    MINICONDA_LINUX_INSTALL_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
-    echo "Downloading Miniconda ..."
-    if test "$(uname -s)" = "Darwin"; then
-      curl -fsSL ${MINICONDA_MACOSX_INSTALL_URL} -o /tmp/Miniconda3-latest-MacOSX-x86_64.sh
-    elif test "$(uname -s)" = "Linux"; then
-      curl -fsSL ${MINICONDA_LINUX_INSTALL_URL} -o /tmp/Miniconda3-latest-MacOSX-x86_64.sh
+    if test "$(uname -m)" = "arm64"; then
+      MINICONDA_MACOSX_INSTALL_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh"
+    elif test "$(uname -m)" = "x86_64"; then
+      MINICONDA_MACOSX_INSTALL_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
     fi
+    echo "Downloading Miniconda ..."
+    curl -fsSL ${MINICONDA_MACOSX_INSTALL_URL} -o /tmp/Miniconda3-latest-MacOSX.sh
     echo "Installing Miniconda ..."
-    chmod +x /tmp/Miniconda3-latest-MacOSX-x86_64.sh
-    /tmp/Miniconda3-latest-MacOSX-x86_64.sh -b && rm -rf /tmp/Miniconda3-latest-MacOSX-x86_64.sh
+    chmod +x /tmp/Miniconda3-latest-MacOSX.sh
+    /tmp/Miniconda3-latest-MacOSX.sh -b && rm -rf /tmp/Miniconda3-latest-MacOSX.sh
   else
     log "Miniconda already installed"
   fi
@@ -38,10 +37,26 @@ install() {
 uninstall() {
   if test "$(command -v conda)"; then
     log "Uninstall Miniconda"
-    rm -rf "$HOME/miniconda3"
-    rm -rf "$HOME/.conda"
+
+    DIRS="$HOME/miniconda3/
+    $HOME/.conda/"
+
+    for dir in $DIRS; do
+      if [ -d "$dir" ]; then
+        echo "[INFO] Removing $dir ..."
+        sudo rm -rf "$dir"
+      fi
+    done
+
   else
     log "Miniconda already uninstalled"
+  fi
+}
+
+update() {
+  if test "$(command -v conda)"; then
+    log "Updating Conda"
+    conda update conda -y
   fi
 }
 
@@ -51,6 +66,9 @@ case "$1" in
   ;;
 "--uninstall")
   uninstall
+  ;;
+"--update")
+  update
   ;;
 *)
   usage

@@ -8,19 +8,6 @@ Your dotfiles are how you personalize your system. These are mine.
 remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own
 risk!
 
-## Prerequisites
-
-### macOS
-
-* None
-
-### Windows
-
-* Windows 10, version 2004, Build 19041 or higher
-* [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) (Windows Subsystem for Linux) with Ubuntu
-
-_[WSL 2 will be generally available in Windows 10, version 2004](https://devblogs.microsoft.com/commandline/wsl2-will-be-generally-available-in-windows-10-version-2004/)_
-
 ## Install
 
 ```bash
@@ -100,8 +87,7 @@ $ git remote -v
 > origin  git@github.com:USERNAME/REPOSITORY.git (push)
 ```
 
-:
-octocat: [Reference](https://docs.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
+:octocat: [Reference](https://docs.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
 </details>
 
 ## Uninstall
