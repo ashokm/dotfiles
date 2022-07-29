@@ -19,20 +19,10 @@ unset file;
 ##################################################
 # Homebrew
 ##################################################
-if test "$(uname -s)" = "Darwin"; then
-  if [[ $(command -v brew) ]]; then
-    eval "$($(command -v brew) shellenv)"
-  elif [ -r /opt/homebrew/bin/brew ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  else
-    echo "[WARNING] A Homebrew installation was not found!"
-  fi
-elif test "$(uname -s)" = "Linux"; then
-  if [ -r /home/linuxbrew/.linuxbrew/bin/brew ]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  else
-    echo "[WARNING] A Homebrew installation was not found!"
-  fi
+if [[ $(command -v brew) ]]; then
+  eval "$($(command -v brew) shellenv)"
+else
+  echo "[WARNING] A Homebrew installation was not found!"
 fi
 
 ##################################################
@@ -40,7 +30,7 @@ fi
 ##################################################
 if [ -r /usr/libexec/java_home ]; then
   # Switch between different JDK versions
-  # Change the version using 'jdk 1.8', 'jdk 11', 'jdk 17' etc
+  # Change the version using 'jdk 11', 'jdk 17' etc
   jdk() {
     version=$1
     JAVA_HOME="$(/usr/libexec/java_home -v"$version")"
@@ -49,7 +39,7 @@ if [ -r /usr/libexec/java_home ]; then
   }
 elif [ -d "$(brew --prefix)/opt/openjdk" ]; then
   # Switch between different JDK versions
-  # Change the version using 'jdk8', 'jdk11', 'jdk 17' etc
+  # Change the version using 'jdk 11', 'jdk 17' etc
   jdk() {
     version=$1
     PATH="$(brew --prefix)/opt/openjdk@$version/bin:$PATH"
@@ -81,20 +71,11 @@ fi
 ##################################################
 # Bash completion
 ##################################################
-if test "$(uname -s)" = "Darwin"; then
-  if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]]; then
-    # shellcheck disable=SC1091
-    . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
-    else
-      echo "[WARNING] A bash completion installation was not found!"
-    fi
-elif test "$(uname -s)" = "Linux"; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    # shellcheck disable=SC1091
-    . "/usr/share/bash-completion/bash_completion"
-  else
-    echo "[WARNING] A bash completion installation was not found!"
-  fi
+if [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]]; then
+  # shellcheck disable=SC1091
+  . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+else
+  echo "[WARNING] A bash completion installation was not found!"
 fi
 
 ##################################################

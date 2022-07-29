@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # xcode.sh
 #
@@ -17,24 +17,20 @@ log() {
 }
 
 install() {
-  if test "$(uname -s)" = "Darwin"; then
-    if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
-      log "Install Xcode Command Line Tools"
-      sudo xcode-select --install
-    else
-      log "Xcode Command Line Tools already installed"
-    fi
+  if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
+    log "Install Xcode Command Line Tools"
+    sudo xcode-select --install
+  else
+    log "Xcode Command Line Tools already installed"
   fi
 }
 
 uninstall() {
-  if test "$(uname -s)" = "Darwin"; then
-    if [[ -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
-      log "Uninstall Xcode Command Line Tools"
-      sudo rm -rf /Library/Developer/CommandLineTools
-    else
-      log "Xcode Command Line Tools already uninstalled"
-    fi
+  if [[ -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
+    log "Uninstall Xcode Command Line Tools"
+    sudo rm -rf /Library/Developer/CommandLineTools
+  else
+    log "Xcode Command Line Tools already uninstalled"
   fi
 }
 

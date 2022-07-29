@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # update.sh
 #
@@ -18,46 +18,21 @@ log() {
 }
 
 # Update OS Software
-if test "$(uname -s)" = "Darwin"; then
-  log "Running macOS Software updates"
-  sudo softwareupdate --install --all
+log "Running macOS Software updates"
+sudo softwareupdate --install --all
 
-  # For M1 Macs
-  if test "$(uname -m)" = "arm64"; then
-    if test ! "$(/usr/bin/pgrep oahd)"; then
-      log "Install Rosetta 2"
-        sudo softwareupdate --install-rosetta --agree-to-license
-      else
-        log "Rosetta 2 already installed"
-      fi
-  fi
-
-elif test "$(uname -s)" = "Linux"; then
-  log "Running Linux Software updates"
-  sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt clean
+# For M1 Macs
+if test "$(uname -m)" = "arm64"; then
+  if test ! "$(/usr/bin/pgrep oahd)"; then
+    log "Install Rosetta 2"
+      sudo softwareupdate --install-rosetta --agree-to-license
+    else
+      log "Rosetta 2 already installed"
+    fi
 fi
 
 # Update Brew
-if test "$(command -v brew)"; then
-  # Ensure we're using the latest version of Homebrew.
-  log "Updating Homebrew"
-  brew update
-
-  # Checking your Homebrew system for potential problems
-  log "Checking your Homebrew system for potential problems"
-  brew cleanup
-  brew doctor || true
-
-  # Upgrade any already-installed packages.
-  log "Updating installed Homebrew packages"
-  brew upgrade
-  if test "$(uname -s)" = "Darwin"; then
-    brew upgrade --cask
-  fi
-fi
+"$(dirname "$0")"/brew.sh --update
 
 # Update Conda
-if test "$(command -v conda)"; then
-  log "Updating Conda"
-  conda update conda -y
-fi
+"$(dirname "$0")"/miniconda.sh --update

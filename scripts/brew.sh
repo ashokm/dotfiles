@@ -1,15 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # brew.sh
 #
 # Install Homebrew
 
-# Fix "brew: command not found" when running bootstrap.sh on Linux
-
 set -o errexit -o nounset -o pipefail
 
 usage() {
-  echo "Usage: $0 [--install | --uninstall]"
+  echo "Usage: $0 [--install | --uninstall | --update | --clean]"
 }
 
 log() {
@@ -21,10 +19,16 @@ log() {
 install() {
   if test ! "$(command -v brew)"; then
   log "Install Homebrew"
-    HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
-    /bin/bash -c "$(curl -fsSL ${HOMEBREW_INSTALL_URL})"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   else
     log "Homebrew already installed"
+  fi
+
+  echo "[INFO] Add Homebrew to PATH ..."
+  if [ -r /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -r /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
   fi
 
   echo "[INFO] Disable Homebrew analytics ..."
@@ -39,38 +43,86 @@ install() {
   echo "[INFO] Install packages listed in Brewfile ..."
   brew bundle --file="Brewfile"
 
-  # Check your Homebrew system for potential problems
-  echo "[INFO] Check your Homebrew system for potential problems ..."
-  brew cleanup
-  brew doctor || true
+  clean
 }
 
 uninstall() {
   if test "$(command -v brew)"; then
     log "Uninstall Homebrew"
-    if test "$(uname -s)" = "Darwin"; then
-      if [[ "${CI_ENABLED}" ]]; then
-        # Workaround: Uninstall unwanted pre-installed packages on CI build agent
-        log "Uninstall unwanted pre-installed packages on CI build agent"
-        BREW_PACKAGES=('openssl@1.0.2t' 'python@2.7.17')
-        for package in "${BREW_PACKAGES[@]}"; do
-          brew uninstall --force "$package"
-        done
-      fi
-      echo "[INFO] Uninstall packages installed using Brew cask ..."
-      brew uninstall --cask --force "$(brew list --cask)" && brew cleanup
-    fi
     echo "[INFO] Uninstall packages installed using Brew ..."
-    brew uninstall --force "$(brew list --formula)" && brew cleanup
+    if test "$(brew list --formula)"; then
+      # shellcheck disable=SC2046
+      brew uninstall --force --ignore-dependencies $(brew list --formula)
+    fi
+    echo "[INFO] Uninstall packages installed using Brew cask ..."
+    if test "$(brew list --cask)"; then
+      # shellcheck disable=SC2046
+      brew uninstall --cask --force --ignore-dependencies $(brew list --cask)
+    fi
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
 
-    HOMEBREW_UNINSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh"
-    /bin/bash -c "$(curl -fsSL ${HOMEBREW_UNINSTALL_URL})"
+    DIRS="/usr/local/.com.apple.installer.keep
+          /usr/local/Frameworks/
+          /usr/local/Homebrew/
+          /usr/local/aws-cli/
+          /usr/local/bin/
+          /usr/local/etc/
+          /usr/local/include/
+          /usr/local/lib/
+          /usr/local/microsoft/
+          /usr/local/miniconda/
+          /usr/local/opt/
+          /usr/local/sbin/
+          /usr/local/share/
+          /usr/local/var/
+          /opt/homebrew/Frameworks/
+          /opt/homebrew/bin/
+          /opt/homebrew/etc/
+          /opt/homebrew/include/
+          /opt/homebrew/lib/
+          /opt/homebrew/opt/
+          /opt/homebrew/sbin/
+          /opt/homebrew/share/
+          /opt/homebrew/var/"
+
+    for dir in $DIRS; do
+      if [ -d "$dir" ]; then
+        echo "[INFO] Removing $dir ..."
+        sudo rm -rf "$dir"
+      fi
+    done
+
   else
     log "Homebrew already uninstalled"
   fi
 }
 
-CI_ENABLED=${CI:-}
+update() {
+  if test "$(command -v brew)"; then
+    log "Updating Homebrew"
+    brew update
+
+    log "Updating installed Homebrew packages"
+    brew upgrade
+    brew upgrade --cask
+
+    clean
+  fi
+}
+
+clean() {
+  if test "$(command -v brew)"; then
+    log "Running Homebrew maintenance"
+    echo "[INFO] Uninstall formulae that were only installed as a dependency of another formula and are now no longer needed"
+    brew autoremove
+
+    echo "[INFO] Remove stale lock files and outdated downloads for all formulae and casks"
+    brew cleanup
+
+    echo "[INFO] Checking your Homebrew system for potential problems"
+    brew doctor
+  fi
+}
 
 case "$1" in
 "--install")
@@ -78,6 +130,12 @@ case "$1" in
   ;;
 "--uninstall")
   uninstall
+  ;;
+"--update")
+  update
+  ;;
+"--clean")
+  clean
   ;;
 *)
   usage

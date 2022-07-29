@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 #
 # bootstrap.sh
 #
@@ -16,7 +16,6 @@ case "$1" in
 "--install")
   ./scripts/xcode.sh "$@"
   ./scripts/update.sh "$@"
-  ./scripts/linux.sh "$@"
   ./scripts/ssh.sh "$@"
   ./scripts/dotfiles.sh "$@"
   ./scripts/vim.sh "$@"
@@ -28,7 +27,6 @@ case "$1" in
   ./scripts/vim.sh "$@"
   ./scripts/brew.sh "$@"
   ./scripts/dotfiles.sh "$@"
-  ./scripts/linux.sh "$@"
   ./scripts/xcode.sh "$@"
   ;;
 *)

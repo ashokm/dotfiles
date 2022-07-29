@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
@@ -15,17 +15,10 @@ alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
-if test "$(uname -s)" = "Darwin"; then
-  if test "$(uname -m)" = "arm64"; then
-    alias ij='open -a "IntelliJ IDEA.app"'
-  else
-    alias ij='open =a "IntelliJ IDEA CE.app"'
-  fi
-elif test "$(uname -s)" = "Linux"; then
-  alias ij='idea64.exe'
-fi
-if test "$(uname -s)" = "Linux"; then
-  alias pbcopy='clip.exe'
+if test "$(uname -m)" = "arm64"; then
+  alias ij='open -a "IntelliJ IDEA.app"'
+else
+  alias ij='open -a "IntelliJ IDEA CE.app"'
 fi
 alias pubkey="pbcopy < ~/.ssh/id_rsa.pub | echo '-- Public key copied to pasteboard! -- '"
 alias ws="cd ~/Workspace"
@@ -74,70 +67,46 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 
 # Get Software Updates, update installed Homebrew packages etc
 alias update='~/.dotfiles/scripts/update.sh'
-if test "$(uname -s)" = "Linux"; then
-  alias update-os="sudo do-release-upgrade -d"
-fi
 
 # Show active network interfaces
 alias ifactive="ifconfig | pcregrep -M -o '^[^\t:]+:([^\n]|\n\t)*status: active'"
 
 # Flush Directory Service cache
-if test "$(uname -s)" = "Darwin"; then
-  alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
-fi
+alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 
 # Recursively delete `.DS_Store` files
-if test "$(uname -s)" = "Darwin"; then
-  alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
-fi
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.
 # Finally, clear download history from quarantine. https://mths.be/bum
-if test "$(uname -s)" = "Darwin"; then
-  alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
-fi
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl; sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'delete from LSQuarantineEvent'"
 
 # Show/hide hidden files in Finder
-if test "$(uname -s)" = "Darwin"; then
-  alias showallfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-  alias hideallfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-fi
+alias showallfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hideallfiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 
 # Hide/show all desktop icons (useful when presenting)
-if test "$(uname -s)" = "Darwin"; then
-  alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-  alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-fi
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
-if test "$(uname -s)" = "Darwin"; then
-  # Disable Spotlight
-  alias spotoff="sudo mdutil -a -i off"
-  # Enable Spotlight
-  alias spoton="sudo mdutil -a -i on"
-fi
+# Disable Spotlight
+alias spotoff="sudo mdutil -a -i off"
+# Enable Spotlight
+alias spoton="sudo mdutil -a -i on"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Start the screensaver (when going AFK)
-if test "$(uname -s)" = "Darwin"; then
-  alias zzz="open -a ScreenSaverEngine"
-elif [[ "$(</proc/sys/kernel/osrelease)" == *microsoft* ]]; then
-  alias zzz="rundll32.exe user32.dll,LockWorkStation"
-fi
+alias zzz="open -a ScreenSaverEngine"
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
-
-# WSL
-if test "$(command -v powershell.exe)"; then
-  alias shutdown="powershell.exe wsl --shutdown"
-fi
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
@@ -147,9 +116,7 @@ alias findf="find . -type f -iname "
 alias findd="find . -type d -iname "
 
 # Use gsed instead of sed
-if test "$(uname -s)" = "Darwin"; then
-  alias sed="gsed"
-fi
+alias sed="gsed"
 
 # CAT stuff
 # sharkdp/bat: A cat(1) clone with wings - https://github.com/sharkdp/bat
@@ -163,11 +130,6 @@ alias ca="conda activate"
 alias cda="conda deactivate"
 
 # Java/JDK stuff
-if test "$(uname -s)" = "Darwin"; then
-  alias jdk8="jdk 1.8"
-elif test "$(uname -s)" = "Linux"; then
-  alias jdk8="jdk 8"
-fi
 alias jdk11="jdk 11"
 alias jdk17="jdk 17"
 
@@ -275,10 +237,7 @@ alias dkrvrm-dang='docker volume rm $(docker volume ls -q -f "dangling=true")'
 # Random stuff
 alias ip='curl https://icanhazip.com/'
 alias weather='clear; curl http://wttr.in/'
-alias youtube-dl-mp3='youtube-dl --extract-audio --audio-format mp3'
 
 # Even more random stuff
-if test "$(uname -s)" = "Darwin"; then
-  alias pumpitup="osascript -e 'set volume output volume 100'"
-  alias stfu="osascript -e 'set volume output muted true'"
-fi
+alias pumpitup="osascript -e 'set volume output volume 100'"
+alias stfu="osascript -e 'set volume output muted true'"
