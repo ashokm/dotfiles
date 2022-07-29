@@ -11,7 +11,7 @@ arch = Etc.uname[:machine]
 is_m1 = arch == 'arm64'
 
 brew "gcc" if OS.linux?
-brew "openssl@1.1"
+brew "openssl@3"
 brew "openjdk@8"
 brew "openjdk@11"
 brew "openjdk@17"
