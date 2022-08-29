@@ -42,7 +42,7 @@
 
 ##################################################
 [core]
-	autocrlf = input
+    autocrlf = input
 
     editor = vim
 
@@ -77,8 +77,15 @@
 	# Use `hexdump` to diff binary files.
 	textconv = hexdump -v -C
 
+[difftool]
+    prompt = true
+
 [difftool "intellij"]
     cmd = /Applications/IntelliJ\\ IDEA.app/Contents/MacOS/idea diff $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE")
+    trustExitCode = true
+
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
     trustExitCode = true
 
 ##################################################
@@ -99,8 +106,17 @@
 	stat = true
 	log = true
 
+[mergetool]
+    prompt = true
+
 [mergetool "intellij"]
     cmd = /Applications/IntelliJ\\ IDEA.app/Contents/MacOS/idea merge $(cd $(dirname "$LOCAL") && pwd)/$(basename "$LOCAL") $(cd $(dirname "$REMOTE") && pwd)/$(basename "$REMOTE") $(cd $(dirname "$BASE") && pwd)/$(basename "$BASE") $(cd $(dirname "$MERGED") && pwd)/$(basename "$MERGED")
+    keepbackup = false
+    keepTemporaries = false
+    trustExitCode = true
+
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
     keepbackup = false
     keepTemporaries = false
     trustExitCode = true

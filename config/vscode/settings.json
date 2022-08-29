@@ -1,0 +1,8 @@
+{
+  "telemetry.telemetryLevel": "off",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.editor.enablePreview": true,
+  "workbench.list.openMode": "doubleClick",
+  "git.mergeEditor": true,
+  "workbench.colorTheme": "Dracula"
+}

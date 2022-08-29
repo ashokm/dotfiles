@@ -56,5 +56,6 @@ cask "nordvpn" unless is_m1
 cask "rectangle"
 cask "slack" if is_m1
 cask "spotify" unless is_m1
+cask "visual-studio-code"
 cask "vlc"
 cask "zoom"

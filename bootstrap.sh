@@ -20,6 +20,7 @@ case "$1" in
   ./scripts/dotfiles.sh "$@"
   ./scripts/vim.sh "$@"
   ./scripts/brew.sh "$@"
+  ./scripts/vscode.sh "$@"
   ./scripts/miniconda.sh "$@"
   ;;
 "--uninstall")
