@@ -25,10 +25,12 @@ install() {
   fi
 
   echo "[INFO] Add Homebrew to PATH ..."
-  if [ -r /opt/homebrew/bin/brew ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  elif [ -r /usr/local/bin/brew ]; then
+  # Intel Macs
+  if [ -r /usr/local/bin/brew ]; then
     eval "$(/usr/local/bin/brew shellenv)"
+  # M1 Macs
+  elif [ -r /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 
   echo "[INFO] Disable Homebrew analytics ..."
