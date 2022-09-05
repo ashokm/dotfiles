@@ -33,27 +33,27 @@ fi
 # JAVA_HOME
 ##################################################
 if [ -r /usr/libexec/java_home ]; then
-  # Switch between different JDK versions
-  # Change the version using 'jdk 11', 'jdk 17' etc
-  jdk() {
-    version=$1
-    JAVA_HOME="$(/usr/libexec/java_home -v"$version")"
-    export JAVA_HOME
-    java -version
-  }
-elif [ -d "$(brew --prefix)/opt/openjdk" ]; then
-  # Switch between different JDK versions
-  # Change the version using 'jdk 11', 'jdk 17' etc
-  jdk() {
-    version=$1
-    PATH="$(brew --prefix)/opt/openjdk@$version/bin:$PATH"
-    CPPFLAGS="-I$(brew --prefix)/opt/openjdk@$version/include"
-    JAVA_HOME="$(brew --prefix)/opt/openjdk@$version/libexec/"
-    export PATH
-    export CPPFLAGS
-    export JAVA_HOME
-    java -version
-  }
+  if [ -d "$(brew --prefix)/opt/openjdk" ]; then
+    for dir in "$(brew --prefix)"/opt/openjdk@*; do
+      JDKVERSION=$(echo "$dir" | grep -o '[[:digit:]]*')
+      if [ ! -L /Library/Java/JavaVirtualMachines/openjdk-"${JDKVERSION}".jdk ] ; then
+        echo "[INFO] Creating symlink: /Library/Java/JavaVirtualMachines/openjdk-${JDKVERSION}.jdk -> $(brew --prefix)/opt/openjdk@${JDKVERSION}/libexec/openjdk.jdk"
+         sudo ln -sfn "$(brew --prefix)"/opt/openjdk@"${JDKVERSION}"/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-"${JDKVERSION}".jdk
+      fi
+    done;
+    # Switch between different JDK versions using 'jdk 11', 'jdk 17' 'jdk 18' etc
+    jdk() {
+      version=$1
+      unset JAVA_HOME
+      PATH="$(brew --prefix)/opt/openjdk@$version/bin:$PATH"
+      CPPFLAGS="-I$(brew --prefix)/opt/openjdk@$version/include"
+      JAVA_HOME="$(/usr/libexec/java_home -v"$version")"
+      export PATH
+      export CPPFLAGS
+      export JAVA_HOME
+      java -version
+    }
+  fi
 else
   echo "[WARNING] JAVA_HOME was not found!"
 fi
