@@ -35,6 +35,7 @@ brew "tree"
 brew "watch"
 brew "wget"
 brew "vim"
+brew "yarn"
 
 cask_args appdir: "/Applications"
 
@@ -49,6 +50,7 @@ cask "intellij-idea-ce" unless is_m1
 cask "intellij-idea" if is_m1
 cask "intune-company-portal" if is_m1
 cask "jiggler"
+cask "logitech-options"
 cask "menumeters"
 cask "microsoft-auto-update" if is_m1
 cask "microsoft-office" if is_m1
