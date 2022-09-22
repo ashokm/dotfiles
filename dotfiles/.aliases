@@ -15,11 +15,7 @@ alias db="cd ~/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
-if test "$(uname -m)" = "arm64"; then
-  alias ij='open -a "IntelliJ IDEA.app"'
-else
-  alias ij='open -a "IntelliJ IDEA CE.app"'
-fi
+alias ij='open -a "IntelliJ IDEA CE.app"'
 alias pubkey="pbcopy < ~/.ssh/id_rsa.pub | echo '-- Public key copied to pasteboard! -- '"
 alias ws="cd ~/Workspace"
 
@@ -237,7 +233,8 @@ alias dkrvrm-all='docker volume rm $(docker volume ls -q)'
 alias dkrvrm-dang='docker volume rm $(docker volume ls -q -f "dangling=true")'
 
 # Random stuff
-alias ip='curl https://icanhazip.com/'
+alias ip-public='dig +short myip.opendns.com @resolver1.opendns.com'
+alias ip-local="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | awk '{print \$2}'"
 alias weather='clear; curl http://wttr.in/'
 
 # Even more random stuff

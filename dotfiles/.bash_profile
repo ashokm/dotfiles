@@ -30,6 +30,16 @@ else
 fi
 
 ##################################################
+# Python
+##################################################
+# Workaround for "env: python: No such file or directory" issue:
+# https://stackoverflow.com/a/71487889
+if [ ! -L "$(brew --prefix)/bin/python" ] ; then
+  echo "[INFO] Creating symlink: $(brew --prefix)/bin/python -> $(brew --prefix)/bin/python3"
+  sudo ln -sfn "$(brew --prefix)/bin/python3" "$(brew --prefix)/bin/python"
+fi
+
+##################################################
 # JAVA_HOME
 ##################################################
 if [ -r /usr/libexec/java_home ]; then
@@ -56,6 +66,22 @@ if [ -r /usr/libexec/java_home ]; then
   fi
 else
   echo "[WARNING] JAVA_HOME was not found!"
+fi
+
+##################################################
+# jpeg
+##################################################
+if test "$(uname -m)" = "arm64"; then
+  if [ -d "$(brew --prefix)/opt/jpeg" ]; then
+    PATH="$(brew --prefix)/opt/jpeg/bin:$PATH"
+    LDFLAGS="-L$(brew --prefix)/opt/jpeg/lib"
+    CPPFLAGS="-I$(brew --prefix)/opt/jpeg/include"
+    export PATH
+    export LDFLAGS
+    export CPPFLAGS
+  else
+    echo "[WARNING] A jpeg installation was not found!"
+  fi
 fi
 
 ##################################################

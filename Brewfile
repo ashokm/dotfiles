@@ -18,7 +18,6 @@ brew "awscli"
 brew "bash"
 brew "bash-completion@2"
 brew "bat"
-brew "cfn-lint"
 brew "csshx"
 brew "curl"
 brew "direnv"
@@ -30,6 +29,17 @@ brew "gnupg"
 brew "gnu-sed"
 brew "maven"
 brew "nvm"
+if is_m1
+    # https://github.com/Automattic/node-canvas
+    brew "pkg-config"
+    brew "cairo"
+    brew "pango"
+    brew "libpng"
+    brew "jpeg"
+    brew "giflib"
+    brew "librsvg"
+    brew "pixman"
+end
 brew "shellcheck"
 brew "tree"
 brew "watch"
@@ -37,7 +47,7 @@ brew "wget"
 brew "vim"
 brew "yarn"
 
-cask_args appdir: "/Applications"
+cask_args appdir: "~/Applications"
 
 cask "1password"
 cask "corona-tracker"
@@ -46,11 +56,10 @@ cask "docker"
 cask "dropbox" unless is_m1
 cask "flux"
 cask "google-chrome"
-cask "intellij-idea-ce" unless is_m1
-cask "intellij-idea" if is_m1
+cask "intellij-idea-ce"
 cask "intune-company-portal" if is_m1
 cask "jiggler"
-cask "logitech-options"
+cask "logi-options-plus"
 cask "menumeters"
 cask "microsoft-auto-update" if is_m1
 cask "microsoft-office" if is_m1
@@ -59,5 +68,6 @@ cask "nordvpn" unless is_m1
 cask "rectangle"
 cask "slack" if is_m1
 cask "spotify" unless is_m1
+cask "visual-studio-code" if is_m1
 cask "vlc"
 cask "zoom"
