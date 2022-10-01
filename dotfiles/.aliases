@@ -133,7 +133,7 @@ alias cda="conda deactivate"
 alias jdkversions="/usr/libexec/java_home -V"
 alias jdk11="jdk 11"
 alias jdk17="jdk 17"
-alias jdk18="jdk 18"
+alias jdk19="jdk 19"
 
 # Git stuff
 alias githome="sed -i 's/GIT_AUTHOR_EMAIL.*/GIT_AUTHOR_EMAIL=\"\$GIT_HOME_EMAIL\"/g' ~/.extra && sed -i 's/GIT_COMMITTER_EMAIL.*/GIT_COMMITTER_EMAIL=\"\$GIT_HOME_EMAIL\"/g' ~/.extra && sed -i 's/git config --global user.email.*/git config --global user.email \"\$GIT_HOME_EMAIL\"/g' ~/.extra && reload"
