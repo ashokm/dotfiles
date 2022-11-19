@@ -17,13 +17,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # If you use VALIDATE_ALL_CODEBASE = true, you can remove this line to improve performances
 
       - name: MegaLinter
         id: ml
         # You can override MegaLinter flavor used to have faster performances
         # More info at https://megalinter.github.io/flavors/
-        uses: oxsecurity/megalinter-cupcake@@v6.14.0
+        uses: oxsecurity/megalinter/flavors/cupcake@v6.14.0
         env:
           # All available variables are described in documentation
           # https://megalinter.github.io/configuration/
