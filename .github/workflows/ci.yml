@@ -1,11 +1,23 @@
 ---
 name: CI
 
-on:
-  schedule:
-    - cron: '0 23 * * *'
+######################################################################
+## minute         0-59
+## hour           0-23
+## day of month   1-31
+## month          1-12
+## day of week    0-7
+######################################################################
+
+on: # yamllint disable-line rule:truthy
   push:
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '0 23 * * *' # 11:00 PM every day
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -19,7 +31,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ macOS-latest, macos-12 ]
+        os: [macOS-latest, macos-12]
     env:
       CI: 1
       NONINTERACTIVE: 1

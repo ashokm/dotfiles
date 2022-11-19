@@ -1,6 +1,7 @@
 # ashokm does dotfiles
 
 ![CI](https://github.com/ashokm/dotfiles/workflows/CI/badge.svg)
+[![MegaLinter](https://github.com/ashokm/dotfiles/actions/workflows/mega-linter.yml/badge.svg)](https://github.com/ashokm/dotfiles/actions/workflows/mega-linter.yml)
 
 Your dotfiles are how you personalize your system. These are mine.
 
@@ -87,7 +88,7 @@ $ git remote -v
 > origin  git@github.com:USERNAME/REPOSITORY.git (push)
 ```
 
-:octocat: [Reference](https://docs.github.com/en/github/using-git/changing-a-remotes-url#switching-remote-urls-from-https-to-ssh)
+:octocat: [Reference](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#changing-a-remote-repositorys-url)
 </details>
 
 ## Uninstall
