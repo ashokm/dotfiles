@@ -1,9 +1,25 @@
 ---
+# MegaLinter GitHub Action configuration file
+# More info at https://megalinter.github.io
 name: MegaLinter
 
-on:
+######################################################################
+## minute         0-59
+## hour           0-23
+## day of month   1-31
+## month          1-12
+## day of week    0-7
+######################################################################
+
+on: # yamllint disable-line rule:truthy
   push:
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '10 0 1 * *' # Every first day of month at 12:10 AM
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
@@ -14,11 +30,13 @@ jobs:
     name: MegaLinter
     runs-on: ubuntu-latest
     steps:
+      # Git Checkout
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
           fetch-depth: 0 # If you use VALIDATE_ALL_CODEBASE = true, you can remove this line to improve performances
 
+      # MegaLinter
       - name: MegaLinter
         id: ml
         # You can override MegaLinter flavor used to have faster performances
@@ -27,10 +45,11 @@ jobs:
         env:
           # All available variables are described in documentation
           # https://megalinter.github.io/configuration/
-          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # Validates all source when push on main, else just the git diff with main. Override with true if you always want to lint all sources
+          VALIDATE_ALL_CODEBASE: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }} # Validates all source when push on master, else just the git diff with master. Override with true if you always want to lint all sources
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # ADD YOUR CUSTOM ENV VARIABLES HERE OR DEFINE THEM IN A FILE .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
-          ENABLE_LINTERS: BASH_SHELLCHECK,REPOSITORY_GITLEAKS,MARKDOWN_MARKDOWNLINT,YAML_YAMLLINT
+          # DISABLE: COPYPASTE,SPELL # Uncomment to disable copy-paste and spell checks
+          DISABLE_LINTERS: SPELL_CSPELL
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
