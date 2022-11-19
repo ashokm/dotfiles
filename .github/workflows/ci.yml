@@ -1,3 +1,4 @@
+---
 name: CI
 
 on:
@@ -6,46 +7,15 @@ on:
   push:
   pull_request:
 
-# GitHub Actions Virtual Environments - https://github.com/actions/virtual-environments
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
 
 jobs:
-  ########################################
-  # Lint
-  ########################################
-  shellcheck:
-    runs-on: macOS-latest
-    steps:
-      # Checkout
-      - name: Checkout
-        uses: actions/checkout@v3
-      # Validate shell scripts
-      - name: ShellCheck
-        run: |
-          brew install shellcheck -q
-          shellcheck --version
-          shellcheck *.sh
-          shellcheck dotfiles/.bash_profile dotfiles/.bashrc
-          shellcheck scripts/*.sh
-
-  ########################################
-  # SAST
-  ########################################
-  gitleaks:
-    runs-on: ubuntu-latest
-    steps:
-      # Checkout
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: '0'                              # fetch-depth of '0' clones the entire history
-      # Run SAST tool for detecting hardcoded secrets like passwords, api keys, and tokens in Git repos
-      - name: Gitleaks
-        uses: zricethezav/gitleaks-action@v1.6.0        # https://github.com/marketplace/actions/gitleaks
-
   ########################################
   # dotfiles - install & uninstall
   ########################################
   uninstall-install-uninstall:
-    needs: [ shellcheck, gitleaks ]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
