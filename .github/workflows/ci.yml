@@ -9,7 +9,7 @@ name: CI
 ## day of week    0-7
 ######################################################################
 
-on: # yamllint disable-line rule:truthy
+on:
   push:
     branches:
       - master
@@ -17,11 +17,14 @@ on: # yamllint disable-line rule:truthy
     branches:
       - master
   schedule:
-    - cron: '0 23 * * *' # 11:00 PM every day
+    - cron: "0 2 * * *" # 02:00 every day
 
 concurrency:
   group: ${{ github.ref }}-${{ github.workflow }}
   cancel-in-progress: true
+
+# Declare default permissions as read only.
+permissions: read-all
 
 jobs:
   ########################################

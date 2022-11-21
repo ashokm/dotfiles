@@ -12,6 +12,10 @@ Brewfile.lock.json
 *.iml
 *.iws
 
+# MegaLinter
+megalinter-reports/
+github_conf/
+
 ### VisualStudioCode ###
 .vscode/*
 
@@ -28,6 +32,6 @@ $RECYCLE.BIN/
 ._*
 Thumbs.db
 
-### Explictly defined files ###
+### Explicitly defined files ###
 .extra
 .path

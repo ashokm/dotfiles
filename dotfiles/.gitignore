@@ -140,6 +140,6 @@ $RECYCLE.BIN/
 ._*
 Thumbs.db
 
-### Explictly defined files ###
+### Explicitly defined files ###
 .extra
 .path
