@@ -150,7 +150,7 @@ function grbi() {
   git rebase -i $val
 }
 
-## Determine if the default Git branch (usually "master" or "main")
+## Determine if the default Git branch (usually "main" or "master")
 function git_main_branch {
   git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
 }
