@@ -150,6 +150,24 @@ function grbi() {
   git rebase -i $val
 }
 
+## Git branch rename
+function gbrn() {
+  read -r -p "Rename local branch '$(git branch --show-current)'? [Y/n]" response
+  response=${response:l} # tolower
+  if [[ $response =~ ^(y| ) ]] || [[ -z $response ]]; then
+    oldbranch=$(git branch --show-current)
+  else
+    read -r -p "Enter old branch name: " oldbranch
+  fi
+  read -r -p "Enter new branch name: " newbranch
+  # Rename branch
+  git branch -m "$oldbranch" "$newbranch"
+  # Delete the old-name remote branch and push the new-name local branch
+  git push origin :"$oldbranch" "$newbranch"
+  # Reset the upstream branch for the new-name local branch
+  git push origin -u "$newbranch"
+}
+
 ## Determine if the default Git branch (usually "main" or "master")
 function git_main_branch {
   git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
