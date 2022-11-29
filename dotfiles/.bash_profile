@@ -30,16 +30,6 @@ else
 fi
 
 ##################################################
-# Python
-##################################################
-# Workaround for "env: python: No such file or directory" issue:
-# https://stackoverflow.com/a/71487889
-if [ ! -L "$(brew --prefix)/bin/python" ] ; then
-  echo "[INFO] Creating symlink: $(brew --prefix)/bin/python -> $(brew --prefix)/bin/python3"
-  sudo ln -sfn "$(brew --prefix)/bin/python3" "$(brew --prefix)/bin/python"
-fi
-
-##################################################
 # JAVA_HOME
 ##################################################
 if [ -r /usr/libexec/java_home ]; then

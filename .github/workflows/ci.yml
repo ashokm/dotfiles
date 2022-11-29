@@ -34,7 +34,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macOS-latest, macos-12]
+        os: [macOS-latest]
     env:
       CI: 1
       NONINTERACTIVE: 1
