@@ -110,6 +110,38 @@ alias path='echo -e ${PATH//:/\\n}'
 # Find stuff
 alias findf="find . -type f -iname "
 alias findd="find . -type d -iname "
+function findinfiles() {
+    # Find text in files (and replace text if needed) in current and subdirectories
+
+    # Expecting only 1 or 2 arguments to be passed ...
+    if [[ $# -eq 1 || $# -eq 2 ]]; then
+      # Count the number of matches found in files
+      filecount="$(grep -lri --exclude-dir={.git,.idea} -e "$1" . | wc -l)"
+      echo -e "\n$filecount matches found\n"
+      if [ "$filecount" -eq 0 ]; then
+        return
+      else
+        # If only 1 argument is passed, only execute a find
+        if [ $# == 1 ]; then
+          grep -lri --exclude-dir={.git,.idea} -e "$1" .
+        # If 2 arguments are passed, execute a find and replace
+        elif [ $# == 2 ]; then
+          grep -lri --exclude-dir={.git,.idea} -e "$1" .
+          echo -e "\nReplacing \"$1\" with \"$2\" in matches found ..."
+          grep -lri --exclude-dir={.git,.idea} -e "$1" . | xargs sed -i '' -e "s/$1/$2/g" && echo "Done!"
+        fi
+      fi
+    # Unexpected, or no arguments provided, show usage ...
+    else
+      CMD="findinfiles"
+      echo ""
+      echo "Usage:   $CMD <\"search_pattern\">"
+      echo "Example: $CMD \"refs/tags/v0.24.1\""
+      echo ""
+      echo "Usage:   $CMD <\"regex_search_pattern\"> <\"replacement_string\">"
+      echo "Example: $CMD \"refs\/tags\/v0.24.1\" \"refs\/tags\/v0.24.3\""
+  fi
+}
 
 # Use gsed instead of sed
 alias sed="gsed"
