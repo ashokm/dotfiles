@@ -25,7 +25,7 @@ install() {
       MINICONDA_MACOSX_INSTALL_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
     fi
     echo "Downloading Miniconda ..."
-    curl -fsSL ${MINICONDA_MACOSX_INSTALL_URL} -o /tmp/Miniconda3-latest-MacOSX.sh
+    curl -fsSL "${MINICONDA_MACOSX_INSTALL_URL}" -o /tmp/Miniconda3-latest-MacOSX.sh
     echo "Installing Miniconda ..."
     chmod +x /tmp/Miniconda3-latest-MacOSX.sh
     /tmp/Miniconda3-latest-MacOSX.sh -b && rm -rf /tmp/Miniconda3-latest-MacOSX.sh
