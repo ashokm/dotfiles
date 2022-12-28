@@ -69,10 +69,10 @@ esac
 # variable.
 __git_find_repo_path ()
 {
-	if [ -n "${__git_repo_path-}" ]; then
-		# we already know where it is
+  if [ -n "${__git_repo_path-}" ]; then
+    # we already know where it is
 		return
-	fi
+  fi
 
 	if [ -n "${__git_C_args-}" ]; then
 		__git_repo_path="$(git "${__git_C_args[@]}" \

@@ -12,7 +12,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # * ~/.extra can be used for other settings you don’t want to commit.
 for file in ~/.{path,bash_prompt,exports,aliases,extra}; do
   # shellcheck disable=SC1090
-	[ -r "$file" ] && [ -f "$file" ] && . "$file";
+  [ -r "$file" ] && [ -f "$file" ] && . "$file";
 done;
 unset file;
 
