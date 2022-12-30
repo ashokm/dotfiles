@@ -18,7 +18,7 @@ log() {
 
 install() {
   if test ! "$(command -v brew)"; then
-  log "Install Homebrew"
+    log "Install Homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   else
     log "Homebrew already installed"

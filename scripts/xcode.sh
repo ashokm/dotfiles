@@ -17,7 +17,7 @@ log() {
 }
 
 install() {
-  if [[ ! -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
+  if [[ ! -d "$('xcode-select' -print-path 2> /dev/null)" ]]; then
     log "Install Xcode Command Line Tools"
     sudo xcode-select --install
   else
@@ -26,7 +26,7 @@ install() {
 }
 
 uninstall() {
-  if [[ -d "$('xcode-select' -print-path 2>/dev/null)" ]]; then
+  if [[ -d "$('xcode-select' -print-path 2> /dev/null)" ]]; then
     log "Uninstall Xcode Command Line Tools"
     sudo rm -rf /Library/Developer/CommandLineTools
   else
