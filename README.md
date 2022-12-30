@@ -1,6 +1,6 @@
 # ashokm does dotfiles
 
-![CI](https://github.com/ashokm/dotfiles/workflows/CI/badge.svg)
+[![CI](https://github.com/ashokm/dotfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/ashokm/dotfiles/actions/workflows/ci.yml)
 [![MegaLinter](https://github.com/ashokm/dotfiles/actions/workflows/mega-linter.yml/badge.svg)](https://github.com/ashokm/dotfiles/actions/workflows/mega-linter.yml)
 
 Your dotfiles are how you personalize your system. These are mine.
