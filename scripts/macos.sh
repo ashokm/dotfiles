@@ -32,7 +32,7 @@ while true; do
   sudo -n true
   sleep 60
   kill -0 "$$" || exit
-done 2>/dev/null &
+done 2> /dev/null &
 
 ###############################################################################
 log "General UI/UX"
@@ -104,7 +104,7 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 #defaults write com.apple.CrashReporter DialogType -string "none"
 
 # Disable Notification Center and remove the menu bar icon
-launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2>/dev/null
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
 
 # Disable automatic capitalization as it’s annoying when typing code
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
@@ -177,7 +177,7 @@ defaults write NSGlobalDomain AppleMetricUnits -bool true
 sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
 # Set the timezone; see `sudo systemsetup -listtimezones` for other values
-sudo systemsetup -settimezone "Europe/Stockholm" >/dev/null
+sudo systemsetup -settimezone "Europe/Stockholm" > /dev/null
 
 ###############################################################################
 log "Energy saving"
@@ -199,7 +199,7 @@ sudo pmset -b sleep 5
 sudo pmset -a standbydelay 86400
 
 # Never go into computer sleep mode
-sudo systemsetup -setcomputersleep Off >/dev/null
+sudo systemsetup -setcomputersleep Off > /dev/null
 
 # Hibernation mode
 # 0: Disable hibernation (speeds up entering sleep mode)
@@ -647,5 +647,5 @@ for app in "Activity Monitor" \
   "Rectangle" \
   "SystemUIServer" \
   "Terminal"; do
-  killall "${app}" &>/dev/null
+  killall "${app}" &> /dev/null
 done

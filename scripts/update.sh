@@ -25,10 +25,10 @@ sudo softwareupdate --install --all
 if test "$(uname -m)" = "arm64"; then
   if test ! "$(/usr/bin/pgrep oahd)"; then
     log "Install Rosetta 2"
-      sudo softwareupdate --install-rosetta --agree-to-license
-    else
-      log "Rosetta 2 already installed"
-    fi
+    sudo softwareupdate --install-rosetta --agree-to-license
+  else
+    log "Rosetta 2 already installed"
+  fi
 fi
 
 # Update Brew
