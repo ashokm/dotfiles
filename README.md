@@ -11,7 +11,7 @@ risk!
 
 ## Install
 
-```bash
+```shell
 git clone https://github.com/ashokm/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./bootstrap.sh --install
@@ -26,7 +26,7 @@ If `~/.path` exists, it will be sourced along with the other files, before any f
 
 Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
 
-```bash
+```shell
 export PATH="/usr/local/bin:$PATH"
 ```
 
@@ -38,7 +38,7 @@ without the need to fork this entire repository, or to add commands you don’t 
 My `~/.extra` looks something like this (and I use `githome` and `gitwork` aliases to switch between home and work email
 addresses):
 
-```bash
+```shell
 # Git credentials
 GIT_AUTHOR_NAME="Ashok Manji"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
@@ -55,45 +55,45 @@ git config --global user.email "$GIT_HOME_EMAIL"
 
 When setting up a new Mac, you may want to set some sensible macOS defaults:
 
-```bash
+```shell
 ./scripts/macos.sh
 ```
 
 ## Optional
 
 <details>
-  <summary>Switch remote URL from HTTPS to SSH</summary>
+  <summary><b>Switch remote URL from HTTPS to SSH</b></summary>
 
-### List your existing remotes in order to get the name of the remote you want to change
+1. List your existing remotes in order to get the name of the remote you want to change.
 
-```bash
-$ git remote -v
-> origin  https://github.com/USERNAME/REPOSITORY.git (fetch)
-> origin  https://github.com/USERNAME/REPOSITORY.git (push)
-```
+    ```shell
+    $ git remote -v
+    > origin  https://github.com/USERNAME/REPOSITORY.git (fetch)
+    > origin  https://github.com/USERNAME/REPOSITORY.git (push)
+    ```
 
-### Change your remote's URL from HTTPS to SSH with the git remote set-url command
+2. Change your remote's URL from HTTPS to SSH with the `git remote set-url` command.
 
-```bash
-$ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
->
-```
+    ```shell
+    $ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+    >
+    ```
 
-### Verify that the remote URL has changed
+3. Verify that the remote URL has changed.
 
-```bash
-$ git remote -v
-# Verify new remote URL
-> origin  git@github.com:USERNAME/REPOSITORY.git (fetch)
-> origin  git@github.com:USERNAME/REPOSITORY.git (push)
-```
+    ```shell
+    $ git remote -v
+    # Verify new remote URL
+    > origin  git@github.com:USERNAME/REPOSITORY.git (fetch)
+    > origin  git@github.com:USERNAME/REPOSITORY.git (push)
+    ```
 
-:octocat: [Reference](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#changing-a-remote-repositorys-url)
+:octocat: [Reference](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#switching-remote-urls-from-https-to-ssh)
 </details>
 
 ## Uninstall
 
-```bash
+```shell
 cd ~/.dotfiles
 ./bootstrap.sh --uninstall
 rm -rf ~/.dotfiles
