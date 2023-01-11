@@ -1,5 +1,6 @@
 {
   "version": "0.2",
   "language": "en",
+  "useGitignore": true,
   "words": ["dotfiles", "oxsecurity", "shfmt", "stefanzweifel"]
 }
