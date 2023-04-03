@@ -1,14 +1,15 @@
 require 'etc'
 
-tap "homebrew/bundle"
-tap "homebrew/core"
-tap "homebrew/cask"
-tap "homebrew/cask-drivers"
-
 # Some formulas are not ready for Apple Silicon,
 # or we do not want to install these on M1 Macs
 arch = Etc.uname[:machine]
 is_m1 = arch == 'arm64'
+
+tap "homebrew/bundle"
+tap "homebrew/core"
+tap "homebrew/cask"
+tap "homebrew/cask-drivers"
+tap "snyk/tap" if is_m1
 
 brew "openssl@1.1"
 brew "openjdk@11"
@@ -39,6 +40,11 @@ if is_m1
     brew "giflib"
     brew "librsvg"
     brew "pixman"
+    # https://github.com/mas-cli/mas
+    brew "mas"
+    # https://docs.snyk.io/snyk-cli/install-the-snyk-cli#install-with-homebrew-macos-linux
+    brew "snyk"
+
 end
 brew "shellcheck"
 brew "tree"
@@ -67,7 +73,9 @@ cask "microsoft-teams"
 cask "nordvpn" unless is_m1
 cask "rectangle"
 cask "slack" if is_m1
-cask "spotify" unless is_m1
+cask "spotify"
 cask "visual-studio-code" if is_m1
 cask "vlc"
 cask "zoom"
+
+mas 'Xcode', id: 497799835 if is_m1

@@ -2,7 +2,7 @@
 #
 # xcode.sh
 #
-# Install Xcode Command Line Tools
+# Install Xcode and Xcode Command Line Tools
 
 set -o errexit -o nounset -o pipefail
 
@@ -20,6 +20,8 @@ install() {
   if [[ ! -d "$('xcode-select' -print-path 2> /dev/null)" ]]; then
     log "Install Xcode Command Line Tools"
     sudo xcode-select --install
+    log "Accept Xcode license"
+    sudo xcodebuild -license accept
   else
     log "Xcode Command Line Tools already installed"
   fi

@@ -251,6 +251,7 @@
     "showdesktop",
     "showhidden",
     "showmode",
+    "snyk",
     "softwareupdate",
     "spotoff",
     "spoton",
@@ -285,6 +286,7 @@
     "windowserver",
     "wscript",
     "wvous",
+    "xcodebuild",
     "zstd"
   ]
 }
