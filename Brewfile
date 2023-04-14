@@ -14,7 +14,6 @@ tap "snyk/tap" if is_m1
 brew "openssl@1.1"
 brew "openjdk@11"
 brew "openjdk@17"
-brew "openjdk@19"
 brew "awscli"
 brew "bash"
 brew "bash-completion@2"
