@@ -6,8 +6,6 @@ arch = Etc.uname[:machine]
 is_m1 = arch == 'arm64'
 
 tap "homebrew/bundle"
-tap "homebrew/core"
-tap "homebrew/cask"
 tap "homebrew/cask-drivers"
 tap "snyk/tap" if is_m1
 
