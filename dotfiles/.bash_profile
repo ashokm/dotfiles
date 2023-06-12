@@ -19,10 +19,10 @@ unset file;
 ##################################################
 # Homebrew
 ##################################################
-# Intel Macs
+# Intel processor
 if [ -r /usr/local/bin/brew ]; then
   eval "$(/usr/local/bin/brew shellenv)"
-# M1 Macs
+# Apple silicon
 elif [ -r /opt/homebrew/bin/brew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 else
@@ -152,4 +152,14 @@ if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
   . "$(brew --prefix nvm)/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 else
   echo "[WARNING] A NVM installation was not found!"
+fi
+
+##################################################
+# Android SDK Command-Line tools
+##################################################
+if [ -r $(brew --prefix)/share/android-commandlinetools ]; then
+  ANDROID_HOME="$(brew --prefix)/share/android-commandlinetools"
+  export ANDROID_HOME
+  # Accept the SDK license agreements
+  yes | sdkmanager --licenses >/dev/null 2>&1 || echo "[ERROR] Failed to accept Android SDK licenses"
 fi

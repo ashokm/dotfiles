@@ -21,7 +21,7 @@ log() {
 log "Running macOS Software updates"
 sudo softwareupdate --install --all
 
-# For M1 Macs
+# For Apple silicon
 if test "$(uname -m)" = "arm64"; then
   if test ! "$(/usr/bin/pgrep oahd)"; then
     log "Install Rosetta 2"

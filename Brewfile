@@ -1,14 +1,13 @@
-require 'etc'
-
 # Some formulas are not ready for Apple Silicon,
-# or we do not want to install these on M1 Macs
-arch = Etc.uname[:machine]
-is_m1 = arch == 'arm64'
+# or we do not want to install these arm64 architectures
+is_apple_silicon = `uname -v`.include? "RELEASE_ARM64"
 
+# Tap repositories
 tap "homebrew/bundle"
-tap "homebrew/cask-drivers"
-tap "snyk/tap" if is_m1
+tap "homebrew/core"
+tap "snyk/tap" if is_apple_silicon
 
+# Homebrew packages
 brew "openssl@1.1"
 brew "openjdk@11"
 brew "openjdk@17"
@@ -18,17 +17,25 @@ brew "bash-completion@2"
 brew "bat"
 brew "csshx"
 brew "curl"
-brew "direnv"
 brew "diff-so-fancy"
+brew "direnv"
 brew "git"
 brew "git-lfs"
-brew "gradle"
-brew "gnupg"
 brew "gnu-sed"
+brew "gnupg"
+brew "gradle"
 brew "maven"
 brew "nvm"
-if is_m1
-    # https://github.com/Automattic/node-canvas
+brew "shellcheck"
+brew "tree"
+brew "vim"
+brew "watch"
+brew "wget"
+brew "yarn"
+brew "snyk" if is_apple_silicon
+
+# https://github.com/Automattic/node-canvas
+if is_apple_silicon
     brew "pkg-config"
     brew "cairo"
     brew "pango"
@@ -37,37 +44,30 @@ if is_m1
     brew "giflib"
     brew "librsvg"
     brew "pixman"
-    # https://docs.snyk.io/snyk-cli/install-the-snyk-cli#install-with-homebrew-macos-linux
-    brew "snyk"
 end
-brew "shellcheck"
-brew "tree"
-brew "watch"
-brew "wget"
-brew "vim"
-brew "yarn"
 
+# Cask packages
 cask_args appdir: "~/Applications"
-
 cask "1password"
+cask "android-commandlinetools" if is_apple_silicon
 cask "corona-tracker"
 cask "displaylink"
 cask "docker"
-cask "dropbox" unless is_m1
+cask "dropbox" unless is_apple_silicon
 cask "flux"
 cask "google-chrome"
 cask "intellij-idea-ce"
-cask "intune-company-portal" if is_m1
+cask "intune-company-portal" if is_apple_silicon
 cask "jiggler"
 cask "logi-options-plus"
 cask "menumeters"
-cask "microsoft-auto-update" if is_m1
-cask "microsoft-office" if is_m1
+cask "microsoft-auto-update" if is_apple_silicon
+cask "microsoft-office" if is_apple_silicon
 cask "microsoft-teams"
-cask "nordvpn" unless is_m1
+cask "nordvpn" unless is_apple_silicon
 cask "rectangle"
-cask "slack" if is_m1
+cask "slack" if is_apple_silicon
 cask "spotify"
-cask "visual-studio-code" if is_m1
+cask "visual-studio-code" if is_apple_silicon
 cask "vlc"
 cask "zoom"
