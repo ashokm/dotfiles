@@ -5,7 +5,7 @@ is_apple_silicon = `uname -v`.include? "RELEASE_ARM64"
 # Tap repositories
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
-tap "homebrew/core"
+tap "homebrew/core" if is_apple_silicon
 tap "snyk/tap" if is_apple_silicon
 
 # Homebrew packages
