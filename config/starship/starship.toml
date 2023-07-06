@@ -1,0 +1,83 @@
+add_newline = false
+command_timeout = 1000
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$fill\
+$nodejs\
+$python\
+$cmd_duration $jobs $time\
+$line_break\
+$character"""
+
+[character]
+success_symbol = '[»](bold green)'
+error_symbol = '[»](bold red)'
+
+[cmd_duration]
+format = '[$duration]($style)'
+style = 'yellow'
+
+[directory]
+style = 'blue'
+read_only = ''
+truncation_length = 8
+truncate_to_repo = false
+
+[fill]
+symbol = ' '
+
+[git_branch]
+symbol = ' '
+format = '[$symbol$branch]($style) '
+style = 'bright-black'
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = 'bright-black'
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = 'bright-black'
+conflicted = '💥  '
+ahead = '🏎️💨×${count} '
+behind = '🐢×${count} '
+diverged = '🔱 🏎️💨×${ahead_count} 🐢×${behind_count}'
+untracked = '🤷×${count}'
+stashed = '📦 '
+modified = '📝×${count} '
+staged = '🔦️×${count}'
+renamed = '🏷️×${count} '
+deleted = '🗑️ ×${count} '
+
+[jobs]
+symbol = ''
+style = 'bold red'
+number_threshold = 1
+format = '[$symbol]($style)'
+
+[nodejs]
+style = 'bright-black'
+format = '[$symbol($version )]($style)'
+
+[package]
+disabled = true
+
+[python]
+style = 'bright-black'
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+
+[time]
+disabled = false
+format = '[$time]($style) '
+style = 'bright-black'
+
+[username]
+style_user = 'bold dimmed blue'
+show_always = false

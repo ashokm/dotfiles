@@ -521,10 +521,10 @@ defaults write com.apple.terminal SecureKeyboardEntry -bool true
 defaults write com.apple.Terminal ShowLineMarks -int 0
 
 # Install desired theme for Terminal
-open "$(pwd)/config/terminal/ashokm-Wombat.terminal" -a Terminal.app
+open "$(pwd)/config/terminal/ashokm.terminal" -a Terminal.app
 sleep 1
-defaults write com.apple.Terminal "Default Window Settings" "ashokm-Wombat"
-defaults write com.apple.Terminal "Startup Window Settings" "ashokm-Wombat"
+defaults write com.apple.Terminal "Default Window Settings" "ashokm"
+defaults write com.apple.Terminal "Startup Window Settings" "ashokm"
 
 ###############################################################################
 log "Activity Monitor"

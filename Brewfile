@@ -4,6 +4,7 @@ is_apple_silicon = `uname -v`.include? "RELEASE_ARM64"
 
 # Tap repositories
 tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "snyk/tap" if is_apple_silicon
 
@@ -27,6 +28,7 @@ brew "gradle"
 brew "maven"
 brew "nvm"
 brew "shellcheck"
+brew "starship"
 brew "tree"
 brew "vim"
 brew "watch"
@@ -54,6 +56,7 @@ cask "corona-tracker"
 cask "displaylink"
 cask "docker"
 cask "dropbox" unless is_apple_silicon
+cask "font-fira-code-nerd-font"
 cask "flux"
 cask "google-chrome"
 cask "intellij-idea-ce"

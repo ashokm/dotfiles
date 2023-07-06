@@ -7,7 +7,7 @@
 set -o errexit -o nounset -o pipefail
 
 VIM_ROOT="$HOME/.vim"
-VIM_DIRS="backups colors swaps undo"
+VIM_DIRS="backups swaps undo"
 
 usage() {
   echo "Usage: $0 [--install | --uninstall]"
@@ -34,14 +34,6 @@ install() {
       mkdir "$VIM_DIR"
     fi
   done
-  # Vim color scheme install
-  echo "[INFO] Installing vim wombat color scheme ..."
-  echo ''
-  if [ -d "$VIM_ROOT/colors" ]; then
-    rm -rf "${VIM_ROOT}/colors"
-  fi
-  git clone https://github.com/sheerun/vim-wombat-scheme.git "${VIM_ROOT}"/colors/wombat
-  mv "${VIM_ROOT}"/colors/wombat/colors/* "${VIM_ROOT}"/colors/ && rm -rf "${VIM_ROOT}"/colors/wombat
 }
 
 uninstall() {

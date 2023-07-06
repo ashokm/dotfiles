@@ -33,6 +33,3 @@ fi
 
 # Update Brew
 "$(dirname "$0")"/brew.sh --update
-
-# Update Conda
-"$(dirname "$0")"/miniconda.sh --update
