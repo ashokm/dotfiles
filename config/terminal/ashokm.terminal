@@ -167,10 +167,10 @@
 	<data>
 	YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMS
 	AAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGkCwwVFlUkbnVsbNQNDg8QERIT
-	FFZOU1NpemVYTlNmRmxhZ3NWTlNOYW1lViRjbGFzcyNAKgAAAAAAABAQgAKAA11NZW5s
-	by1SZWd1bGFy0hcYGRpaJGNsYXNzbmFtZVgkY2xhc3Nlc1ZOU0ZvbnSiGRtYTlNPYmpl
-	Y3QIERokKTI3SUxRU1heZ253foWOkJKUoqeyu8LFAAAAAAAAAQEAAAAAAAAAHAAAAAAA
-	AAAAAAAAAAAAAM4=
+	FFZOU1NpemVYTlNmRmxhZ3NWTlNOYW1lViRjbGFzcyNAKgAAAAAAABAQgAKAA15GaXJh
+	Q29kZU5GLVJlZ9IXGBkaWiRjbGFzc25hbWVYJGNsYXNzZXNWTlNGb250ohkbWE5TT2Jq
+	ZWN0CBEaJCkyN0lMUVNYXmdud36FjpCSlKOos7zDxgAAAAAAAAEBAAAAAAAAABwAAAAA
+	AAAAAAAAAAAAAADP
 	</data>
 	<key>FontAntialias</key>
 	<true/>
@@ -207,7 +207,7 @@
 	<key>columnCount</key>
 	<integer>150</integer>
 	<key>name</key>
-	<string>ashokm-Wombat</string>
+	<string>ashokm</string>
 	<key>rowCount</key>
 	<integer>40</integer>
 	<key>shellExitAction</key>

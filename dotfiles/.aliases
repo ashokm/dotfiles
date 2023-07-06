@@ -153,10 +153,6 @@ if test "$(command -v bat)"; then
   alias caat="bat -pp"
 fi
 
-# Conda stuff
-alias ca="conda activate"
-alias cda="conda deactivate"
-
 # Java/JDK stuff
 alias jdkversions="/usr/libexec/java_home -V"
 alias jdk11="jdk 11"

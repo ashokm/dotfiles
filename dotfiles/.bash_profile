@@ -10,7 +10,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,bash_prompt,exports,aliases,extra}; do
+for file in ~/.{path,exports,aliases,extra}; do
   # shellcheck disable=SC1090
   [ -r "$file" ] && [ -f "$file" ] && . "$file";
 done;
@@ -118,30 +118,6 @@ else
 fi
 
 ##################################################
-# Conda setup
-##################################################
-if [ -d "$HOME/miniconda3/bin" ]; then
-  # >>> conda initialize >>>
-  # shellcheck disable=SC2016
-  __conda_setup="$('$HOME/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-  # shellcheck disable=SC2181
-  if [ $? -eq 0 ]; then
-      eval "$__conda_setup"
-  else
-      if [ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]; then
-          # shellcheck disable=SC1091
-          . "$HOME/miniconda3/etc/profile.d/conda.sh"
-      else
-          export PATH="$HOME/miniconda3/bin:$PATH"
-      fi
-  fi
-  unset __conda_setup
-  # <<< conda initialize <<<
-else
-  echo "[WARNING] A conda installation was not found!"
-fi
-
-##################################################
 # NVM
 ##################################################
 if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
@@ -162,4 +138,13 @@ if [ -r $(brew --prefix)/share/android-commandlinetools ]; then
   export ANDROID_HOME
   # Accept the SDK license agreements
   yes | sdkmanager --licenses >/dev/null 2>&1 || echo "[ERROR] Failed to accept Android SDK licenses"
+fi
+
+##################################################
+# Starship
+##################################################
+if [[ $(command -v starship) ]]; then
+  eval "$(starship init bash)"
+else
+  echo "[WARNING] A starship installation was not found!"
 fi
