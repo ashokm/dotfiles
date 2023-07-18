@@ -49,7 +49,7 @@ if is_apple_silicon
 end
 
 # Cask packages
-cask_args appdir: "~/Applications"
+cask_args appdir: "/Applications"
 cask "1password"
 cask "android-commandlinetools" if is_apple_silicon
 cask "corona-tracker"
