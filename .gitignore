@@ -12,6 +12,9 @@ Brewfile.lock.json
 *.iml
 *.iws
 
+# MegaLinter
+megalinter-reports/
+
 ### VisualStudioCode ###
 .vscode/*
 
