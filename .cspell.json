@@ -3,7 +3,11 @@
   "language": "en",
   "caseSensitive": false,
   "useGitignore": true,
-  "ignorePaths": ["**/.git/**", "megalinter-reports"],
+  "ignorePaths": [
+    "**/.git/**",
+    "megalinter-reports",
+    "**/*megalinter_file_names_cspell.txt"
+  ],
   "words": [
     "Ashok",
     "Bitpool",
