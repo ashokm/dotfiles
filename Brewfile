@@ -9,7 +9,6 @@ tap "homebrew/core" if is_apple_silicon
 tap "snyk/tap" if is_apple_silicon
 
 # Homebrew packages
-brew "openssl@1.1"
 brew "openjdk@11"
 brew "openjdk@17"
 brew "awscli"
