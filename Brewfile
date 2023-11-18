@@ -54,7 +54,6 @@ cask "android-commandlinetools" if is_apple_silicon
 cask "corona-tracker"
 cask "displaylink"
 cask "docker"
-cask "dropbox" unless is_apple_silicon
 cask "font-fira-code-nerd-font"
 cask "flux"
 cask "google-chrome"
