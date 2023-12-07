@@ -11,6 +11,7 @@ tap "snyk/tap" if is_apple_silicon
 # Homebrew packages
 brew "openjdk@11"
 brew "openjdk@17"
+brew "openjdk@21"
 brew "awscli"
 brew "bash"
 brew "bash-completion@2"
