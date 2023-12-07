@@ -41,7 +41,7 @@ if [ -r /usr/libexec/java_home ]; then
          sudo ln -sfn "$(brew --prefix)"/opt/openjdk@"${JDKVERSION}"/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-"${JDKVERSION}".jdk
       fi
     done;
-    # Switch between different JDK versions using 'jdk 11', 'jdk 17' etc
+    # Switch between different JDK versions using 'jdk 11', 'jdk 17', 'jdk 21' etc
     jdk() {
       version=$1
       unset JAVA_HOME
