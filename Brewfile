@@ -36,23 +36,9 @@ brew "wget"
 brew "yarn"
 brew "snyk" if is_apple_silicon
 
-# https://github.com/Automattic/node-canvas
-if is_apple_silicon
-    brew "pkg-config"
-    brew "cairo"
-    brew "pango"
-    brew "libpng"
-    brew "jpeg"
-    brew "giflib"
-    brew "librsvg"
-    brew "pixman"
-end
-
 # Cask packages
 cask_args appdir: "/Applications"
 cask "1password"
-cask "android-commandlinetools" if is_apple_silicon
-cask "corona-tracker"
 cask "displaylink"
 cask "docker"
 cask "font-fira-code-nerd-font"
@@ -71,5 +57,4 @@ cask "rectangle"
 cask "slack" if is_apple_silicon
 cask "spotify"
 cask "visual-studio-code" if is_apple_silicon
-cask "vlc"
 cask "zoom"
