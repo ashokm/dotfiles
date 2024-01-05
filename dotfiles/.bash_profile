@@ -131,16 +131,6 @@ else
 fi
 
 ##################################################
-# Android SDK Command-Line tools
-##################################################
-if [ -r $(brew --prefix)/share/android-commandlinetools ]; then
-  ANDROID_HOME="$(brew --prefix)/share/android-commandlinetools"
-  export ANDROID_HOME
-  # Accept the SDK license agreements
-  yes | sdkmanager --licenses >/dev/null 2>&1 || echo "[ERROR] Failed to accept Android SDK licenses"
-fi
-
-##################################################
 # Starship
 ##################################################
 if [[ $(command -v starship) ]]; then
