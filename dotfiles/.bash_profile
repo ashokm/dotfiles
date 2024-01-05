@@ -59,22 +59,6 @@ else
 fi
 
 ##################################################
-# jpeg
-##################################################
-if test "$(uname -m)" = "arm64"; then
-  if [ -d "$(brew --prefix)/opt/jpeg" ]; then
-    PATH="$(brew --prefix)/opt/jpeg/bin:$PATH"
-    LDFLAGS="-L$(brew --prefix)/opt/jpeg/lib"
-    CPPFLAGS="-I$(brew --prefix)/opt/jpeg/include"
-    export PATH
-    export LDFLAGS
-    export CPPFLAGS
-  else
-    echo "[WARNING] A jpeg installation was not found!"
-  fi
-fi
-
-##################################################
 # GRADLE_USER_HOME
 ##################################################
 export GRADLE_USER_HOME="$HOME/.gradle"
