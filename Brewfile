@@ -6,7 +6,6 @@ is_apple_silicon = `uname -v`.include? "RELEASE_ARM64"
 tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 tap "homebrew/core" if is_apple_silicon
-tap "snyk/tap" if is_apple_silicon
 
 # Homebrew packages
 brew "openjdk@11"
@@ -34,7 +33,6 @@ brew "vim"
 brew "watch"
 brew "wget"
 brew "yarn"
-brew "snyk" if is_apple_silicon
 
 # Cask packages
 cask_args appdir: "/Applications"
@@ -58,3 +56,4 @@ cask "slack" if is_apple_silicon
 cask "spotify"
 cask "visual-studio-code" if is_apple_silicon
 cask "zoom"
+
