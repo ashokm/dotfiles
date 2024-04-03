@@ -7,6 +7,19 @@ tap "homebrew/bundle"
 tap "homebrew/cask-fonts"
 tap "homebrew/core" if is_apple_silicon
 
+# Added for local Backstage development
+# https://github.com/Automattic/node-canvas
+if is_apple_silicon
+    brew "pkg-config"
+    brew "cairo"
+    brew "pango"
+    brew "libpng"
+    brew "jpeg"
+    brew "giflib"
+    brew "librsvg"
+    brew "pixman"
+end
+
 # Homebrew packages
 brew "openjdk@11"
 brew "openjdk@17"
@@ -15,15 +28,18 @@ brew "awscli"
 brew "bash"
 brew "bash-completion@2"
 brew "bat"
+brew "black"
 brew "csshx"
 brew "curl"
 brew "diff-so-fancy"
 brew "direnv"
+brew "flake8"
 brew "git"
 brew "git-lfs"
 brew "gnu-sed"
 brew "gnupg"
 brew "gradle"
+brew "jq"
 brew "maven"
 brew "nvm"
 brew "shellcheck"
