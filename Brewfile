@@ -4,8 +4,6 @@ is_apple_silicon = `uname -v`.include? "RELEASE_ARM64"
 
 # Tap repositories
 tap "homebrew/bundle"
-tap "homebrew/cask-fonts"
-tap "homebrew/core" if is_apple_silicon
 
 # Added for local Backstage development
 # https://github.com/Automattic/node-canvas
@@ -58,7 +56,8 @@ cask "docker"
 cask "font-fira-code-nerd-font"
 cask "flux"
 cask "google-chrome"
-cask "intellij-idea-ce"
+cask "intellij-idea" if is_apple_silicon
+cask "intellij-idea-ce" if not is_apple_silicon
 cask "intune-company-portal" if is_apple_silicon
 cask "jiggler"
 cask "logi-options-plus"

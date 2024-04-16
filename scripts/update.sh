@@ -18,8 +18,12 @@ log() {
 }
 
 # Update OS Software
-log "Running macOS Software updates"
-sudo softwareupdate --install --all
+if [ -z "${CI:-}" ]; then
+  log "Running macOS Software updates"
+  sudo softwareupdate --install --all
+else
+  log "Skipping macOS Software updates"
+fi
 
 # For Apple silicon
 if test "$(uname -m)" = "arm64"; then
