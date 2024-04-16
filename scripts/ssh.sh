@@ -16,9 +16,7 @@ log() {
   echo "================================================================================"
 }
 
-CI_ENABLED=${CI:-}
-
-if [[ -z "${CI_ENABLED}" ]]; then
+if [ -z "${CI:-}" ]; then
   if [ ! -d ~/.ssh ]; then
     log "Creating ~/.ssh"
     mkdir ~/.ssh
@@ -35,5 +33,5 @@ if [[ -z "${CI_ENABLED}" ]]; then
     ssh-keygen -t rsa -C "${email}"
   fi
 else
-  log "[skip ci] Creating ~/.ssh"
+  log "Skipping creation of ~/.ssh"
 fi
