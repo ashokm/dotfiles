@@ -55,6 +55,7 @@ cask "displaylink"
 cask "docker"
 cask "font-fira-code-nerd-font"
 cask "flux"
+cask "garmin-express"
 cask "google-chrome"
 cask "intellij-idea" if is_apple_silicon
 cask "intellij-idea-ce" if not is_apple_silicon
