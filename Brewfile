@@ -59,7 +59,6 @@ cask "garmin-express"
 cask "google-chrome"
 cask "intellij-idea" if is_apple_silicon
 cask "intellij-idea-ce" if not is_apple_silicon
-cask "intune-company-portal" if is_apple_silicon
 cask "jiggler"
 cask "logi-options-plus"
 cask "menumeters"
