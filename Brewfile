@@ -6,6 +6,7 @@ is_apple_silicon = `uname -v`.include? "RELEASE_ARM64"
 tap "homebrew/bundle"
 
 # Added for local Backstage development
+brew "corepack"
 # https://github.com/Automattic/node-canvas
 if is_apple_silicon
     brew "pkg-config"
@@ -46,7 +47,6 @@ brew "tree"
 brew "vim"
 brew "watch"
 brew "wget"
-brew "yarn"
 
 # Cask packages
 cask_args appdir: "/Applications"
