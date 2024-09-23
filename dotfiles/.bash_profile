@@ -122,3 +122,20 @@ if [[ $(command -v starship) ]]; then
 else
   echo "[WARNING] A starship installation was not found!"
 fi
+
+##################################################
+# pyenv
+##################################################
+if command -v pyenv 1>/dev/null 2>&1; then
+  # Create an alias for brew to exclude pyenv shims from the PATH
+  alias brew='env PATH="${PATH//$(pyenv root)\/shims:/}" brew'
+
+  # Initialize pyenv to manage Python versions and update PATH
+  eval "$(pyenv init --path)"
+
+  # Initialize pyenv for shims and autocompletion
+  eval "$(pyenv init -)"
+
+  # Initialize pyenv-virtualenv to manage Python virtual environments
+  eval "$(pyenv virtualenv-init -)"
+fi
