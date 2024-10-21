@@ -62,7 +62,7 @@ cask "google-chrome"
 cask "intellij-idea" if is_apple_silicon
 cask "intellij-idea-ce" if not is_apple_silicon
 cask "jiggler"
-cask "logi-options-plus"
+cask "logi-options+"
 cask "menumeters"
 cask "microsoft-auto-update" if is_apple_silicon
 cask "microsoft-office" if is_apple_silicon
