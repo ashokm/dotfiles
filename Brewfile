@@ -6,7 +6,6 @@ is_apple_silicon = `uname -v`.include? "RELEASE_ARM64"
 tap "homebrew/bundle"
 
 # Added for local Backstage development
-brew "corepack"
 # https://github.com/Automattic/node-canvas
 if is_apple_silicon
     brew "pkg-config"
@@ -40,6 +39,7 @@ brew "gnupg"
 brew "gradle"
 brew "jq"
 brew "maven"
+brew "node"
 brew "nvm"
 brew "pyenv"
 brew "pyenv-virtualenv"
