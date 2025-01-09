@@ -241,6 +241,15 @@ defaults write com.apple.systemuiserver menuExtras -array \
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 defaults write com.apple.menuextra.clock IsAnalog -bool false
 
+# Reduce spacing between macOS menu bar icons to prevent hiding behind the notch.
+# Ensures all running items remain visible, especially on smaller screens.
+defaults write -globalDomain NSStatusItemSpacing -int 6
+defaults write -globalDomain NSStatusItemSelectionPadding -int 6
+
+# To restore default menu bar spacing, run:
+# defaults -currentHost delete -globalDomain NSStatusItemSpacing
+# defaults -currentHost delete -globalDomain NSStatusItemSelectionPadding
+
 ###############################################################################
 log "Finder"
 ###############################################################################
