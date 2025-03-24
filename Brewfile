@@ -3,7 +3,7 @@
 is_apple_silicon = `uname -v`.include? "RELEASE_ARM64"
 
 # Tap repositories
-tap "homebrew/bundle"
+# None
 
 # Added for local Backstage development
 # https://github.com/Automattic/node-canvas
