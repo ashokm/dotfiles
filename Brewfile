@@ -19,7 +19,6 @@ if is_apple_silicon
 end
 
 # Homebrew packages
-brew "openjdk@11"
 brew "openjdk@17"
 brew "openjdk@21"
 brew "awscli"
