@@ -1,9 +1,8 @@
+# https://docs.kics.io/latest/queries/cicd-queries/555ab8f9-2001-455e-a077-f2d0f41e2fb9
+# kics-scan disable=555ab8f9-2001-455e-a077-f2d0f41e2fb9
 ---
 # MegaLinter GitHub Action configuration file
 # More info at https://megalinter.io
-
-# https://docs.kics.io/latest/queries/cicd-queries/555ab8f9-2001-455e-a077-f2d0f41e2fb9
-# kics-scan disable=555ab8f9-2001-455e-a077-f2d0f41e2fb9
 
 name: MegaLinter
 
