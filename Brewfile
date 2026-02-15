@@ -58,8 +58,7 @@ cask "font-fira-code-nerd-font"
 cask "flux-app"
 cask "garmin-express"
 cask "google-chrome"
-cask "intellij-idea" if is_apple_silicon
-cask "intellij-idea-ce" if not is_apple_silicon
+cask "intellij-idea"
 cask "jiggler"
 cask "logi-options+"
 cask "menumeters"
