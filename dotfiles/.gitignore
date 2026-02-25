@@ -120,9 +120,6 @@ packer_cache/
 ### Vagrant ###
 .vagrant/
 
-### VisualStudioCode ###
-.vscode/*
-
 ### Build output directories ###
 log/
 target/

@@ -52,6 +52,7 @@ brew "wget"
 # Cask packages
 cask_args appdir: "/Applications"
 cask "1password"
+# cask "android-commandlinetools" if is_apple_silicon
 cask "displaylink"
 cask "docker-desktop"
 cask "font-fira-code-nerd-font"
@@ -69,6 +70,5 @@ cask "nordvpn" unless is_apple_silicon
 cask "rectangle"
 cask "slack" if is_apple_silicon
 cask "spotify"
-cask "visual-studio-code" if is_apple_silicon
 cask "zoom"
 
