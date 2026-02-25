@@ -15,9 +15,6 @@ Brewfile.lock.json
 # MegaLinter
 megalinter-reports/
 
-### VisualStudioCode ###
-.vscode/*
-
 ### Files that might appear on external disks ###
 .Spotlight-V100
 .Trashes

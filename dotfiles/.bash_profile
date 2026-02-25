@@ -139,3 +139,14 @@ if command -v pyenv 1>/dev/null 2>&1; then
   # Initialize pyenv-virtualenv to manage Python virtual environments
   eval "$(pyenv virtualenv-init -)"
 fi
+
+##################################################
+# Android SDK Command-Line tools
+##################################################
+#if [ -r $(brew --prefix)/share/android-commandlinetools ]; then
+#  export ANDROID_HOME="$(brew --prefix)/share/android-commandlinetools"
+#  export ANDROID_SDK_ROOT="$(brew --prefix)/share/android-commandlinetools"
+#  export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
+#  # Accept the SDK license agreements
+#  yes | sdkmanager --licenses >/dev/null 2>&1 || echo "[ERROR] Failed to accept Android SDK licenses"
+#fi
