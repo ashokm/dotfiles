@@ -516,8 +516,9 @@ defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
 log "Terminal"
 ###############################################################################
 
-# Change the default shell to bash
-chsh -s /bin/bash
+# Change the default shell to Homebrew bash (5.x) for full bash-completion@2 support.
+# Delegates to bash.sh which handles both Intel (/usr/local) and Apple Silicon (/opt/homebrew).
+"$(dirname "$0")"/bash.sh --install
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
