@@ -102,6 +102,25 @@ else
 fi
 
 ##################################################
+# JFrog CLI
+# https://docs.jfrog.com/integrations/docs/shell-auto-completion#other-installation-methods
+##################################################
+if [[ $(command -v jf) ]]; then
+  # Write the completion into bash-completion@2's native directory so it
+  # is always loaded by the standard bash-completion framework.
+  _jf_comp_dir="$(brew --prefix)/share/bash-completion/completions"
+  if [[ -d "$_jf_comp_dir" && ! -f "$_jf_comp_dir/jf" ]]; then
+    jf completion bash > "$_jf_comp_dir/jf"
+  fi
+  unset _jf_comp_dir
+  # Also source inline for immediate availability in the current session.
+  # shellcheck disable=SC1090
+  source <(jf completion bash)
+else
+  echo "[WARNING] A JFrog CLI installation was not found!"
+fi
+
+##################################################
 # NVM
 ##################################################
 if [[ -r "$(brew --prefix nvm)/nvm.sh" ]]; then
