@@ -1,0 +1,14 @@
+# <type>(<scope>): <subject>
+#
+# Allowed types:
+# feat, fix, docs, style, refactor, perf, test, chore
+#
+# Subject rules:
+# - imperative, present tense
+# - starts lowercase
+# - no trailing period
+#
+# Keep each line at 100 characters or fewer.
+#
+# Revert format:
+# revert: <type>(<scope>): <subject>
