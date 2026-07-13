@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -o errexit -o nounset -o pipefail
+
+message_file="${1:?missing commit message file}"
+
+# Git may include comments and blank lines before the actual commit header.
+first_line="$(
+  awk '
+    /^[[:space:]]*#/ { next }
+    /^[[:space:]]*$/ { next }
+    {
+      sub(/\r$/, "")
+      print
+      exit
+    }
+  ' "$message_file"
+)"
+
+if [[ -z "$first_line" ]]; then
+  echo "ERROR: commit message header is required." >&2
+  exit 1
+fi
+
+# Merge-style headers do not follow the project commit convention.
+# Skip header validation but still enforce line length.
+is_merge_commit=false
+if [[ "$first_line" =~ ^Merge[[:space:]] ]]; then
+  is_merge_commit=true
+fi
+
+# Keep the allowed types in sync with the branch naming convention.
+standard_header_pattern='^(feat|fix|docs|style|refactor|perf|test|chore)(\([a-z0-9._/-]+\))?: [a-z]([^.]|.*[^.])$'
+revert_header_pattern='^revert: (feat|fix|docs|style|refactor|perf|test|chore)(\([a-z0-9._/-]+\))?: [a-z]([^.]|.*[^.])$'
+
+if [[ "$is_merge_commit" == false ]] &&
+  [[ ! "$first_line" =~ $standard_header_pattern ]] &&
+  [[ ! "$first_line" =~ $revert_header_pattern ]]; then
+  cat >&2 << 'EOF'
+ERROR: invalid commit header.
+Expected: <type>(<scope>): <subject>
+
+Allowed types:
+feat, fix, docs, style, refactor, perf, test, chore
+
+Reverts must start with:
+revert: <type>(<scope>): <subject>
+EOF
+  exit 1
+fi
+
+# Git comment lines are metadata and are not part of the commit message.
+awk '
+  /^[[:space:]]*#/ { next }
+  {
+    sub(/\r$/, "")
+  }
+  length($0) > 100 {
+    printf "ERROR: line %d exceeds 100 characters:\n%s\n", NR, $0 > "/dev/stderr"
+    failed = 1
+  }
+  END {
+    exit failed
+  }
+' "$message_file"
