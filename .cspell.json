@@ -18,7 +18,7 @@
     "Creset",
     "Dont",
     "Dxfxhxhxhxhxcxcx",
-    "Expos\u00e9",
+    "Exposé",
     "Ftrh",
     "HISTCONTROL",
     "HISTFILESIZE",
@@ -40,7 +40,6 @@
     "Rectangl",
     "SHFMT",
     "TERMCAP",
-    "TRUFFLEHOG",
     "Trackpad",
     "appdir",
     "ashokm",
@@ -61,7 +60,6 @@
     "classpath",
     "clmv",
     "colorflag",
-    "corepack",
     "committerdate",
     "connrefused",
     "csshx",
@@ -164,7 +162,6 @@
     "incsearch",
     "inet",
     "intellij",
-    "intune",
     "jdkversions",
     "jiggler",
     "jscoverage",
@@ -277,6 +274,7 @@
     "windowserver",
     "wscript",
     "wvous",
+    "zizmor",
     "zstd"
   ]
 }
