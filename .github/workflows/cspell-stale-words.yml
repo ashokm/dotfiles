@@ -1,0 +1,100 @@
+---
+name: CSpell Stale Words
+
+######################################################################
+## minute         0-59
+## hour           0-23
+## day of month   1-31
+## month          1-12
+## day of week    0-7
+######################################################################
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: "0 7 * * 1" # 07:00 every Monday
+  workflow_dispatch: # Allows manual runs from the Actions tab
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
+# Declare default permissions as read only.
+permissions: read-all
+
+jobs:
+  ########################################
+  # Check pull requests for stale words.
+  ########################################
+  check:
+    name: Check for stale CSpell words
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Check for stale words
+        run: python3 scripts/cspell_stale_words.py
+
+  ########################################
+  # Remove stale words and open or update
+  # a pull request for review.
+  ########################################
+  autofix:
+    name: Create CSpell cleanup pull request
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Remove stale words
+        run: python3 scripts/cspell_stale_words.py --fix
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          branch: automation/cspell-stale-words
+          delete-branch: true
+          add-paths: .cspell.json
+          commit-message: "chore(cspell): remove stale words"
+          title: "chore(cspell): remove stale words"
+          body: |
+            Remove stale entries from the CSpell word list.
+
+            These words are no longer used in Git-tracked repository files.
+
+            Please review the removed words before merging.
+          labels: bot
