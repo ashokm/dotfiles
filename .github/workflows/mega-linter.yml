@@ -62,7 +62,7 @@ jobs:
         # You can override MegaLinter flavor used to have faster performances
         # More info at https://megalinter.io/latest/flavors/
         # MAJOR-RELEASE-IMPACTED
-        uses: oxsecurity/megalinter@v9
+        uses: oxsecurity/megalinter@v10
         env:
           # All available variables are described in documentation
           # https://megalinter.io/latest/configuration/
@@ -74,6 +74,8 @@ jobs:
           DISABLE_LINTERS: ACTION_ZIZMOR
           FILTER_REGEX_EXCLUDE: (.git-completion.bash)
           BASH_SHFMT_ARGUMENTS: --indent 2 --space-redirects
+          # v10: linters now time out after 5 minutes by default (LINTER_TIMEOUT_SECONDS: 300).
+          # Raise this value globally or per linter (e.g. BASH_SHELLCHECK_TIMEOUT_SECONDS) if needed.
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
