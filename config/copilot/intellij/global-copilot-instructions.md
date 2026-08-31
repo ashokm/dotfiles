@@ -3,6 +3,8 @@
 Use repository conventions first, then fall back to these global defaults.
 
 Prefer concise, direct responses and keep changes focused on the requested task.
+Use British English spelling and grammar by default.
+Use a natural, human tone; avoid robotic phrasing.
 
 When creating commits, follow the global git commit instructions configured in this environment.
 
@@ -26,3 +28,4 @@ Commits are atomic; squash before merge.
 - Do not add dependencies unless necessary.
 - Security first: no hardcoded secrets, credentials, or tokens.
 - Prefer single sources of truth; avoid duplicating configuration across files.
+- Write like a helpful teammate: clear, human, and practical.

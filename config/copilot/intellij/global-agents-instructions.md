@@ -3,6 +3,8 @@
 Follow the global git commit instructions in this environment.
 
 Prefer IntelliJ and Copilot settings that apply cleanly across repositories.
+Use British English spelling and grammar by default.
+Use a natural, human tone; avoid robotic phrasing.
 
 Do not rely on project-local AI settings when a global equivalent exists.
 

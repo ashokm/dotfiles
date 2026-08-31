@@ -3,11 +3,9 @@
 [![CI](https://github.com/ashokm/dotfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/ashokm/dotfiles/actions/workflows/ci.yml)
 [![MegaLinter](https://github.com/ashokm/dotfiles/actions/workflows/mega-linter.yml/badge.svg)](https://github.com/ashokm/dotfiles/actions/workflows/mega-linter.yml)
 
-Your dotfiles are how you personalize your system. These are mine.
+Personal shell and system setup for macOS.
 
-**Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and
-remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own
-risk!
+**Warning:** Fork and review before using. Remove anything you do not understand or need.
 
 ## Install
 
@@ -17,83 +15,58 @@ cd ~/.dotfiles
 ./bootstrap.sh --install
 ```
 
-This will symlink the files in `~/.dotfiles/dotfiles` to your home directory. Everything is configured and tweaked
-within `~/.dotfiles`.
+Bootstrap will:
 
-Shared GitHub Copilot and IntelliJ AI settings are also linked into
-`~/.config/github-copilot/intellij` so your commit instructions and global AI
-defaults follow you across repositories.
+- symlink files from `~/.dotfiles/dotfiles` into your home directory
+- create `~/.gitconfig-home` and `~/.gitconfig-work` if missing
+- link shared Copilot and IntelliJ AI settings into `~/.config/github-copilot/intellij`
 
-### Specify the `$PATH`
+## Local overrides
 
-If `~/.path` exists, it will be sourced along with the other files, before any feature testing takes place.
+- `~/.path` is sourced early (use it to extend `PATH`)
+- `~/.extra` is sourced for machine-local aliases, functions, and secrets
 
-Here’s an example `~/.path` file that adds `/usr/local/bin` to the `$PATH`:
+Example `~/.path`:
 
 ```shell
 export PATH="/usr/local/bin:$PATH"
 ```
 
-### Add custom commands
+## Git
 
-If `~/.extra` exists, it will be sourced along with the other files. You can use this to add a few custom commands
-without the need to fork this entire repository, or to add commands you don’t want to commit to a public repository.
+Set at least `~/.gitconfig-home` before committing:
 
-My `~/.extra` looks something like this (and I use `githome` and `gitwork` aliases to switch between home and work email
-addresses):
-
-```shell
-# Git credentials
-GIT_AUTHOR_NAME="Ashok Manji"
-GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-git config --global user.name "$GIT_AUTHOR_NAME"
-
-GIT_HOME_EMAIL="1902568+ashokm@users.noreply.github.com"
-GIT_WORK_EMAIL="work.username@company.com"
-GIT_AUTHOR_EMAIL="$GIT_HOME_EMAIL"
-GIT_COMMITTER_EMAIL="$GIT_HOME_EMAIL"
-git config --global user.email "$GIT_HOME_EMAIL"
+```gitconfig
+[user]
+    name = Your Name
+    email = your-email@example.com
 ```
 
-## Sensible macOS defaults
+Identity model:
 
-When setting up a new Mac, you may want to set some sensible macOS defaults:
+- default identity: `~/.gitconfig-home`
+- work override: repos under `~/Workspace/work/` also load `~/.gitconfig-work`
+
+Check active identity:
+
+```shell
+gitwho
+```
+
+Optional: switch a repo remote from HTTPS to SSH:
+
+```shell
+git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+git remote -v
+```
+
+Reference: [GitHub docs](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#switching-remote-urls-from-https-to-ssh)
+
+## macOS defaults
 
 ```shell
 ./scripts/macos.sh
 ```
-
-## Optional
-
-<details>
-  <summary><b>Switch remote URL from HTTPS to SSH</b></summary>
-
-1. List your existing remotes in order to get the name of the remote you want to change.
-
-    ```shell
-    $ git remote -v
-    > origin  https://github.com/USERNAME/REPOSITORY.git (fetch)
-    > origin  https://github.com/USERNAME/REPOSITORY.git (push)
-    ```
-
-2. Change your remote's URL from HTTPS to SSH with the `git remote set-url` command.
-
-    ```shell
-    $ git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
-    >
-    ```
-
-3. Verify that the remote URL has changed.
-
-    ```shell
-    $ git remote -v
-    # Verify new remote URL
-    > origin  git@github.com:USERNAME/REPOSITORY.git (fetch)
-    > origin  git@github.com:USERNAME/REPOSITORY.git (push)
-    ```
-
-:octocat: [Reference](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories#switching-remote-urls-from-https-to-ssh)
-</details>
 
 ## Uninstall
 
@@ -103,14 +76,7 @@ cd ~/.dotfiles
 rm -rf ~/.dotfiles
 ```
 
-## Screenshots
-
-![Screenshot of my shell prompt](screenshot.png)
-
 ## Credits
 
-This project uses open source components. You can find the source code of their open source projects along with license
-information below. We acknowledge and are grateful to these developers for their contributions to open source.
-
-* [Mathias' dotfiles](https://github.com/mathiasbynens/dotfiles) by Mathias Bynens (MIT)
-* [holman does dotfiles](https://github.com/holman/dotfiles) by Zach Holman (MIT)
+- [Mathias' dotfiles](https://github.com/mathiasbynens/dotfiles) by Mathias Bynens (MIT)
+- [holman does dotfiles](https://github.com/holman/dotfiles) by Zach Holman (MIT)
