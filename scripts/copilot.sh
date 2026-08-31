@@ -36,7 +36,7 @@ uninstall() {
   rm -f ~/.config/github-copilot/intellij/global-agents-instructions.md
   rm -f ~/.config/github-copilot/intellij/global-copilot-instructions.md
 
-  rmdir ~/.config/github-copilot/intellij 2>/dev/null || true
+  rmdir ~/.config/github-copilot/intellij 2> /dev/null || true
 }
 
 case "$1" in
