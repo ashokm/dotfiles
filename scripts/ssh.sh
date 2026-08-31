@@ -30,7 +30,7 @@ if [ -z "${CI:-}" ]; then
     log "Generating SSH key"
     echo -n "Enter email for SSH key generation: "
     read -r email
-    ssh-keygen -t rsa -C "${email}"
+    ssh-keygen -t ed25519 -C "${email}"
   fi
 else
   log "Skipping creation of ~/.ssh"

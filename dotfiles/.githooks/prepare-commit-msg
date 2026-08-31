@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+set -o errexit -o nounset -o pipefail
+
+message_file="${1:?missing commit message file}"
+message_source="${2:-}"
+
+# Do not modify merge/squash auto-generated messages.
+if [[ "$message_source" == "merge" ]] || [[ "$message_source" == "squash" ]]; then
+  exit 0
+fi
+
+first_line="$(
+  awk '
+    /^[[:space:]]*#/ { next }
+    /^[[:space:]]*$/ { next }
+    {
+      sub(/\r$/, "")
+      print
+      exit
+    }
+  ' "$message_file"
+)"
+
+if [[ -z "$first_line" ]]; then
+  exit 0
+fi
+
+if [[ "$first_line" =~ ^Merge[[:space:]] ]]; then
+  exit 0
+fi
+
+has_body=false
+line_number=0
+while IFS= read -r line; do
+  [[ "$line" =~ ^[[:space:]]*# ]] && continue
+  line="${line%$'\r'}"
+  ((line_number += 1))
+
+  # Skip header line. Body starts after it.
+  if (( line_number == 1 )); then
+    continue
+  fi
+
+  if [[ -n "${line//[[:space:]]/}" ]]; then
+    has_body=true
+    break
+  fi
+done < "$message_file"
+
+if [[ "$has_body" == true ]]; then
+  exit 0
+fi
+
+# Auto-fill a minimal body so commits from any client (including IDE-generated
+# headers) stay compliant with the global commit-msg policy.
+{
+  printf "\n"
+  printf "%s\n" "- explain what changed and why"
+} >> "$message_file"
+

@@ -4,6 +4,17 @@ set -o errexit -o nounset -o pipefail
 
 message_file="${1:?missing commit message file}"
 
+# Strip AI-generated "Co-authored-by" trailers silently before any validation.
+# Matches lines whose email contains [bot] or whose name contains a known AI tool.
+# Human co-authors are left untouched.
+tmp="$(mktemp)"
+if grep -Eiv '^Co-authored-by:.*(\[bot\]|copilot|gemini|claude|cursor|chatgpt|openai)' \
+  "$message_file" > "$tmp"; then
+  mv "$tmp" "$message_file"
+else
+  rm -f "$tmp"
+fi
+
 # Git may include comments and blank lines before the actual commit header.
 first_line="$(
   awk '
@@ -47,6 +58,36 @@ Reverts must start with:
 revert: <type>(<scope>): <subject>
 EOF
   exit 1
+fi
+
+# Require a body for non-merge commits: at least one non-empty, non-comment line
+# after the header line.
+if [[ "$is_merge_commit" == false ]]; then
+  has_body=false
+  line_number=0
+  while IFS= read -r line; do
+    [[ "$line" =~ ^[[:space:]]*# ]] && continue
+    line="${line%$'\r'}"
+    ((line_number += 1))
+
+    # Skip the header line; body starts after it.
+    if (( line_number == 1 )); then
+      continue
+    fi
+
+    if [[ -n "${line//[[:space:]]/}" ]]; then
+      has_body=true
+      break
+    fi
+  done < "$message_file"
+
+  if [[ "$has_body" == false ]]; then
+    cat >&2 << 'EOF'
+ERROR: commit body is required.
+Add a blank line after the header, then include at least one body line describing what and why.
+EOF
+    exit 1
+  fi
 fi
 
 # Git comment lines are metadata and are not part of the commit message.

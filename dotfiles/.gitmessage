@@ -1,14 +1,9 @@
 # <type>(<scope>): <subject>
 #
-# Allowed types:
-# feat, fix, docs, style, refactor, perf, test, chore
+# Body (blank line above required): explain the *what* and *why*
 #
-# Subject rules:
-# - imperative, present tense
-# - starts lowercase
-# - no trailing period
-#
-# Keep each line at 100 characters or fewer.
-#
-# Revert format:
-# revert: <type>(<scope>): <subject>
+# Types: feat · fix · docs · style · refactor · perf · test · chore
+# Scope: optional – module, component, or ticket ID (e.g. PROJ-123)
+# Lines: keep each commit message line at 100 chars or fewer
+# Subject: imperative, lowercase, no trailing period
+# Revert: revert: <type>(<scope>): <subject>

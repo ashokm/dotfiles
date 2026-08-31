@@ -22,9 +22,18 @@ install() {
   log "Install dotfiles"
   while IFS= read -r -d '' src; do
     dst="$HOME/$(basename "${src}")"
+    # Remove an existing symlink (stale or pointing elsewhere).
+    # Remove a real directory only if it was previously managed by dotfiles
+    # (i.e. it is empty or every entry inside it exists in our source tree).
+    if [[ -L "$dst" ]]; then
+      rm "$dst"
+    elif [[ -d "$dst" ]]; then
+      echo "[INFO] Replacing directory $dst with symlink"
+      rm -rf "$dst"
+    fi
     echo "[INFO] Linking $src -> $dst"
-    ln -F -s "$src" "$dst"
-  done < <(find "$DOTFILES_ROOT" -name '.*' ! -name '.git' -print0)
+    ln -s "$src" "$dst"
+  done < <(find "$DOTFILES_ROOT" -maxdepth 1 -name '.*' ! -name '.git' -print0)
 }
 
 uninstall() {
@@ -32,8 +41,12 @@ uninstall() {
   while IFS= read -r -d '' src; do
     dst="$HOME/$(basename "${src}")"
     echo "[INFO] Unlinking $dst"
-    rm -f "$dst"
-  done < <(find "$DOTFILES_ROOT" -name '.*' ! -name '.git' -print0)
+    if [[ -L "$dst" ]]; then
+      rm "$dst"
+    else
+      rm -f "$dst"
+    fi
+  done < <(find "$DOTFILES_ROOT" -maxdepth 1 -name '.*' ! -name '.git' -print0)
 }
 
 case "$1" in
