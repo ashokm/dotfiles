@@ -1,6 +1,7 @@
 {
   "version": "0.2",
-  "language": "en",
+  "language": "en,en-GB",
+  "dictionaries": ["en_US", "en_GB"],
   "caseSensitive": false,
   "useGitignore": true,
   "ignorePaths": [
@@ -62,7 +63,6 @@
     "colorflag",
     "committerdate",
     "connrefused",
-    "csshx",
     "cursorline",
     "defscrollback",
     "defutf",
@@ -185,6 +185,7 @@
     "menuextra",
     "menumeters",
     "mergetool",
+    "mktemp",
     "mineffect",
     "miniconda",
     "modeline",
@@ -225,7 +226,6 @@
     "scrollback",
     "scrollbars",
     "scrolloff",
-    "sdkmanager",
     "setcomputersleep",
     "setfiletype",
     "setlocal",

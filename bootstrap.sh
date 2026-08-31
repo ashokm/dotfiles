@@ -22,8 +22,10 @@ case "$1" in
   ./scripts/brew.sh "$@"
   ./scripts/bash.sh "$@"
   ./scripts/starship.sh "$@"
+  ./scripts/copilot.sh "$@"
   ;;
 "--uninstall")
+  ./scripts/copilot.sh "$@"
   ./scripts/starship.sh "$@"
   ./scripts/bash.sh "$@"
   ./scripts/vim.sh "$@"

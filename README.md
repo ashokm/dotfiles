@@ -20,6 +20,10 @@ cd ~/.dotfiles
 This will symlink the files in `~/.dotfiles/dotfiles` to your home directory. Everything is configured and tweaked
 within `~/.dotfiles`.
 
+Shared GitHub Copilot and IntelliJ AI settings are also linked into
+`~/.config/github-copilot/intellij` so your commit instructions and global AI
+defaults follow you across repositories.
+
 ### Specify the `$PATH`
 
 If `~/.path` exists, it will be sourced along with the other files, before any feature testing takes place.
