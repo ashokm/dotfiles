@@ -18,6 +18,24 @@ log() {
   echo "================================================================================"
 }
 
+create_git_identity_template() {
+  local file="$1"
+  local label="$2"
+
+  if [[ -e "$file" ]]; then
+    return
+  fi
+
+  cat > "$file" << EOF
+# Update this file with your $label Git identity.
+[user]
+    name = Your Name
+    email = your-$label-email@example.com
+EOF
+
+  echo "[INFO] Created $file. Update it with your details before making Git commits on this machine."
+}
+
 install() {
   log "Install dotfiles"
   while IFS= read -r -d '' src; do
@@ -34,6 +52,9 @@ install() {
     echo "[INFO] Linking $src -> $dst"
     ln -s "$src" "$dst"
   done < <(find "$DOTFILES_ROOT" -maxdepth 1 -name '.*' ! -name '.git' -print0)
+
+  create_git_identity_template "$HOME/.gitconfig-home" "home"
+  create_git_identity_template "$HOME/.gitconfig-work" "work"
 }
 
 uninstall() {

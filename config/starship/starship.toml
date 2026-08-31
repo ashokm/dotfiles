@@ -12,7 +12,7 @@ $git_metrics\
 $fill\
 $nodejs\
 $python\
-$cmd_duration $jobs $time\
+$cmd_duration $jobs $custom $time\
 $line_break\
 $character"""
 
@@ -55,6 +55,24 @@ modified = '📝×${count} '
 staged = '🔦️×${count}'
 renamed = '🏷️×${count} '
 deleted = '🗑️ ×${count} '
+
+[custom.git_profile]
+# Discreet profile marker without exposing identity details.
+when = 'true'
+command = '''
+origin="$(git config --show-origin --get user.email 2>/dev/null | awk '{print $1}')"
+if [ -z "$origin" ]; then
+  origin="$(git config --global --show-origin --get user.email 2>/dev/null | awk '{print $1}')"
+fi
+
+case "$origin" in
+  *".gitconfig-work") printf "👤 work" ;;
+  *".gitconfig-home") printf "👤 home" ;;
+  *) printf "⚠️ none" ;;
+esac
+'''
+format = '[$output]($style) '
+style = 'bright-black'
 
 [jobs]
 symbol = ''

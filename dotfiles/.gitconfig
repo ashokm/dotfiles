@@ -111,6 +111,9 @@
     trustExitCode = true
 
 ##################################################
-[user]
-	name = Ashok Manji
-	email = 1902568+ashokm@users.noreply.github.com
+[include]
+	path = ~/.gitconfig-home
+
+[includeIf "gitdir:~/Workspace/work/"]
+	path = ~/.gitconfig-work
+
