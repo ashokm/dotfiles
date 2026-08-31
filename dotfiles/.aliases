@@ -16,7 +16,8 @@ alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias h="history"
 alias ij='open -a "IntelliJ IDEA.app"'
-alias pubkey='cat ~/.ssh/id_ed25519.pub | pbcopy && echo "-- Public key copied to pasteboard! --"'
+alias pubkey='cat ~/.ssh/id_ed25519.pub | pbcopy && echo "-- ED25519 public key copied to pasteboard! --"'
+alias pubkey-azure='cat ~/.ssh/id_rsa_azure.pub | pbcopy && echo "-- Azure DevOps RSA public key copied to pasteboard! --"'
 alias ws="cd ~/Workspace"
 
 # Detect which `ls` flavor is in use
