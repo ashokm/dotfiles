@@ -1,32 +1,21 @@
 # Global Git Commit Instructions
 
-Use Conventional Commits format:
+Use Conventional Commits:
+
 `type(scope): description`
 
-## Rules
+* Use lowercase types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`.
+* Use imperative mood.
+* Do not end the subject with a period.
+* Keep every line at 100 characters or fewer.
+* Include a scope when useful.
 
-- Use lowercase type (feat, fix, docs, style, refactor, perf, test, chore)
-- Use imperative mood ("add", not "added")
-- Do not end subject with a period
-- Include scope when helpful (api, ui, auth, db, etc.)
-- Keep every commit message line at 100 characters or fewer
+The commit body is required:
 
-## Language and tone
+* Leave a blank line after the header.
+* Include at least one line explaining what changed and why.
+* Use `*` bullets when useful.
 
-- Use British English spelling and grammar by default.
-- Use a natural, human tone; avoid robotic phrasing.
-- Keep wording clear and specific; avoid generic AI boilerplate.
-
-## Commit body
-
-- Leave a blank line after the header
-- Include at least one body line describing what changed and why
-- Use bullet points (*) when useful
-
-## Footer
-
-- Use revert: <type>(<scope>): <subject> for reverts
-- Reference issues (Resolves:, Refs:)
-- Use BREAKING CHANGE: when applicable
-
-Keep commits atomic and squash unnecessary commits before merge.
+Use `BREAKING CHANGE:` when applicable.
+Use `Resolves:` or `Refs:` for issue references.
+For reverts, use `revert: <type>(<scope>): <subject>`.
