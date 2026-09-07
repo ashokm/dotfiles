@@ -7,8 +7,8 @@ Use Conventional Commits:
 * Use lowercase types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`.
 * Use imperative mood.
 * Do not end the subject with a period.
-* Keep every line at 100 characters or fewer.
-* Include a scope when useful.
+* Keep the subject line at 100 characters or fewer.
+* Include a scope when it adds useful context.
 
 The commit body is required:
 

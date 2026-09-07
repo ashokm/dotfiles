@@ -5,7 +5,11 @@
 # `update` handles installation, updates, things like that. Run it periodically
 # to make sure you're on the latest and greatest.
 
-set -o errexit -o nounset
+set -o errexit -o nounset -o pipefail
+
+is_noninteractive() {
+  [ -n "${CI:-}" ] || [ -n "${NONINTERACTIVE:-}" ]
+}
 
 usage() {
   echo "Usage: $0"
@@ -18,15 +22,15 @@ log() {
 }
 
 # Update OS Software
-if [ -z "${CI:-}" ]; then
+if ! is_noninteractive; then
   log "Running macOS Software updates"
   sudo softwareupdate --install --all
 else
-  log "Skipping macOS Software updates"
+  log "Skipping macOS Software updates in non-interactive mode"
 fi
 
 # For Apple silicon
-if test "$(uname -m)" = "arm64"; then
+if test "$(uname -m)" = "arm64" && ! is_noninteractive; then
   if test ! "$(/usr/bin/pgrep oahd)"; then
     log "Install Rosetta 2"
     sudo softwareupdate --install-rosetta --agree-to-license

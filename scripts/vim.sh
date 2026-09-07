@@ -45,9 +45,11 @@ uninstall() {
       rm -rf "$VIM_DIR"
     fi
   done
+
+  rmdir "$VIM_ROOT" 2>/dev/null || true
 }
 
-case "$1" in
+case "${1:-}" in
 "--install")
   install
   ;;

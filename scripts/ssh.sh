@@ -13,7 +13,7 @@
 set -o errexit -o nounset -o pipefail
 
 usage() {
-  echo "Usage: $0"
+  echo "Usage: $0 [--install | --uninstall]"
 }
 
 log() {
@@ -74,7 +74,41 @@ EOF
   chmod 600 "$config_file"
 }
 
-if [ -z "${CI:-}" ]; then
+remove_managed_ssh_config_block() {
+  local config_file="$HOME/.ssh/config"
+  local begin_marker="# >>> dotfiles managed ssh block >>>"
+  local end_marker="# <<< dotfiles managed ssh block <<<"
+  local temp_file
+
+  if [ ! -e "$config_file" ]; then
+    return
+  fi
+
+  temp_file="$(mktemp)"
+  awk -v begin="$begin_marker" -v end="$end_marker" '
+    $0 == begin { skip = 1; next }
+    $0 == end { skip = 0; next }
+    !skip { print }
+  ' "$config_file" > "$temp_file"
+
+  if [ -s "$temp_file" ]; then
+    mv "$temp_file" "$config_file"
+    chmod 600 "$config_file"
+  else
+    rm -f "$config_file" "$temp_file"
+  fi
+}
+
+is_noninteractive() {
+  [ -n "${CI:-}" ] || [ -n "${NONINTERACTIVE:-}" ]
+}
+
+install() {
+  if is_noninteractive; then
+    log "Skipping SSH key and config setup in non-interactive mode"
+    return 0
+  fi
+
   if [ ! -d ~/.ssh ]; then
     log "Creating ~/.ssh"
     mkdir ~/.ssh
@@ -114,6 +148,21 @@ if [ -z "${CI:-}" ]; then
   [ -e ~/.ssh/id_rsa_azure.pub ] && chmod 644 ~/.ssh/id_rsa_azure.pub
 
   write_ssh_config
-else
-  log "Skipping creation of ~/.ssh"
-fi
+}
+
+uninstall() {
+  log "Uninstall managed SSH configuration"
+  remove_managed_ssh_config_block
+}
+
+case "${1:-}" in
+  --install)
+    install
+    ;;
+  --uninstall)
+    uninstall
+    ;;
+  *)
+    usage
+    ;;
+esac
