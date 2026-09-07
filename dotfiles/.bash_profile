@@ -159,3 +159,11 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv virtualenv-init -)"
 fi
 
+##################################################
+# Terraform completion
+##################################################
+if command -v terraform >/dev/null 2>&1; then
+  complete -C "$(command -v terraform)" terraform
+else
+  echo "[WARNING] A Terraform installation was not found!"
+fi
