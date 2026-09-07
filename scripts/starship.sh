@@ -6,6 +6,8 @@
 
 set -o errexit -o nounset -o pipefail
 
+DOTFILES_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
 usage() {
   echo "Usage: $0 [--install | --uninstall]"
 }
@@ -24,16 +26,18 @@ install() {
       mkdir ~/.config
       chmod 700 ~/.config
     fi
-    ln -sf "$(pwd)"/config/starship/starship.toml ~/.config/starship.toml
+    ln -sf "$DOTFILES_DIR/config/starship/starship.toml" ~/.config/starship.toml
   fi
 }
 
 uninstall() {
   log "Uninstall Starship Configuration"
-  rm -f ~/.config/starship.toml
+  if [ -L ~/.config/starship.toml ]; then
+    rm -f ~/.config/starship.toml
+  fi
 }
 
-case "$1" in
+case "${1:-}" in
 "--install")
   install
   ;;

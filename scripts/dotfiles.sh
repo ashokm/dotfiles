@@ -6,7 +6,7 @@
 
 set -o errexit -o nounset -o pipefail
 
-DOTFILES_ROOT="$(pwd)/dotfiles"
+DOTFILES_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../dotfiles" && pwd)"
 
 usage() {
   echo "Usage: $0 [--install | --uninstall]"
@@ -70,7 +70,7 @@ uninstall() {
   done < <(find "$DOTFILES_ROOT" -maxdepth 1 -name '.*' ! -name '.git' -print0)
 }
 
-case "$1" in
+case "${1:-}" in
 "--install")
   uninstall && install
   ;;

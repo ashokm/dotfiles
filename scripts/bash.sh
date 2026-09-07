@@ -92,7 +92,7 @@ uninstall() {
   fi
 }
 
-case "$1" in
+case "${1:-}" in
 "--install")
   install
   ;;

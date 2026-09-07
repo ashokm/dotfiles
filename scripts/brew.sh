@@ -6,6 +6,8 @@
 
 set -o errexit -o nounset -o pipefail
 
+DOTFILES_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+
 usage() {
   echo "Usage: $0 [--install | --uninstall | --update | --clean]"
 }
@@ -41,9 +43,9 @@ install() {
 
   # Run Homebrew through the Brewfile
   echo "[INFO] Uninstall packages not listed in Brewfile ..."
-  brew bundle cleanup --file="Brewfile" --force
+  brew bundle cleanup --file="$DOTFILES_DIR/Brewfile" --force
   echo "[INFO] Install packages listed in Brewfile ..."
-  brew bundle --file="Brewfile"
+  brew bundle --file="$DOTFILES_DIR/Brewfile"
 
   clean
 }
@@ -126,7 +128,7 @@ clean() {
   fi
 }
 
-case "$1" in
+case "${1:-}" in
 "--install")
   install
   ;;

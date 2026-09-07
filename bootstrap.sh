@@ -12,7 +12,7 @@ usage() {
 
 cd "$(dirname "${BASH_SOURCE[@]}")"
 
-case "$1" in
+case "${1:-}" in
 "--install")
   ./scripts/xcode.sh "$@"
   ./scripts/update.sh "$@"

@@ -6,6 +6,10 @@
 
 set -o errexit -o nounset -o pipefail
 
+is_noninteractive() {
+  [ -n "${CI:-}" ] || [ -n "${NONINTERACTIVE:-}" ]
+}
+
 usage() {
   echo "Usage: $0 [--install | --uninstall]"
 }
@@ -17,6 +21,11 @@ log() {
 }
 
 install() {
+  if is_noninteractive; then
+    log "Skipping Xcode Command Line Tools install in non-interactive mode"
+    return 0
+  fi
+
   if [[ ! -d "$('xcode-select' -print-path 2> /dev/null)" ]]; then
     log "Install Xcode Command Line Tools"
     sudo xcode-select --install
@@ -26,6 +35,11 @@ install() {
 }
 
 uninstall() {
+  if is_noninteractive; then
+    log "Skipping Xcode Command Line Tools uninstall in non-interactive mode"
+    return 0
+  fi
+
   if [[ -d "$('xcode-select' -print-path 2> /dev/null)" ]]; then
     log "Uninstall Xcode Command Line Tools"
     sudo rm -rf /Library/Developer/CommandLineTools
@@ -34,7 +48,7 @@ uninstall() {
   fi
 }
 
-case "$1" in
+case "${1:-}" in
 "--install")
   install
   ;;
