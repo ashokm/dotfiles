@@ -46,7 +46,7 @@ uninstall() {
     fi
   done
 
-  rmdir "$VIM_ROOT" 2>/dev/null || true
+  rmdir "$VIM_ROOT" 2> /dev/null || true
 }
 
 case "${1:-}" in
