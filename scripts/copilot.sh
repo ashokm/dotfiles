@@ -48,19 +48,19 @@ uninstall() {
     "$COPILOT_HOME/AGENTS.md" \
     "$INTELLIJ_COPILOT_DIR/global-git-commit-instructions.md"
 
-  rmdir "$COPILOT_HOME" 2>/dev/null || true
-  rmdir "$INTELLIJ_COPILOT_DIR" 2>/dev/null || true
+  rmdir "$COPILOT_HOME" 2> /dev/null || true
+  rmdir "$INTELLIJ_COPILOT_DIR" 2> /dev/null || true
 }
 
 case "${1:-}" in
-  --install)
-    install
-    ;;
-  --uninstall)
-    uninstall
-    ;;
-  *)
-    usage
-    exit 1
-    ;;
+--install)
+  install
+  ;;
+--uninstall)
+  uninstall
+  ;;
+*)
+  usage
+  exit 1
+  ;;
 esac

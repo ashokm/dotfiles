@@ -156,13 +156,13 @@ uninstall() {
 }
 
 case "${1:-}" in
-  --install)
-    install
-    ;;
-  --uninstall)
-    uninstall
-    ;;
-  *)
-    usage
-    ;;
+--install)
+  install
+  ;;
+--uninstall)
+  uninstall
+  ;;
+*)
+  usage
+  ;;
 esac
