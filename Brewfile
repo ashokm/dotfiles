@@ -35,6 +35,7 @@ brew "git-lfs"
 brew "gnu-sed"
 brew "gnupg"
 brew "gradle"
+brew "hashicorp/tap/terraform", trusted: true
 brew "jfrog-cli"
 brew "jq"
 brew "maven"
