@@ -252,6 +252,7 @@
     "systemsetup",
     "systemuiserver",
     "textconv",
+    "tflint",
     "tilesize",
     "timestamping",
     "titlebar",
