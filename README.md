@@ -19,7 +19,8 @@ Bootstrap will:
 
 - symlink files from `~/.dotfiles/dotfiles` into your home directory
 - create `~/.gitconfig-home` and `~/.gitconfig-work` if missing
-- link shared Copilot and IntelliJ AI settings into `~/.config/github-copilot/intellij`
+- link JetBrains GitHub Copilot instruction files into `~/.config/github-copilot/intellij`
+- link GitHub Copilot CLI instruction and agent files into `~/.copilot`
 
 ## Local overrides
 

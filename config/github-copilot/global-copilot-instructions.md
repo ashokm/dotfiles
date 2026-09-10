@@ -1,4 +1,4 @@
-# Global Copilot Instructions
+# Global GitHub Copilot Instructions
 
 * Use British English.
 * Be concise, direct and practical.
