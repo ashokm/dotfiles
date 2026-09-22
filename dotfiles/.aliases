@@ -74,6 +74,9 @@ alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
 # Recursively delete `.DS_Store` files
 alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
+# Remove wherefrom extended attributes (macOS file download tracking)
+alias rmwherefrom="xattr -dr com.apple.metadata:kMDItemWhereFroms"
+
 # Empty the Trash on all mounted volumes and the main HDD.
 # Also, clear Apple’s System Logs to improve shell startup speed.
 # Finally, clear download history from quarantine. https://mths.be/bum
