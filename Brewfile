@@ -71,5 +71,6 @@ cask "nordvpn" unless is_apple_silicon
 cask "rectangle"
 cask "slack" if is_apple_silicon
 cask "spotify"
+cask "terraform-linters/tap/tflint"
 cask "zoom"
 
