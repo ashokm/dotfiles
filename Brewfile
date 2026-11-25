@@ -29,6 +29,7 @@ brew "black"
 brew "curl"
 brew "diff-so-fancy"
 brew "direnv"
+brew "ffmpeg"
 brew "flake8"
 brew "git"
 brew "git-lfs"
@@ -72,4 +73,3 @@ cask "rectangle"
 cask "slack" if is_apple_silicon
 cask "spotify"
 cask "zoom"
-
