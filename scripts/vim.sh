@@ -20,12 +20,11 @@ log() {
 }
 
 install() {
+  log "Vim dependencies"
+
   if [ ! -d "$VIM_ROOT" ]; then
-    log "Install Vim dependencies"
     echo "[INFO] Creating $VIM_ROOT ..."
     mkdir "$VIM_ROOT"
-  else
-    log "Vim dependencies already installed"
   fi
   for dir in $VIM_DIRS; do
     VIM_DIR="${VIM_ROOT}/${dir}"
@@ -34,6 +33,7 @@ install() {
       mkdir "$VIM_DIR"
     fi
   done
+  echo "[INFO] Vim dependency directories are ready."
 }
 
 uninstall() {

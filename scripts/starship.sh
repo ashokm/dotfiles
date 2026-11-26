@@ -19,15 +19,28 @@ log() {
 }
 
 install() {
-  if [ ! -L ~/.config/starship.toml ]; then
-    log "Install Starship Configuration"
-    if [ ! -d ~/.config ]; then
-      log "Creating ~/.config"
-      mkdir ~/.config
-      chmod 700 ~/.config
-    fi
-    ln -sf "$DOTFILES_DIR/config/starship/starship.toml" ~/.config/starship.toml
+  log "Starship configuration"
+  local destination="$HOME/.config/starship.toml"
+  local source="$DOTFILES_DIR/config/starship/starship.toml"
+
+  # Keep a correct link intact and protect any existing user-managed file.
+  if [ -L "$destination" ] && [ "$(readlink "$destination")" = "$source" ]; then
+    echo "[INFO] Starship configuration is up to date."
+    return
   fi
+
+  if [ -e "$destination" ] && [ ! -L "$destination" ]; then
+    echo "[ERROR] Cannot link $source: $destination exists and is not a symlink." >&2
+    return 1
+  fi
+
+  if [ ! -d "$HOME/.config" ]; then
+    mkdir -p "$HOME/.config"
+    chmod 700 "$HOME/.config"
+  fi
+
+  ln -sfn "$source" "$destination"
+  echo "[INFO] Starship configuration is installed."
 }
 
 uninstall() {

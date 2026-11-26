@@ -56,18 +56,15 @@ install() {
   if ! grep -qF "$BREW_BASH" /etc/shells; then
     echo "[INFO] Adding $BREW_BASH to /etc/shells ..."
     echo "$BREW_BASH" | sudo tee -a /etc/shells > /dev/null
-  else
-    echo "[INFO] $BREW_BASH is already listed in /etc/shells"
   fi
 
   # Change the login shell
-  if [ "$SHELL" = "$BREW_BASH" ]; then
-    echo "[INFO] Login shell is already set to $BREW_BASH"
-  else
+  if [ "$SHELL" != "$BREW_BASH" ]; then
     echo "[INFO] Changing login shell from $SHELL to $BREW_BASH ..."
     chsh -s "$BREW_BASH"
     echo "[INFO] Done. Open a new terminal window for the change to take effect."
   fi
+  echo "[INFO] Login shell is configured."
 }
 
 uninstall() {
@@ -78,9 +75,7 @@ uninstall() {
     return 0
   fi
 
-  if [ "$SHELL" = "/bin/bash" ]; then
-    echo "[INFO] Login shell is already /bin/bash"
-  else
+  if [ "$SHELL" != "/bin/bash" ]; then
     echo "[INFO] Changing login shell back to /bin/bash ..."
     chsh -s /bin/bash
   fi

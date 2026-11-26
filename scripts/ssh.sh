@@ -45,8 +45,7 @@ write_ssh_config() {
     : > "$temp_file"
   fi
 
-  log "Converging managed ~/.ssh/config section"
-  if [ -s "$temp_file" ]; then
+  if [ -s "$temp_file" ] && [ -n "$(tail -c 1 "$temp_file")" ]; then
     printf "\n" >> "$temp_file"
   fi
 
@@ -69,6 +68,12 @@ Host *
   IdentityFile ~/.ssh/id_ed25519
 $end_marker
 EOF
+
+  # Avoid replacing the config file when its managed section is unchanged.
+  if [ -e "$config_file" ] && cmp -s "$temp_file" "$config_file"; then
+    rm "$temp_file"
+    return
+  fi
 
   mv "$temp_file" "$config_file"
   chmod 600 "$config_file"
@@ -109,6 +114,8 @@ install() {
     return 0
   fi
 
+  log "SSH keys and configuration"
+
   if [ ! -d ~/.ssh ]; then
     log "Creating ~/.ssh"
     mkdir ~/.ssh
@@ -120,20 +127,14 @@ install() {
   chmod 600 ~/.ssh/authorized_keys
 
   # ── ED25519 key (GitHub, GitLab, Bitbucket, etc.) ──────────────────────────
-  if [ -e ~/.ssh/id_ed25519.pub ]; then
-    log "ED25519 SSH key already exists (~/.ssh/id_ed25519)"
-  else
-    log "Generating ED25519 SSH key (~/.ssh/id_ed25519)"
+  if [ ! -e ~/.ssh/id_ed25519.pub ]; then
     echo -n "Enter email for SSH key generation: "
     read -r email
     ssh-keygen -t ed25519 -C "${email}" -f ~/.ssh/id_ed25519
   fi
 
   # ── RSA 4096 key (Azure DevOps — no ED25519 support) ───────────────────────
-  if [ -e ~/.ssh/id_rsa_azure.pub ]; then
-    log "Azure DevOps RSA key already exists (~/.ssh/id_rsa_azure)"
-  else
-    log "Generating RSA 4096 SSH key for Azure DevOps (~/.ssh/id_rsa_azure)"
+  if [ ! -e ~/.ssh/id_rsa_azure.pub ]; then
     if [ -z "${email:-}" ]; then
       echo -n "Enter email for Azure DevOps SSH key generation: "
       read -r email
@@ -148,6 +149,7 @@ install() {
   [ -e ~/.ssh/id_rsa_azure.pub ] && chmod 644 ~/.ssh/id_rsa_azure.pub
 
   write_ssh_config
+  echo "[INFO] SSH keys and configuration are ready."
 }
 
 uninstall() {

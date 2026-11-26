@@ -21,30 +21,30 @@ log() {
 }
 
 install() {
+  log "Xcode Command Line Tools"
+
   if is_noninteractive; then
-    log "Skipping Xcode Command Line Tools install in non-interactive mode"
+    echo "[INFO] Installation skipped in non-interactive mode."
     return 0
   fi
 
   if [[ ! -d "$('xcode-select' -print-path 2> /dev/null)" ]]; then
-    log "Install Xcode Command Line Tools"
     sudo xcode-select --install
+    echo "[INFO] Xcode Command Line Tools installation requested."
   else
-    log "Xcode Command Line Tools already installed"
+    echo "[INFO] Xcode Command Line Tools are ready."
   fi
 }
 
 uninstall() {
+  log "Xcode Command Line Tools"
+
   if is_noninteractive; then
-    log "Skipping Xcode Command Line Tools uninstall in non-interactive mode"
     return 0
   fi
 
   if [[ -d "$('xcode-select' -print-path 2> /dev/null)" ]]; then
-    log "Uninstall Xcode Command Line Tools"
     sudo rm -rf /Library/Developer/CommandLineTools
-  else
-    log "Xcode Command Line Tools already uninstalled"
   fi
 }
 

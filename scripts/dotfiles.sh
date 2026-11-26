@@ -37,42 +37,76 @@ EOF
 }
 
 install() {
+  local linked=0
+
+  # Check all destinations first so a conflict cannot leave a partial refresh.
+  check_link_targets
+  # Remove old managed links, including links for dotfiles renamed or removed from the repo.
+  remove_managed_links > /dev/null
   log "Install dotfiles"
+
   while IFS= read -r -d '' src; do
     dst="$HOME/$(basename "${src}")"
-    # Remove an existing symlink (stale or pointing elsewhere).
-    # Remove a real directory only if it was previously managed by dotfiles
-    # (i.e. it is empty or every entry inside it exists in our source tree).
-    if [[ -L "$dst" ]]; then
-      rm "$dst"
-    elif [[ -d "$dst" ]]; then
-      echo "[INFO] Replacing directory $dst with symlink"
-      rm -rf "$dst"
+    if [[ -e "$dst" || -L "$dst" ]]; then
+      echo "[ERROR] Cannot link $src: $dst already exists and is not managed by dotfiles." >&2
+      return 1
     fi
-    echo "[INFO] Linking $src -> $dst"
     ln -s "$src" "$dst"
+    linked=$((linked + 1))
   done < <(find "$DOTFILES_ROOT" -maxdepth 1 -name '.*' ! -name '.git' -print0)
 
   create_git_identity_template "$HOME/.gitconfig-home" "home"
   create_git_identity_template "$HOME/.gitconfig-work" "work"
+
+  echo "[INFO] Linked $linked dotfiles"
 }
 
-uninstall() {
-  log "Uninstall dotfiles"
+check_link_targets() {
+  local src
+  local dst
+  local target
+
   while IFS= read -r -d '' src; do
-    dst="$HOME/$(basename "${src}")"
-    echo "[INFO] Unlinking $dst"
-    if [[ -L "$dst" ]]; then
-      rm "$dst"
-    else
-      rm -f "$dst"
+    dst="$HOME/$(basename "$src")"
+    if [[ -e "$dst" || -L "$dst" ]]; then
+      if [[ -L "$dst" ]]; then
+        target="$(readlink "$dst")"
+        if [[ "$target" == "$DOTFILES_ROOT/"* ]]; then
+          continue
+        fi
+      fi
+      echo "[ERROR] Cannot link $src: $dst already exists and is not managed by dotfiles." >&2
+      return 1
     fi
   done < <(find "$DOTFILES_ROOT" -maxdepth 1 -name '.*' ! -name '.git' -print0)
 }
 
+remove_managed_links() {
+  local unlinked=0
+  local target
+
+  # Only remove symlinks whose targets are within this repository's dotfiles directory.
+  while IFS= read -r -d '' dst; do
+    target="$(readlink "$dst")"
+    if [[ "$target" == "$DOTFILES_ROOT/"* ]]; then
+      rm "$dst"
+      unlinked=$((unlinked + 1))
+    fi
+  done < <(find "$HOME" -maxdepth 1 -type l -print0)
+
+  printf '%s\n' "$unlinked"
+}
+
+uninstall() {
+  log "Uninstall dotfiles"
+  local unlinked
+  unlinked="$(remove_managed_links)"
+  echo "[INFO] Unlinked $unlinked dotfiles"
+}
+
 case "${1:-}" in
 "--install")
-  uninstall && install
+  install
   ;;
 "--uninstall")
   uninstall
