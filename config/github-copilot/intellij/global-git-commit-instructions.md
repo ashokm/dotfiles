@@ -1,21 +1,37 @@
 # Global Git Commit Instructions
 
-Use Conventional Commits:
+Generate a commit message only. Do not add commentary, code fences, labels, or quotes.
 
-`type(scope): description`
+Use this exact Conventional Commits format:
 
-* Use lowercase types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`.
+`type(scope): subject`
+
+If scope adds no useful context, use `type: subject`.
+
+Rules:
+
+* Use lowercase types only: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`.
+* Start the subject with a lowercase letter.
 * Use imperative mood.
 * Do not end the subject with a period.
-* Keep the subject line at 100 characters or fewer.
-* Include a scope when it adds useful context.
+* Keep every line at 100 characters or fewer.
+* Include a scope when it adds useful context, using only lowercase letters, digits, `.`, `_`, `-`, `/`.
 
-The commit body is required:
+Body (optional):
 
-* Leave a blank line after the header.
-* Include at least one line explaining what changed and why.
+* If useful, leave one blank line after the header and explain what changed and why.
 * Use `*` bullets when useful.
 
 Use `BREAKING CHANGE:` when applicable.
 Use `Resolves:` or `Refs:` for issue references.
-For reverts, use `revert: <type>(<scope>): <subject>`.
+
+For reverts, use:
+
+`revert: <type>(<scope>): <subject>`
+
+Example commit message:
+
+chore(dotfiles): tighten commit message guidance
+
+* align Copilot output with the commit-msg hook
+* keep generated commits compliant with the team convention

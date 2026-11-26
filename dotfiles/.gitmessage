@@ -1,9 +1,12 @@
 # <type>(<scope>): <subject>
 #
-# Body (blank line above required): explain the *what* and *why*
+# Or: <type>: <subject> when scope adds no useful context.
+#
+# Optional body (blank line above required): explain the *what* and *why*
 #
 # Types: feat · fix · docs · style · refactor · perf · test · chore
-# Scope: optional – module, component, or ticket ID (e.g. PROJ-123)
+# Scope: optional – module or component (e.g. api, cli)
+# Scope chars: lowercase letters, digits, ., _, -, /
 # Lines: keep each commit message line at 100 chars or fewer
-# Subject: imperative, lowercase, no trailing period
+# Subject: imperative, lowercase first letter, no trailing period
 # Revert: revert: <type>(<scope>): <subject>
