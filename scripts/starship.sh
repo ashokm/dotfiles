@@ -29,8 +29,8 @@ install() {
     return
   fi
 
-  if [ -e "$destination" ] && [ ! -L "$destination" ]; then
-    echo "[ERROR] Cannot link $source: $destination exists and is not a symlink." >&2
+  if [ -e "$destination" ] || [ -L "$destination" ]; then
+    echo "[ERROR] Cannot link $source: $destination already exists and is not managed by dotfiles." >&2
     return 1
   fi
 
@@ -39,14 +39,17 @@ install() {
     chmod 700 "$HOME/.config"
   fi
 
-  ln -sfn "$source" "$destination"
+  ln -s "$source" "$destination"
   echo "[INFO] Starship configuration is installed."
 }
 
 uninstall() {
   log "Uninstall Starship Configuration"
-  if [ -L ~/.config/starship.toml ]; then
-    rm -f ~/.config/starship.toml
+  local destination="$HOME/.config/starship.toml"
+  local source="$DOTFILES_DIR/config/starship/starship.toml"
+
+  if [ -L "$destination" ] && [ "$(readlink "$destination")" = "$source" ]; then
+    rm "$destination"
   fi
 }
 

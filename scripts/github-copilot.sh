@@ -26,25 +26,32 @@ log() {
 
 install() {
   log "GitHub Copilot configuration"
+
+  check_configuration \
+    "$DOTFILES_DIR/config/github-copilot/global-copilot-instructions.md" \
+    "$INTELLIJ_COPILOT_DIR/global-copilot-instructions.md" || return
+  check_configuration \
+    "$DOTFILES_DIR/config/github-copilot/global-copilot-instructions.md" \
+    "$GITHUB_COPILOT_HOME/copilot-instructions.md" || return
+  check_configuration \
+    "$DOTFILES_DIR/config/github-copilot/global-agents.md" \
+    "$GITHUB_COPILOT_HOME/AGENTS.md" || return
+  check_configuration \
+    "$DOTFILES_DIR/config/github-copilot/intellij/global-git-commit-instructions.md" \
+    "$INTELLIJ_COPILOT_DIR/global-git-commit-instructions.md" || return
+
   mkdir -p "$GITHUB_COPILOT_HOME"
   mkdir -p "$INTELLIJ_COPILOT_DIR"
 
-  # JetBrains: global GitHub Copilot instructions.
   link_configuration \
     "$DOTFILES_DIR/config/github-copilot/global-copilot-instructions.md" \
     "$INTELLIJ_COPILOT_DIR/global-copilot-instructions.md" || return
-
-  # GitHub Copilot CLI: global instructions.
   link_configuration \
     "$DOTFILES_DIR/config/github-copilot/global-copilot-instructions.md" \
     "$GITHUB_COPILOT_HOME/copilot-instructions.md" || return
-
-  # GitHub Copilot CLI: global agent instructions.
   link_configuration \
     "$DOTFILES_DIR/config/github-copilot/global-agents.md" \
     "$GITHUB_COPILOT_HOME/AGENTS.md" || return
-
-  # JetBrains: global Git commit instructions.
   link_configuration \
     "$DOTFILES_DIR/config/github-copilot/intellij/global-git-commit-instructions.md" \
     "$INTELLIJ_COPILOT_DIR/global-git-commit-instructions.md" || return
@@ -52,30 +59,54 @@ install() {
   echo "[INFO] GitHub Copilot configuration is ready."
 }
 
-link_configuration() {
+check_configuration() {
   local source="$1"
   local destination="$2"
 
-  # Leave correct links untouched and never overwrite a user-managed regular file.
   if [ -L "$destination" ] && [ "$(readlink "$destination")" = "$source" ]; then
     return 0
   fi
 
-  if [ -e "$destination" ] && [ ! -L "$destination" ]; then
-    echo "[ERROR] Cannot link $source: $destination exists and is not a symlink." >&2
+  if [ -e "$destination" ] || [ -L "$destination" ]; then
+    echo "[ERROR] Cannot link $source: $destination already exists and is not managed by dotfiles." >&2
     return 1
   fi
+}
 
-  ln -sfn "$source" "$destination"
+link_configuration() {
+  local source="$1"
+  local destination="$2"
+
+  check_configuration "$source" "$destination" || return
+
+  if [ ! -L "$destination" ]; then
+    ln -s "$source" "$destination"
+  fi
+}
+
+remove_configuration() {
+  local source="$1"
+  local destination="$2"
+
+  if [ -L "$destination" ] && [ "$(readlink "$destination")" = "$source" ]; then
+    rm "$destination"
+  fi
 }
 
 uninstall() {
   log "Uninstall GitHub Copilot configuration"
 
-  rm -f \
-    "$INTELLIJ_COPILOT_DIR/global-copilot-instructions.md" \
-    "$INTELLIJ_COPILOT_DIR/global-git-commit-instructions.md" \
-    "$GITHUB_COPILOT_HOME/copilot-instructions.md" \
+  remove_configuration \
+    "$DOTFILES_DIR/config/github-copilot/global-copilot-instructions.md" \
+    "$INTELLIJ_COPILOT_DIR/global-copilot-instructions.md"
+  remove_configuration \
+    "$DOTFILES_DIR/config/github-copilot/intellij/global-git-commit-instructions.md" \
+    "$INTELLIJ_COPILOT_DIR/global-git-commit-instructions.md"
+  remove_configuration \
+    "$DOTFILES_DIR/config/github-copilot/global-copilot-instructions.md" \
+    "$GITHUB_COPILOT_HOME/copilot-instructions.md"
+  remove_configuration \
+    "$DOTFILES_DIR/config/github-copilot/global-agents.md" \
     "$GITHUB_COPILOT_HOME/AGENTS.md"
 
   # Remove directories only when empty; ignore "directory not empty" failures.

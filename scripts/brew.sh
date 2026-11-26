@@ -19,14 +19,14 @@ log() {
 }
 
 install() {
-  log "Homebrew packages"
-
-  if ! command -v brew > /dev/null 2>&1; then
+  if test ! "$(command -v brew)"; then
     log "Install Homebrew"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    log "Homebrew already installed"
   fi
 
-  # Add Homebrew to PATH for the current script.
+  echo "[INFO] Add Homebrew to PATH ..."
   # Intel processor
   if [ -r /usr/local/bin/brew ]; then
     eval "$(/usr/local/bin/brew shellenv)"
@@ -35,6 +35,7 @@ install() {
     eval "$(/opt/homebrew/bin/brew shellenv)"
   fi
 
+  echo "[INFO] Disable Homebrew analytics ..."
   brew analytics off
 
   # Set temporary ulimit to prevent 'Error: Too many open files' when installing long-chained formula
@@ -44,11 +45,9 @@ install() {
   echo "[INFO] Uninstall packages not listed in Brewfile ..."
   brew bundle cleanup --file="$DOTFILES_DIR/Brewfile" --force
   echo "[INFO] Install packages listed in Brewfile ..."
-  # Hide the per-package "Using ..." lines; Brew reports its completion summary.
-  brew bundle --file="$DOTFILES_DIR/Brewfile" | awk '!/^Using /'
+  brew bundle --file="$DOTFILES_DIR/Brewfile"
 
   clean
-  echo "[INFO] Homebrew packages are up to date."
 }
 
 uninstall() {
@@ -97,43 +96,31 @@ uninstall() {
       fi
     done
 
+  else
+    log "Homebrew already uninstalled"
   fi
 }
 
 update() {
   if test "$(command -v brew)"; then
     log "Updating Homebrew"
-    # Keep the no-change case concise while preserving useful update output and errors.
-    local output
-    local status
-    if output="$(brew update 2>&1)"; then
-      output="$(printf '%s\n' "$output" | sed \
-        -e '/^==> Updating Homebrew\.\.\.$/d' \
-        -e '/^Already[- ]up-to-date\.$/d' \
-        -e '/^[[:space:]]*$/d')"
-      if [[ -z "$output" ]]; then
-        echo "[INFO] Homebrew is up to date."
-      else
-        printf '%s\n' "$output"
-      fi
-    else
-      status=$?
-      printf '%s\n' "$output" >&2
-      return "$status"
-    fi
+    brew update
 
     log "Updating installed Homebrew packages"
     brew upgrade
     brew upgrade --cask
+
+    clean
   fi
 }
 
 clean() {
   if test "$(command -v brew)"; then
     log "Running Homebrew maintenance"
-    # Remove formulae no longer needed as dependencies, then clear stale downloads.
+    echo "[INFO] Uninstall formulae that were only installed as a dependency of another formula and are now no longer needed"
     brew autoremove
 
+    echo "[INFO] Remove stale lock files and outdated downloads for all formulae and casks"
     brew cleanup
 
     echo "[INFO] Checking your Homebrew system for potential problems"
